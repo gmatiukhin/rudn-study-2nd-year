@@ -1,0 +1,225 @@
+\section{Семинар}
+\subsection{Задачи \textnumero1.2, 1.4}
+\paragraph{Условие}
+Проверить, что данная функция является решением соответствующего дифференциального уравнения.
+\paragraph{Решение}
+\paragraph{1.2:\\ $y = \cos{3x}, y' + 3 \sin{3x} = 0$}
+\[y' + 3 \sin{3x} = 0\]
+\[y' = -3 \sin{3x}\]
+\[y = \int -3 \sin{3x} dx\]
+\[y = -3 \int \sin{3x} dx\]
+Заменим $u = 3x$ и $du = 3dx$
+\[y = -3 \int (-\frac{1}{3}) \sin{u} du\]
+\[y = \int \sin{u} du\]
+\[y = \cos{u}\]
+Обратная замена:
+\[y = \cos{3x}\]
+Верно
+
+\paragraph{1.4:\\ $y = 3^x + x^2, x\frac{dy}{dx} - 2y = 3^x(-x \ln 3 + 2)$}
+\[x\frac{dy}{dx} - 2y = - 3^x(-x \ln 3 + 2)\]
+\[\frac{dy}{dx} - \frac{2y}{x} = - \frac{3^x(-x \ln 3 + 2)}{x}\]
+\[\frac{dy}{dx} - \frac{2y}{x} = - \frac{3^x(-x \ln 3 + 2)}{x}\]
+\[\frac{\frac{dy}{dx}}{x^2} - \frac{2y}{x^3} = - \frac{3^x(-x \ln 3 + 2)}{x^3}\]
+Заменим $-\frac{2}{x^3} = \frac{d}{dx} \left( \frac{1}{x^2} \right)$:
+\[\frac{\frac{dy}{dx}}{x^2} + \frac{d}{dx} \left( \frac{1}{x^2} \right) = - \frac{3^x(-x \ln 3 + 2)}{x^3}\]
+Применим $f\frac{dg}{dx} + g\frac{df}{fx} = \frac{d}{dx}(fg)$:
+\[\frac{d}{dx}\left(\frac{y}{x^2}\right) = - \frac{3^x(-x \ln 3 + 2)}{x^3}\]
+\[\int\frac{d}{dx}\left(\frac{y}{x^2}\right)dx = \int-\frac{3^x(-x \ln 3 + 2)}{x^3}dx\]
+\[\frac{y}{x^2} = \int-\frac{3^x(-x \ln 3 + 2)}{x^3}dx\]
+\[\frac{y}{x^2} = \int \left(\frac{3^x \ln 3}{x^2} - \frac{2 \cdot 3^x}{x^3}\right)dx\]
+\[\frac{y}{x^2} = \int \frac{3^x \ln 3}{x^2}dx - \int \frac{2 \cdot 3^x}{x^3}dx\]
+Интегрируем $\int\frac{2 \cdot 3^x}{x^3}dx$ по частям:
+\[\int fdg = fg - \int gdf,\]
+где $f = 3^x$, $dg = -\frac{2}{x^3}dx$, $df = 3^x \ln{3}dx$, $g = \frac{1}{x^2}$
+\[\frac{y}{x^2} = \frac{3^x}{x^2} - \int \frac{3^x \ln 3}{x^2}dx + \int \frac{3^x \ln 3}{x^2}dx\]
+\[\frac{y}{x^2} = \frac{3^x}{x^2} + C\]
+\[y = 3^x + Cx^2\]
+Верно при $C = 1$
+
+\subsection{Задачи \textnumero1.7, 1.15}
+\paragraph{Условие}
+Проверить, что данная функция является решением соответствующего дифференциального уравнения и найти частное решение, удовлетворяющее заданному начальному условию, там, где это требуется.
+\paragraph{Решение}
+\paragraph{1.7:\\ $y = \ln(Cx), y' - \frac{1}{x} = 0, y(1) = \ln2$}
+\[y' - \frac{1}{x} = 0\]
+\[y' = \frac{1}{x}\]
+\[y' = \frac{1}{x}\]
+\[y = \int \frac{1}{x}dx\]
+\[y = \ln x + C\]
+\[y = \ln x + C\]
+\paragraph{Частное решение:\\ при $y(1) = \ln2$}
+\[\ln2 = \ln1 + C\]
+\[C = \ln2\]
+
+\paragraph{1.15:\\ $y = \frac{C\cos x}{1 - C\cos x}, y'\cos x + y(1 + y)\sin x = 0$}
+\[y'\cos x + y(1 + y)\sin x = 0\]
+\[y' = - \frac{y(1 + y)\sin x}{\cos x}\]
+\[y' = - y(1 + y)\tan x\]
+\[\frac{\frac{dy}{dx}}{y(1 + y)} = - \tan x\]
+\[\int\frac{\frac{dy}{dx}}{y(1 + y)}dx = \int-\tan xdx\]
+\[\int\frac{\frac{dy}{dx}}{y(1 + y)}dx = \ln(\cos x) + C\]
+Для $\int\frac{\frac{dy}{dx}}{y(1 + y)}dx$ заменим $u = y, du = y'(x)dx$:
+\[\int\frac{1}{u(u + 1)}du = -\ln(\cos x) + C\]
+\[\int\frac{1}{u}du - \int\frac{1}{u + 1}du = \ln(\cos x) + C\]
+\[\ln(u) + C - \int\frac{1}{u + 1}du = \ln(\cos x) + C\]
+Для $\int\frac{1}{u + 1}du$ заменим $s = u + 1, ds = du$:
+\[\ln(u) + C - \int\frac{1}{s}ds = \ln(\cos x) + C\]
+\[\ln(u) + C - \ln(s) + C = -\ln(\cos x) + C\]
+Обратная замена:
+\[\ln(u) + C - \ln(u + 1) + C = \ln(\cos x) + C\]
+Обратная замена:
+\[\ln(y) + C - \ln(y + 1) = \ln(\cos x)\]
+\[\ln(y) + C + \ln\left(\frac{1}{y + 1}\right) = \ln(\cos x)\]
+\[C + \ln\left(\frac{y}{y + 1}\right) = \ln(\cos x)\]
+\[\ln\left(\frac{y}{y + 1}\right) = \ln(\cos x) - C\]
+\[\frac{y}{y + 1} = e^{-C}\cos x \]
+\[e^C y = \cos x (y + 1)\]
+\[e^C y = y\cos x + \cos x\]
+\[y(e^C - \cos x) = \cos x\]
+\[y = \frac{\cos x}{e^C - \cos x}\]
+Верно при $C = 0$
+
+\subsection{Задачи \textnumero1.37, 1.38, 1.45, 1.46}
+\paragraph{Условие}
+Составить дифференциальное уравнение данного семейства кривых.
+\paragraph{Решение}
+\paragraph{1.37:\\ $\tan y = Ce^{-x^2}$}
+\[\frac{d}{dx}\tan y = \frac{d}{dx}Ce^{-x^2}\]
+\[\frac{y'}{\cos^2 y} = C\frac{d}{dx}e^{-x^2}\]
+Замена $\frac{d}{dx}e^{-x^2} = \frac{de^u}{du}\frac{du}{dx}$, где $u = -x^2$ и $\frac{d}{du}e^u = e^u$:
+\[\frac{y'}{\cos^2 y} = Ce^u(\frac{d}{dx}-x^2)\]
+\[\frac{y'}{\cos^2 y} = -Ce^u \cdot 2x\]
+Обратная замена:
+\begin{equation}
+  \frac{y'}{\cos^2 y} = -2xCe^{-x^2}
+  \label{eq:1_37_abstract}
+\end{equation}
+Найдем из условия значение $C$:
+\[C = e^{x^2}\tan y\]
+Подставим значение $C$ в \ref{eq:1_37_abstract}:
+\[\frac{y'}{\cos^2 y} = -2x \cdot \tan y\]
+\[y' = -2x \tan y \cos^2 y\]
+\[y' = -2x \sin y\cos y\]
+\[y' = -x  \sin 2y\]
+\[y' + x  \sin 2y = 0\]
+
+\paragraph{1.38:\\ $y = Cx^2 - x$}
+\[y' = \frac{d}{dx}(Cx^2 - x)\]
+\[y' = \frac{d}{dx}(Cx^2 - x)\]
+\[y' = \frac{d}{dx}Cx^2 - \frac{d}{dx}x\]
+\begin{equation}
+  y' = C2x - 1
+  \label{eq:1_38_abstract}
+\end{equation}
+
+Найдем из условия значение $C$:
+\[C = \frac{y - x}{x^2}\]
+
+Подставим значение $C$ в \ref{eq:1_38_abstract}:
+\[y' = \frac{y-x}{x^2}2x - 1\]
+\[y' = 2\frac{y-x}{x} - 1\]
+\[y' - 2\frac{y-x}{x} + 1 = 0\]
+
+\paragraph{1.45:\\ $(y - C)^2 = \frac{1}{x}$}
+\[(y - C)^2 = \frac{1}{x}\]
+\[\frac{d}{dx}(y - C)^2 = \frac{d}{dx}\frac{1}{x}\]
+\[\frac{d}{dx}(y - C)^2 = -x^{-2}\]
+
+Замена $\frac{d}{dx}(y - C)^2 = \frac{du^2}{du}\frac{du}{dx}$, где $u = y - C$ и $\frac{d}{du}u^2 = 2u$:
+\[2u\left(\frac{d}{dx}(u - C)\right) = -x^{-2}\]
+\[2u\left(\frac{d}{dx}u - \frac{d}{dx}C\right) = -x^{-2}\]
+
+Обратная замена:
+\[2(y - C)\frac{d}{dx}(y - C) = -x^{-2}\]
+\[2(y - C)\left(\frac{d}{dx}y - \frac{d}{dx}C\right) = -x^{-2}\]
+\[2(y - C)y' = -x^{-2}\]
+\begin{equation}
+  y' = \frac{-x^{-2}}{2(y - C)}
+  \label{eq:1_45_abstract}
+\end{equation}
+
+Найдем из условия значения $C$:
+\[C_1 = y - \frac{1}{\sqrt{x}}, x \neq 0\]
+\[C_2 = y + \frac{1}{\sqrt{x}}, x \neq 0\]
+
+Подставим значения $C$ в \ref{eq:1_45_abstract}:
+\paragraph{$C_1$:}
+\[y' = \frac{-x^{-2}}{2(y - y + \frac{1}{\sqrt{x}})}, x \neq 0\]
+\[y' = \frac{-x^{-2}}{2\frac{1}{\sqrt{x}}}, x \neq 0\]
+\[y' = -\frac{1}{2x^{3/2}}, x \neq 0\]
+\[y' + \frac{1}{2x^{3/2}} = 0, x \neq 0\]
+
+\paragraph{$C_2$:}
+\[y' = \frac{-x^{-2}}{2(y - y - \frac{1}{\sqrt{x}})}, x \neq 0\]
+\[y' = \frac{-x^{-2}}{-2\frac{1}{\sqrt{x}}}, x \neq 0\]
+\[y' = \frac{1}{2x^{3/2}}, x \neq 0\]
+\[y' - \frac{1}{2x^{3/2}} = 0, x \neq 0\]
+
+% 1.53(а)
+\paragraph{1.46:\\ $x^2 + 2x - (y - C)^2 = 2$}
+\[x^2 + 2x - (y - C)^2 = 2\]
+\[x^2 + 2x - 2 = (y - C)^2\]
+\[\frac{d}{dx}(x^2 + 2x - 2) = \frac{d}{dx}(y - C)^2\]
+\[\frac{d}{dx}x^2 + \frac{d}{dx}2x - \frac{d}{dx}2 = \frac{d}{dx}(y - C)^2\]
+\[2x + 2 = \frac{d}{dx}(y - C)^2\]
+
+Замена $\frac{d}{dx}(y - C)^2 = \frac{du^2}{du}\frac{du}{dx}$, где $u = y - C$ и $\frac{d}{du}u^2 = 2u$:
+\[2x + 2 = 2u\frac{d}{dx}(y - C)\]
+\[2x + 2 = 2u\left(\frac{d}{dx}y - \frac{d}{dx}C\right)\]
+\[2x + 2 = 2uy'\]
+
+Обратная замена:
+\[2x + 2 = 2(y - C)y'\]
+\begin{equation}
+  y' = \frac{x - 1}{(y - C)}
+  \label{eq:1_46_abstract}
+\end{equation}
+
+Найдем из условия значения $C$:
+\[C_1 = y - \sqrt{x^2 + 2x - 2}\]
+\[C_1 = y + \sqrt{x^2 + 2x - 2}\]
+
+Подставим значения $C$ в \ref{eq:1_46_abstract}:
+\paragraph{$C_1$:}
+\[y' = \frac{x - 1}{(y - y + \sqrt{x^2 + 2x - 2})}\]
+\[y' = \frac{x - 1}{(\sqrt{x^2 + 2x - 2})}\]
+\[y' - \frac{x - 1}{(\sqrt{x^2 + 2x - 2})} = 0\]
+
+\paragraph{$C_2$:}
+\[y' = \frac{x - 1}{(y - y - \sqrt{x^2 + 2x - 2})}\]
+\[y' = \frac{x - 1}{(- \sqrt{x^2 + 2x - 2})}\]
+\[y' - \frac{x - 1}{(- \sqrt{x^2 + 2x - 2})} = 0\]
+
+\newpage
+\subsection{Задача \textnumero1.53(а)}
+\paragraph{Условие}
+Построить приближенно интегральные кривые уравнения\\ $y' = x + y^2$
+
+\vspace{5mm}
+\begin{tikzpicture}[declare function={f(\x,\y)=\x + \y * \y;}]
+  \def\xmax{3} \def\xmin{-3}
+  \def\ymax{3} \def\ymin{-3}
+  \def\nx{15}
+  \def\ny{15}
+
+  \pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+  \pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+  \foreach \i in {0,...,\nx}
+    \foreach \j in {0,...,\ny}
+    {
+      \pgfmathsetmacro{\yprime}{f({\xmin+\i*\hx},{\ymin+\j*\hy})}
+      \draw[blue,shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}] 
+      (0,0)--($(0,0)!2mm!(.1,.1*\yprime)$);
+    }
+
+  % % draw one solution line, !!!you have to solve the equation!!!
+  % \def\yo{1}
+  % \draw[magenta] plot[domain=\xmin:.9] (\x,{(\yo+1)*exp(\x)-\x-1});
+
+  \draw[->] (\xmin-.5,0)--(\xmax+.5,0) node[below right] {$x$};
+  \draw[->] (0,\ymin-.5)--(0,\ymax+.5) node[above left] {$y$};
+
+  \draw (current bounding box.south) node[below]
+  {Интегральные кривые \quad $y'=x+y^2$.};
+\end{tikzpicture}
