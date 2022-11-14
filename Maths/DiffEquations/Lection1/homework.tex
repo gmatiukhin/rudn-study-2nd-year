@@ -4,3 +4,266 @@
 % 1.32, 1.36, 1.40, 1.42, 1.43, 1.50, 1.52 (Ответ: (y^')^3=4xyy^'-8y^2);
 % 1.53(б-г)
 
+\subsection{Задачи \textnumero1.1 (в, г)}
+\paragraph{Условие}
+Точка движется по оси $x$ со скоростью $v$.\\
+Найти возможные законы ее движения. Определить среди этих законов тот, для которого $x = 0$ при $t = 0$, а также тот, для которого $x = 1$ при $t = 1$. 
+\paragraph{Решение}
+Подробное решение: \ref{eq:dot_movement}
+\paragraph{Если $v = \cos t$ Из \ref{eq:dot_movement}:}
+\[x(t) = \int\cos t dt\]
+\begin{equation}
+  x(t) = \sin t + C
+  \label{eq:vel_cos}
+\end{equation}
+
+Из \ref{eq:vel_cos}, $x = 0$ при $t = 0$:
+\[0 = \sin 0 + C\]
+\[0 = 0 + C\]
+\[C = 0\]
+\[x(t) = \sin t\]
+
+Из \ref{eq:vel_cos}, $x = 1$ при $t = 1$:
+\[1 = \sin 1 + C\]
+\[C = 1 - \sin 1\]
+\[x(t) = \sin t + 1 - \sin 1\]
+
+\paragraph{Если $v = e^t$ Из \ref{eq:dot_movement}:}
+\[x(t) = \int e^t\]
+\begin{equation}
+  x(t) = \sin t + C
+  \label{eq:vel_e}
+\end{equation}
+
+Из \ref{eq:vel_e}, $x = 0$ при $t = 0$:
+\[0 = e^0 + C\]
+\[0 = 1 + C\]
+\[C = -1\]
+\[x(t) = e^t - 1\]
+
+Из \ref{eq:vel_e}, $x = 1$ при $t = 1$:
+\[1 = e^1 + C\]
+\[1 = e + C\]
+\[C = 1 - e\]
+\[x(t) = e^t - 1 + e\]
+
+\subsection{Задачи \textnumero1.6, 1.9, 1.12, 1.13, 1.14}
+\paragraph{Условие}
+Проверить, что данная функция является решением соответствующего дифференциального уравнения и найти частное решение, удовлетворяющее заданному начальному условию, там, где это требуется.
+\paragraph{Решение}
+\paragraph{1.6:\\ $y = Cx^2 - x, y' = 1 + \frac{2y}{x}, y(1) = 1$}
+\[y' = 1 + \frac{2y}{x}\]
+\[y' - \frac{2y}{x} = 1\]
+\[\frac{y'}{x^2} - \frac{2y}{x^3} = \frac{1}{x^2}\]
+\[\frac{y'}{x^2} - \frac{2y}{x^3} = \frac{1}{x^2}\]
+Замена $-\frac{2}{x^3} = \frac{d}{dx}\frac{1}{x^2}$:
+\[\frac{y'}{x^2} - \frac{d}{dx}\frac{1}{x^2} = \frac{1}{x^2}\]
+\[\frac{\frac{dy}{dx}}{x^2} - \frac{d}{dx}\frac{1}{x^2} = \frac{1}{x^2}\]
+Применим $f\frac{dg}{dx} + g\frac{df}{fx} = \frac{d}{dx}(fg)$:
+\[\frac{d}{dx}\frac{y}{x^2} = \frac{1}{x^2}\]
+\[\int\frac{d}{dx}\frac{y}{x^2}dx = \int\frac{1}{x^2}dx\]
+\[\frac{y}{x^2} = -x^{-1} + C\]
+\[\frac{y}{x^2} = -\frac{1}{x} + C\]
+\[y = -x + Cx^2\]
+\[y = Cx^2 - x\]
+Верно при $C = 2$
+
+\paragraph{1.9:\\ $y = xe^{Cx + 1}, xy' = y\ln\frac{y}{x}, y(1) = e^3$}
+\[xy' = y\ln\frac{y}{x}\]
+Пусть $y = x v(x)$, тогда $y' = xv(x)' + v(x)$
+\[x(xv(x)' + v(x)) = x \ln(x v(x))v(x)\]
+\[v(x)' = \frac{\ln(x v(x))v(x) - v(x)}{x}\]
+\[\frac{v(x)'}{\ln(x v(x))v(x) - v(x)} = \frac{1}{x}\]
+\[\int \frac{v(x)'}{\ln(x v(x))v(x) - v(x)}dx = \int \frac{1}{x}dx\]
+\[\ln(\ln v(x) - 1) = \ln(x) + C\]
+\[v(x) = e^{e^Cx + 1}\]
+\[v(x) = e^{Cx + 1}\]
+\[y = xe^{Cx + 1}\]
+Верно при $C = 3$
+
+\paragraph{1.12:\\ $y = \frac{C}{x^2 - 1}, 2xy = (1 - x^2)y', y(3) = 1$}
+\[2xy = (1 - x^2)y'\]
+\[y' = -\frac{2xy}{x^2 + 1}\]
+\[\frac{y'}{y} = -\frac{2x}{x^2 + 1}\]
+\[\int\frac{y'}{y}dx = \int-\frac{2x}{x^2 + 1}dx\]
+Для $\int\frac{y'}{y}dx$ заменим $u = y, du = y'dx$:
+\[
+  \int\frac{y'}{y}dx
+  \Leftrightarrow \int\frac{1}{u}du
+  \Leftrightarrow \ln u + C
+  \Leftrightarrow \ln y + C
+\]
+Для $\int\frac{y'}{y}dx$ заменим $s = x^2 + 1, ds = 2xdx$:
+\[
+  \int\frac{y'}{y}dx
+  \Leftrightarrow -2 \cdot \frac{1}{2}\int\frac{1}{s}ds
+  \Leftrightarrow -\int\frac{1}{s}ds
+  \Leftrightarrow -\ln s + C
+  \Leftrightarrow -\ln(x^2 + 1) + C
+\]
+Получаем:
+\[\ln y = -\ln(x^2 + 1) + C\]
+\[e^{\ln y} = e^{-\ln(x^2 + 1) + C}\]
+\[y = e^{-\ln(x^2 + 1)} \cdot e^C\]
+\[y = \frac{1}{e^{\ln(x^2 + 1)}} \cdot e^C\]
+\[y = \frac{1}{x^2 + 1} \cdot e^C\]
+Упростим константу
+\[y = \frac{C}{x^2 + 1}\]
+Верно при $C = 10$
+
+\paragraph{1.13:\\ $y = 1 + \frac{C}{x}, x(y + 1)y' = 1 - y^2, y(1) = 2$}
+\[x(y + 1)y' = 1 - y^2\]
+\[x(y + 1)y' = (1 - y)(1 + y)\]
+\[(y + 1)(xy' - 1 + y) = 0\]
+Решим $y + 1 = 0$ и $xy' - 1 + y = 0$ отдельно:
+
+\paragraph{$y + 1 = 0$:}
+\[y + 1 = 0\]
+\[y = -1\]
+
+\paragraph{$xy' - 1 + y = 0$:}
+\[xy' - 1 + y = 0\]
+\[y' = \frac{1 - y}{x}\]
+\[\frac{y'}{1 - y} = \frac{1}{x}\]
+\[\int\frac{y'}{1 - y}dx = \int\frac{1}{x}dx\]
+Для $\int\frac{y'}{1 - y}dx$ заменим $u = 1 - y, du = -y'$:
+\[
+  \int\frac{y'}{1 - y}dx
+  \Leftrightarrow -\int\frac{1}{u}du
+  \Leftrightarrow -\ln u + C
+  \Leftrightarrow -\ln(1 - y) + C
+\]
+Получаем:
+\[-\ln(1 - y) = \ln x + C\]
+\[\ln(1 - y) = -\ln x - C\]
+\[e^{\ln(1 - y)} = e^{-\ln x - C}\]
+\[1 - y = e^{-\ln x} \cdot e^{-C}\]
+\[1 - y = \frac{1}{x} \cdot e^{-C}\]
+Упростим константу
+\[1 - y = \frac{C}{x} \]
+\[y = -\frac{C}{x} + 1\]
+Верно при $C = -1$
+
+% \paragraph{1.14:\\ $y = -\lg(C - 10^x), y' = 10^{x + y}$}
+% \[y' = 10^{x + y}\]
+% \[\int y'dx = \int 10^{x + y}dx\]
+% \[y = \int 10^{x + y}dx\]
+% Замена $u = x + y, du = dx$:
+% \[y = \int 10^udu\]
+% \[y = \frac{10^u}{\ln 10} + C\]
+% Обратная замена:
+% \[y = \frac{10^{x + y}}{\ln 10} + C\]
+\paragraph{1.14:\\ $y = -\lg(C - 10^x), y' = 10^{x + y}$}
+\[y' = 10^{x + y}\]
+\[y'\cdot10^{-y} = 10^x\]
+\[\int y'\cdot10^{-y}dx = \int10^xdx\]
+\[\int y'\cdot10^{-y}dx = \frac{10^x}{\ln 10} + C_1\]
+Замена $u = -y, du = -y'dx$:
+\[-\int 10^udu = \frac{10^x}{\ln 10} + C_1\]
+\[-\frac{10^u}{\ln 10} + C_2 = \frac{10^x}{\ln 10} + C_1\]
+\[-\frac{10^{-y}}{\ln 10} + C_2 = \frac{10^x}{\ln 10} + C_1\]
+Упростим константы
+\[-\frac{10^{-y}}{\ln 10} = \frac{10^x}{\ln 10} + C\]
+\[10^{-y} = -\ln 10 \cdot \left(\frac{10^x}{\ln 10} + C\right)\]
+\[10^{-y} = -10^x - C\ln 10\]
+\[\lg{10^{-y}} = \lg(-10^x - C\ln 10)\]
+\[-y = \lg(-10^x - C\ln 10)\]
+Упростим константу
+\[-y = \lg(C - 10^x)\]
+\[y = -\lg(C - 10^x)\]
+Верно
+
+\subsection{Задачи \textnumero1.32, 1.36, 1.40, 1.42, 1.43, 1.50, 1.52}
+\paragraph{Условие}
+Составить дифференциальное уравнение данного семейства кривых.
+\paragraph{Решение}
+\paragraph{1.32:\\ $y = Ce^x$}
+\[y = Ce^x\]
+\[\frac{d}{dx}y = \frac{d}{dx}Ce^x\]
+\begin{equation}
+  y' = Ce^x
+  \label{eq:1_32_abstract}
+\end{equation}
+Найдем из условия значения $C$:
+\[C = \frac{y}{e^x}\]
+Подставим в \ref{eq:1_32_abstract}:
+\[y' = \frac{y}{e^x}e^x\]
+\[y' = y\]
+\[y' - y = 0\]
+
+\paragraph{1.36:\\ $x^3 = C(x^2 - y^2)$}
+\[x^3 = C(x^2 - y^2)\]
+\[x^3 = Cx^2 - Cy^2\]
+\[x^3 - Cx^2 = - Cy^2\]
+\[Cy^2 = Cx^2 -x^3\]
+\[\frac{d}{dx}Cy^2 = \frac{d}{dx}(Cx^2 -x^3)\]
+\[2yy' = \frac{d}{dx}(Cx^2 -x^3)\]
+\[2yy' = \frac{d}{dx}Cx^2 -\frac{d}{dx}x^3\]
+\begin{equation}
+  2yy' = 2Cx - 3x^2
+  \label{eq:1_36_abstract}
+\end{equation}
+Найдем из условия значения $C$:
+\[C = \frac{x^3}{x^2 - y^2}\]
+Подставим в \ref{eq:1_36_abstract}:
+\[2yy' = 2\frac{x^3}{x^2 - y^2}x - 3x^2\]
+Лень упрощать
+
+\paragraph{1.40:\\ $y = (x - C)^2$}
+\[y = (x - C)^2\]
+\[\frac{d}{dx}y = \frac{d}{dx}(x - C)^2\]
+\[y' = 2(x - C)\frac{d}{dx}(x - C)\]
+\begin{equation}
+  y' = 2(x - C)
+  \label{eq:1_40_abstract}
+\end{equation}
+Найдем из условия значения $C$:
+\[C_1 = x - \sqrt{C}\]
+\[C_1 = x + \sqrt{C}\]
+Подставим значения $C$ в \ref{eq:1_40_abstract}:
+\paragraph{$C_1$:}
+\[y' = 2(x - x + \sqrt{C})\]
+\[y' = 2\sqrt{C}\]
+\paragraph{$C_2$:}
+\[y' = 2(x - x - \sqrt{C})\]
+\[y' = -2\sqrt{C}\]
+
+\paragraph{1.42:\\ $(x - C)^2 + y^2 = 1$}
+
+\paragraph{1.43:\\ $x^2 + (y - C)^2 = 1$}
+
+\paragraph{1.50:\\ $x^2 = (C + y)e^y$}
+
+\paragraph{1.52:\\ $y = C(x - C)^2$}
+
+\subsection{Задача \textnumero1.53(б)}
+\paragraph{Условие}
+Построить приближенно интегральные кривые уравнения\\ $y' = x^2 + y^2$
+
+\vspace{5mm}
+\begin{tikzpicture}[declare function={f(\x,\y)=\x * \x + \y * \y;}]
+  \def\xmax{3} \def\xmin{-3}
+  \def\ymax{3} \def\ymin{-3}
+  \def\nx{15}
+  \def\ny{15}
+
+  \pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+  \pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+  \foreach \i in {0,...,\nx}
+    \foreach \j in {0,...,\ny}
+    {
+      \pgfmathsetmacro{\yprime}{f({\xmin+\i*\hx},{\ymin+\j*\hy})}
+      \draw[blue,shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}] 
+      (0,0)--($(0,0)!2mm!(.1,.1*\yprime)$);
+    }
+
+  % % draw one solution line, !!!you have to solve the equation!!!
+  % \def\yo{1}
+  % \draw[magenta] plot[domain=\xmin:.9] (\x,{(\yo+1)*exp(\x)-\x-1});
+
+  \draw[->] (\xmin-.5,0)--(\xmax+.5,0) node[below right] {$x$};
+  \draw[->] (0,\ymin-.5)--(0,\ymax+.5) node[above left] {$y$};
+
+  \draw (current bounding box.south) node[below]
+  {Интегральные кривые для \quad $y'=x^2 +y^2$.};
+\end{tikzpicture}

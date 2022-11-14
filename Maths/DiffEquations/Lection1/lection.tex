@@ -1,20 +1,20 @@
 \section{Лекция}
 
-\subsection{Задача \textnumero1.1}
+\subsection{Задача \textnumero1.1(a)}
 \paragraph{Условие}
-Точка движется по оси $x$ со скоростью $v = 3$.\\
+Точка движется по оси $x$ со скоростью $v$.\\
 Найти возможные законы ее движения. Определить среди этих законов тот, для которого $x = 0$ при $t = 0$, а также тот, для которого $x = 1$ при $t = 1$. 
 \paragraph{Решение}
 \[x = x(t)\]
-\[x'(t) = v(t)\]
 \begin{equation}
-  x(t) = \int v(t)dt + C
+  x'(t) = v(t)
   \label{eq:dot_movement}
 \end{equation}
+\[x(t) = \int v(t)dt + C\]
 Получили уравнение возможных законов движения для точки.
 \paragraph{Если $v = 3$:}
 \[x(t) = \int 3dt + C\]
-\[x(t) = 3\int dt + C\]
+\[x(t) = 3\int dt\]
 \begin{equation}
   x(t) = 3t + C
   \label{eq:vel_3}
@@ -31,8 +31,8 @@
 \[x(t) = 3t - 2\]
 \paragraph{Если $v = 2t$:}
 Из \ref{eq:dot_movement}:
-\[x(t) = \int 2t dt + C\]
-\[x(t) = 2 \int t dt + C\]
+\[x(t) = \int 2t dt\]
+\[x(t) = 2 \int t dt\]
 \[x(t) = 2 \frac{t^2}{2} + C\]
 \begin{equation}
   x(t) = t^2 + C
