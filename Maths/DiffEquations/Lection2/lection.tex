@@ -1,0 +1,23 @@
+\section{Лекция}
+
+\subsection{Пример \textnumero6}
+\paragraph{Условие}
+Решить $y' = xy$, найти частичное решение, если $y(0) = 5$.
+\paragraph{Решение}
+\begin{gather*}
+	y' = xy \\
+	\frac{dy}{dx} = xy \\
+	\frac{dy}{y} = xdx \\
+	\int \frac{dy}{y} = \int xdx \\
+	\ln y = \frac{x^2}{2} + C, C = const, C \in \mathbb{R} \\
+	y = e^{\frac{x^2}{2} + C} \\
+	y = e^{\frac{x^2}{2}} \cdot e^C \\
+	y = Ce^{\frac{x^2}{2}} \\
+\end{gather*}
+Если $y(0) = 5$:
+\begin{gather*}
+	y(0) = Ce^{\frac{0^2}{2}} = 5 \\
+	C = 5
+\end{gather*}
+Таким образом, \textit{частичное решение}:
+\[y = 5e^{\frac{x^2}{2}}\]
