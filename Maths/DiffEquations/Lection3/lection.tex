@@ -1,0 +1,57 @@
+\section{Лекция}
+
+\subsection{Задание \textnumero1}
+\paragraph{Условие}
+Решит лин. однородн. диф. ур. 1-го порядка: $y' - 2y = 2e^{2x}$ методом \textit{вариации постоянных}
+\paragraph{Решение}
+\begin{equation} \label{eq:initial}
+	y' - 2y = 2e^{2x} \\
+\end{equation}
+Рассмотрим \textit{соответсвующее} лин. однородн. диф. ур. $y' - 2y = 0$:
+\begin{gather*}
+	y' = 2y \\
+	\frac{dy}{dx} = 2y \\
+	\frac{dy}{y} = 2dx \\
+	\int \frac{dy}{y} = \int 2dx \\
+	\int \frac{dy}{y} = 2\int dx \\
+	\ln{y} = 2x + C_1 \\
+	\lvert y \rvert = e^{2x+C_1} \\
+	y = \pm e^{2x} \cdot e^C_1 \\
+	y = C_1e^{2x}, C_1 \in \mathbb{R}
+\end{gather*}
+\begin{equation}
+	y = C_1e^{2x}, C_1 \in \mathbb{R}
+	\label{eq:partial}
+\end{equation}
+
+Решим \ref{eq:initial}, подставим $y$:
+\begin{gather*}
+	(C_1(x)e^{2x})' - 2C_1(x)e^{2x} = 2e^{2x} \\
+	C_1'(x)e^{2x} + 2C_1(x)e^{2x} - 2C_1(x)e^{2x} = 2e^{2x} \\
+	C_1'(x)e^{2x} = 2e^{2x} \\
+	C_1'(x) = 2 \\
+	C_1(x) = \int2dx \\
+	C_1(x) = 2x  + C_2 \\
+\end{gather*}
+
+Подставим $C_1$ в \ref{eq:partial}
+\[y = (2x  + C_2) \cdot e^{2x} \]
+\begin{equation}
+	y = 2xe^{2x}  + C_2e^{2x} \\
+	\label{eq:solution}
+\end{equation}
+
+Проверим путем подстановки:
+\begin{gather*}
+	(2xe^{2x}  + C_2e^{2x})' - 2(2xe^{2x}  + C_2e^{2x}) = 2e^{2x} \\
+	2C_2e^{2x} + 2e^{2x} + 4xe^{2x} - 2C_2e^{2x} - 4xe^{2x} = 2e^{2x} \\
+	2e^{2x} = 2e^{2x} \\
+\end{gather*}
+Следовательно, $y = 2xe^{2x}  + C_2e^{2x}$ - общее решение \ref{eq:initial}
+
+\subsection{Задание \textnumero2}
+\paragraph{Условие}
+\[y' - 2y = 2e^{2x}\]
+\paragraph{Решение}
+\begin{gather*}
+\end{gather*}
