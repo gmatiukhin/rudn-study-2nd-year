@@ -1,0 +1,186 @@
+\section{Контрольная работа. Вариант \textnumero1}
+
+\subsection{Задача \textnumero1}
+\paragraph{Условие}
+Показать (не решая), что данная функция является решением соотв. дифф. ура. и найти частн. реш. для задданого условия.
+\[ y = (C + x)e^x, y' - y = e^x, y(0) = 12 \]
+
+\paragraph{Доказательство}
+\begin{gather*}
+	y' - y = e^x \\
+	((C + x)e^x)' - (C + x)e^x = e^x \\
+	((C + x)e^x)' - (C + x)e^x = e^x \\
+	(C + x)'e^x + (C + x)(e^x)' - (C + x)e^x = e^x \\
+	e^x + (C + x)e^x - (C + x)e^x = e^x \\
+	e^x = e^x \\
+\end{gather*}
+Ч.т.д.
+
+\paragraph{Поиск частного решения}
+\begin{gather*}
+	y = (C + x)e^x, y(0) = 12 \\
+	(C + 0)e^0 = 12 \\
+	C = 12 \\
+\end{gather*}
+Ответ:
+\[y = (12 + x)e^x\]
+
+\subsection{Задача \textnumero2}
+\paragraph{Условие}
+Составить дифф. ур. данного семейства кривых
+\[ \tg y = Ce^{-x^2} \]
+
+\paragraph{Решение}
+\begin{gather*}
+	\tg y = Ce^{-x^2} \\
+	\frac{d}{dx} \tg y = \frac{d}{dx} Ce^{-x^2} \\
+	\frac{y'}{\cos^2y} = C(e^{-x^2})' \\
+	\frac{y'}{\cos^2y} = Ce^{-x^2}(-x^2)' \\
+	\frac{y'}{\cos^2y} = -2xCe^{-x^2} \\
+	y' = -2x\cos^2y \cdot Ce^{-x^2} \\
+\end{gather*}
+Найдем $C$:
+\begin{gather*}
+	\tg y = Ce^{-x^2} \\
+	C = \frac{\tg y}{e^{-x^2}}
+\end{gather*}
+Подставим $C$:
+\begin{gather*}
+	y' = -2x\cos^2y \cdot \frac{\tg y}{e^{-x^2}} \cdot e^{-x^2} \\
+	y' = -2x\cos^2y \tg y \\
+	y' = -2x\cos y \sin y \\
+\end{gather*}
+
+\subsection{Задача \textnumero3}
+\paragraph{Условие}
+Определить тип дифф. ура. Найти частное решение.
+\[(1 + e^x)yy' = e^x, y(0) = 1\]
+
+\paragraph{Определение}
+\begin{gather*}
+	(1 + e^x)yy' = e^x \\
+	y' = \frac{e^x}{(1 + e^x)y} \\
+	y' = \frac{e^x}{(1 + e^x)} \frac{1}{y} \\
+\end{gather*}
+Данное дифф. ур. -- уравнение с разделяющимися переменными $y' = g(x)h(y)$. \\
+Здесь: $g(x) = \frac{e^x}{(1 + e^x)}$, а $h(y) = \frac{1}{y}$.
+
+\paragraph{Решение}
+\begin{gather*}
+	y' = \frac{e^x}{(1 + e^x)} \frac{1}{y} \\
+	\frac{dy}{dx} = \frac{e^x}{(1 + e^x)} \frac{1}{y} \\
+	ydy = \frac{e^x}{(1 + e^x)}dx \\
+	\int ydy = \int \frac{e^x}{(1 + e^x)}dx \\
+	\frac{y^2}{2} = \int \frac{e^x}{(1 + e^x)}dx \\
+\end{gather*}
+Замена $u = 1 + e^x, du = e^xdx$:
+\begin{gather*}
+	\frac{y^2}{2} = \int \frac{du}{u} \\
+	\frac{y^2}{2} = \ln u + C \\
+\end{gather*}
+
+Обратная замена:
+\begin{gather*}
+	\frac{y^2}{2} = \ln{(1 + e^x)}  + C \\
+	y^2 = 2(\ln{(1 + e^x)}  + C) \\
+	y_1 = \sqrt{2(\ln{(1 + e^x)}  + C)} \\
+	y_2 = -\sqrt{2(\ln{(1 + e^x)}  + C)} \\
+\end{gather*}
+
+\subparagraph{Случай 1}
+\begin{gather*}
+	y_1 = \sqrt{2(\ln{(1 + e^x)}  + C)}, y(0) = 1 \\
+	\sqrt{2(\ln{(1 + e^0)}  + C)} = 1 \\
+	\sqrt{2(\ln{2}  + C)} = 1 \\
+	\sqrt{\ln{2}  + C} = \frac{1}{\sqrt{2}} \\
+	\ln{2}  + C = \frac{1}{2} \\
+	C = \frac{1}{2} - \ln{2} \\
+\end{gather*}
+
+Подставим:
+\begin{gather*}
+	y_1 = \sqrt{2(\ln{(1 + e^x)}  + \frac{1}{2} - \ln{2})} \\
+	y_1 = \sqrt{2\ln\left(\frac{1 + e^x}{2}\right) + 1} \\
+\end{gather*}
+
+
+\subparagraph{Случай 2}
+\begin{gather*}
+	y_1 = -\sqrt{2(\ln{(1 + e^x)}  + C)}, y(0) = 1 \\
+	-\sqrt{2(\ln{(1 + e^0)}  + C)} = 1 \\
+	-\sqrt{2(\ln{2}  + C)} = 1 \\
+	-\sqrt{\ln{2}  + C} = \frac{1}{\sqrt{2}} \\
+	\ln{2}  + C = \frac{1}{2} \\
+	C = \frac{1}{2} - \ln{2} \\
+\end{gather*}
+Подставим:
+
+\begin{gather*}
+	y_2 = \sqrt{2(\ln{(1 + e^x)}  + \frac{1}{2} - \ln{2})} \\
+	y_2 = \sqrt{2\ln\left(\frac{1 + e^x}{2}\right) + 1} \\
+\end{gather*}
+\[y_1 = y_2\]
+Ответ:
+\[y = \sqrt{2\ln\left(\frac{1 + e^x}{2}\right) + 1}\]
+
+\subsection{Задача \textnumero4}
+\paragraph{Условие}
+Определить тип дифф. ура. Найти общее решение.
+\begin{equation} \label{eq:statement}
+	y' - \frac{5y}{x} = \frac{1}{x^2}
+\end{equation}
+
+\paragraph{Определение}
+Данное дифф. ур. -- линейное неоднородное уравнение $y'+ p(x)y = f(x)$. \\
+Здесь: $p(x) = \frac{5}{x}$, а $f(x) = \frac{1}{x^2}$.
+
+\paragraph{Решение}
+Решим однородное уравнение заменив $y$ на $v$:
+\begin{gather*}
+	v' - \frac{5v}{x} = 0 \\
+	\frac{dv}{dx} = \frac{5v}{x} \\
+	\frac{1}{v}dv = \frac{5}{x}dx \\
+	\int\frac{1}{v}dv = 5\int\frac{1}{x}dx \\
+	\ln{v} = 5(\ln{x} + C_1) \\
+	\ln{v} = 5\ln{x} + 5C_1 \\
+	\ln{v} = 5\ln{x} + C_1 \\
+	e^{\ln{v}} = e^{5\ln{x} + C_1} \\
+	v = e^{5\ln{x}} \cdot e^{C_1} \\
+	v = C_1x^5 \equiv v = C_1v_1(x) \\
+\end{gather*}
+Решим неоднородное \textit{методом вариации постоянных}:
+\begin{gather*}
+	y = u(x)v_1(x) \\
+\end{gather*}
+\begin{equation} \label{eq:variation_method}
+	y = u(x) \cdot x^5 \\
+\end{equation}
+Подставим в \ref{eq:statement}:
+\begin{gather*}
+	(u(x) x^5)' - \frac{5 \cdot u(x) \cdot x^5}{x} = \frac{1}{x^2} \\
+	u'(x) x^5 + u(x)(x^5)' - 5u(x) x^4 = \frac{1}{x^2} \\
+	u'(x) x^5 + 5u(x)x^4 - 5u(x) x^4 = \frac{1}{x^2} \\
+	u'(x) x^5 + 5u(x)x^4 - 5u(x) x^4 = \frac{1}{x^2} \\
+	u'(x) x^5 = \frac{1}{x^2} \\
+	u'(x)  = \frac{1}{x^7} \\
+	u(x)  = \int\frac{1}{x^7}dx \\
+	u(x)  = \int x^{-7}dx \\
+	u(x)  = \frac{x^{-6}}{-6} + C_2 \\
+	u(x)  = -\frac{x^{-6}}{6} + C_2 \\
+\end{gather*}
+\begin{equation} \label{eq:found_u}
+	u(x)  = -\frac{1}{6x^6} + C_2 \\
+\end{equation}
+Объединяем \ref{eq:variation_method} и \ref{eq:found_u}:
+\begin{gather*}
+	y = (-\frac{1}{6x^6} + C_2) \cdot x^5 \\
+	y = -\frac{1}{6x} + C_2x^5 \\
+\end{gather*}
+Положим $C_2 = 0$:
+\begin{equation} \label{eq:specific}
+	y_{part} = -\frac{1}{6x} \\
+\end{equation}
+Найдем общее решение \ref{eq:statement}:
+\begin{gather*}
+	y(x) = -\frac{1}{6x} + C_1x^5 \\
+\end{gather*}
