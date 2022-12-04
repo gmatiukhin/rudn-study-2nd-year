@@ -1,0 +1,127 @@
+\section{Домашняя работа}
+
+\subsection{Задача на оценку}
+\subsubsection{Условие}
+$y' = -6x^2 + 6, y(0) = 1$
+
+\subsubsection{Поиск решения графически}
+Возьмем $x \in \{-4, -3, -2, -1, 0, 1, 2, 3, 4\}$ \\
+Для каждого $x$ решим $\tg \alpha = -fx^2 + 6$ и надем $\alpha$: \\
+$x = -4 \Rightarrow \alpha = \pi n - \arctan(90), n \in \mathbb{Z}$ \\
+$x = -3 \Rightarrow \alpha = \pi n - \arctan(48), n \in \mathbb{Z}$ \\
+$x = -2 \Rightarrow \alpha = \pi n - \arctan(18), n \in \mathbb{Z}$ \\
+$x = -1 \Rightarrow \alpha = \pi n , n \in \mathbb{Z}$ \\
+$x = 0 \Rightarrow \alpha = \pi n + \arctan(6), n \in \mathbb{Z}$ \\
+$x = 1 \Rightarrow \alpha = \pi n , n \in \mathbb{Z}$ \\
+$x = 2 \Rightarrow \alpha = \pi n - \arctan(18), n \in \mathbb{Z}$ \\
+$x = 3 \Rightarrow \alpha = \pi n - \arctan(48), n \in \mathbb{Z}$ \\
+$x = 4 \Rightarrow \alpha = \pi n - \arctan(90), n \in \mathbb{Z}$ \\
+
+\vspace{5mm}
+\begin{tikzpicture}[declare function={f(\x,\y)=-6 * \x * \x + 6;}]
+	\def\xmax{5} \def\xmin{-5}
+	\def\ymax{5} \def\ymin{-5}
+	\def\nx{19}
+	\def\ny{19}
+
+	% square grid
+	\draw[very thin,color=gray] (\xmin,\ymin) grid (\xmax, \ymax);
+
+	\pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+	\pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+	\pgfmathsetmacro{\nyl}{\ny-1}
+	\pgfmathsetmacro{\nxl}{\ny-1}
+
+	% slope lines
+	\foreach \i in {1,...,\nxl}
+		{
+			\foreach \j in {1,...,\nyl}
+				{
+					\pgfmathsetmacro{\yprime}{f({\xmin+\i*\hx},{\ymin+\j*\hy})}
+					\draw[thick,orange,shift={({\xmin+\i*\hx},{\ymin+\j*\hy})}]
+					(0,0)--($(0,0)!2mm!(.1,.1*\yprime)$);
+				}
+		}
+
+	% axis ticks
+	\foreach \i in {\xmin,...,\xmax}
+	\draw(\i cm,1pt + \ymin cm) -- (\i cm,-1pt + \ymin cm) node[anchor=north] {$\i$};
+	\foreach \j in {\ymin,...,\ymax}
+	\draw(1pt + \xmin cm, \j cm) -- (-1pt + \xmin cm, \j cm) node[anchor=east] {$\j$};
+
+	% axis names
+	\draw(current bounding box.south) node[below right] {$x$};
+	\draw(current bounding box.west) node[above left] {$y$};
+
+	% plot name
+	\draw (current bounding box.south) node[below]
+	{Приближенные интегральные кривые для \quad $y'=-6x^2 + 6$.};
+
+	% several possible solutions
+	% draw solution lines at the very end because we use clip
+	\clip (\xmin, \ymin) rectangle (\xmax, \ymax);
+	\foreach \i/\c in {-2/red, 0/green, 2/blue}
+		{
+			\draw[\c,very thick] plot[domain=\xmin:\xmax, smooth] (\x,{\i -2 * \x ^ 3  + 6 * \x});
+		}
+\end{tikzpicture}
+
+\subsubsection{Поиск решения аналитически}
+\begin{gather*}
+	y' = -6x^2 + 6 \\
+	y = \int \left(-6x^2 + 6\right)dx \\
+	y = 6\int \left(-x^2 + 1\right)dx \\
+	y = 6 \left( \int-x^2dx + \int1dx \right) \\
+	y = 6 \left( -\frac{x^3}{3} + x + C \right) \\
+	y = -2x^3 + 6x + 6C \\
+\end{gather*}
+
+Так как $C$ -- некая константа, заменим $6C = C$:
+\[y = C - 2x^3 + 6x\]
+
+Найдем $C$ при $y(0) = 1$:
+\begin{gather*}
+	y = C - 2x^3 + 6x, y(0) = 1 \\
+	1 = C - 2 \cdot 0^3 + 6 \cdot 0 \\
+	1 = C - 2 \cdot 0^3 + 6 \cdot 0 \\
+	C = 1 \\
+\end{gather*}
+
+Тогда частное решение:
+\[y = 1 - 2x^3 + 6x\]
+
+Начертим:
+
+\vspace{5mm}
+\begin{tikzpicture}
+	\def\xmax{5} \def\xmin{-5}
+	\def\ymax{5} \def\ymin{-5}
+	\def\nx{19}
+	\def\ny{19}
+
+	% square grid
+	\draw[very thin,color=gray] (\xmin,\ymin) grid (\xmax, \ymax);
+
+	% axis ticks
+	\foreach \i in {\xmin,...,\xmax}
+	\draw(\i cm,1pt + \ymin cm) -- (\i cm,-1pt + \ymin cm) node[anchor=north] {$\i$};
+	\foreach \j in {\ymin,...,\ymax}
+	\draw(1pt + \xmin cm, \j cm) -- (-1pt + \xmin cm, \j cm) node[anchor=east] {$\j$};
+
+	% axis names
+	\draw(current bounding box.south) node[below right] {$x$};
+	\draw(current bounding box.west) node[above left] {$y$};
+
+	% plot name
+	\draw (current bounding box.south) node[below]
+	{Решение $y' = -6x^2 + 6$ при $y(0) = 1$ с точками экстремума};
+
+	% several possible solutions
+	% draw solution lines at the very end because we use clip
+	\clip (\xmin, \ymin) rectangle (\xmax, \ymax);
+	\draw[blue,very thick] plot[domain=\xmin:\xmax, smooth] (\x,{1 - 2 * \x ^ 3  + 6 * \x});
+
+	% interesting points
+	\draw(-1 cm, -3 cm) node[below] {(-1, -3)};
+	\draw(1 cm, 5 cm) node[below left] {(1, 5)};
+\end{tikzpicture}
