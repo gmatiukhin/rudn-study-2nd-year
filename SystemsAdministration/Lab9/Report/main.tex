@@ -83,7 +83,7 @@
             Require all granted
           </Directory>
         \end{verbatim}
-	      \\\includegraphics{17.png}
+	      \includegraphics{17.png}
 	\item Запустите веб-сервер и службу \texttt{httpd}:
 	      \\\includegraphics{18.png}
 	\item В терминале под учётной записью своего пользователя обратитесь к веб-серверу в текстовом браузере \texttt{lynx}:
@@ -126,7 +126,7 @@
 	\item Какие команды вам нужно выполнить, чтобы применить тип контекста \texttt{httpd\_sys\_content\_t} к каталогу \texttt{/web}? \\
 	      \begin{enumerate}
 		      \item Применить новую метку контекст к \texttt{/web}: \\
-		            \texttt{semanage fcontext -a -t httpd_sys_content_t "/web(/.*)?"}
+		            \texttt{semanage fcontext -a -t httpd\_sys\_content\_t "/web(/.*)?"}
 		      \item Восстановить контекст безопасности: \\
 		            \texttt{restorecon -R -v /web}
 	      \end{enumerate}
@@ -135,8 +135,8 @@
 	\item Где \texttt{SELinux} регистрирует все свои сообщения? \\
 	      \texttt{/var/log/audit/audit}
 	\item Вы не знаете, какие типы контекстов доступны для службы \texttt{ftp}. Какая команда позволяет получить более конкретную информацию? \\
-	      \texttt{man file_contexts} \\
-	      \texttt{man default_contexts}
+	      \texttt{man file\_contexts} \\
+	      \texttt{man default\_contexts}
 	\item Ваш сервис работает не так, как ожидалось, и вы хотите узнать, связано ли это с \texttt{SELinux} или чем-то ещё. Какой самый простой способ узнать? \\
 	      Отключить \texttt{SELinux} и проверить работы сервиса еще раз.
 \end{enumerate}
