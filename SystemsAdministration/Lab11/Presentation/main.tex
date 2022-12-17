@@ -10,8 +10,8 @@
 
 \author{Григорий Матюхин}
 \date{\today}
-\title{Лабораторная работа \textnumero10.}
-\subtitle{Основы работы с модулями ядра операционной системы}
+\title{Лабораторная работа \textnumero11.}
+\subtitle{Управление загрузкой системы}
 
 \begin{document}
 \begin{frame}[plain]
@@ -20,97 +20,97 @@
 \section{Цель работы}
 \begin{frame}[plain]
 	\frametitle{Цель работы}
-	Получить навыки работы с утилитами управления модулями ядра операционной системы.
+	Получить навыки работы с загрузчиком системы GRUB2.
 \end{frame}
 
-\subsection{Управление модулями ядра из командной строки}
+\subsection{Модификация параметров GRUB2}
 \begin{itemize}
 	\begin{frame}[plain]
-		\frametitle{Управление модулями ядра из командной строки}
-		\item Посмотрите, какие устройства имеются в вашей системе и какие модули ядра с ними связаны:
+		\frametitle{Модификация параметров GRUB2}
+		\item В файле \texttt{/etc/default/grub} удалите параметры \texttt{rhgb} и \texttt{quiet} из строки указания параметров запуска ядра системы:
+		\item В этом же файле установите параметр отображения меню загрузки в течение 10 секунд:
 		\\\includegraphics{1.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите, какие модули ядра загружены:
+		\item Запишите изменения в GRUB2:
 		\\\includegraphics{2.png}
 	\end{frame}
+\end{itemize}
+
+\subsection{Устранения неполадок}
+\begin{itemize}
 	\begin{frame}[plain]
-		\item Посмотрите, загружен ли модуль \texttt{ext4}:
+		\frametitle{Устранения неполадок}
+		\item Запустите (перегрузите) систему. Как только появится меню GRUB, выберите строку с текущей версией ядра в меню и нажмите \texttt{e} для редактирования:
+		\item Прокрутите вниз до строки, начинающейся с \texttt{linux (\$root)/vmlinuz-}.
+		В конце этой строки введите \texttt{systemd.unit=rescue.target} и удалите опции \texttt{rhgb} и \texttt{quiet} из этой строки, если они там есть:
 		\\\includegraphics{3.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Загрузите модуль ядра \texttt{ext4}. Убедитесь, что модуль загружен, посмотрев список загруженных модулей:
+		\item Нажмите \texttt{Ctrl + x} для продолжения процесса загрузки:
+		\item Введите пароль пользователя \texttt{root} при появлении запроса:
 		\\\includegraphics{4.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите информацию о модуле ядра \texttt{ext4}:
+		\item Посмотрите список всех файлов модулей, которые загружены в настоящее время:
 		\\\includegraphics{5.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Попробуйте выгрузить модуль ядра \texttt{ext4}:
+		\item Посмотрите задействованные переменные среды оболочки:
 		\\\includegraphics{6.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Попробуйте выгрузить модуль ядра \texttt{xfs}:
+		\item Перегрузите систему.
+		\item Как только отобразится меню GRUB, ещё раз нажмите \texttt{e} на строке с текущей версией ядра, чтобы войти в режим редактора. В конце строки, загружающей ядро, введите \texttt{systemd.unit=emergency.target}:
 		\\\includegraphics{7.png}
 	\end{frame}
-\end{itemize}
-
-\subsection{Загрузка модулей ядра с параметрами}
-\begin{itemize}
 	\begin{frame}[plain]
-		\frametitle{Загрузка модулей ядра с параметрами}
-		\item Посмотрите, загружен ли модуль \texttt{bluetooth}:
-		\item Загрузите модуль ядра \texttt{bluetooth}:
+		\item Нажмите \texttt{Ctrl + x} для продолжения процесса загрузки.
+		\item Введите пароль пользователя root при появлении запроса:
 		\\\includegraphics{8.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите список модулей ядра, отвечающих за работу с \texttt{bluetooth}:
+		\item После успешного входа в систему посмотрите список всех загруженных файлов модулей:
 		\\\includegraphics{9.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Посмотрите информацию о модуле \texttt{bluetooth}:
-		\\\includegraphics{10.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Выгрузите модуль ядра \texttt{bluetooth}:
-		\\\includegraphics{11.png}
 	\end{frame}
 \end{itemize}
 
-\subsection{Обновление ядра системы}
+\subsection{Сброс пароля \texttt{root}}
 \begin{itemize}
 	\begin{frame}[plain]
-		\frametitle{Обновление ядра системы}
-		\item Посмотрите версию ядра, используемую в операционной системе:
+		\frametitle{Сброс пароля \texttt{root}}
+		\item Запустите (перегрузите) компьютер. Когда отобразится меню GRUB, выберите в меню строку с текущей версией ядра системы и нажмите \texttt{e}, чтобы войти в режим редактора.
+		В конце строки, загружающей ядро, введите \texttt{rd.break} и удалите опции \texttt{rhgb} и \texttt{quiet} из этой строки, если они там есть:
+		\\\includegraphics{10.png}
+	\end{frame}
+	\begin{frame}[plain]
+		\item Нажмите \texttt{Ctrl + x} для продолжения процесса загрузки:
+		\item Чтобы получить доступ к системному образу для чтения и записи, наберите \texttt{mount -o remount,rw /sysroot}:
+		\item Сделайте содержимое каталога \texttt{/sysroot} новым корневым каталогом:
+		\\\includegraphics{11.png}
+	\end{frame}
+	\begin{frame}[plain]
+		\item Теперь вы можете ввести команду задания пароля и установить новый пароль для пользователя \texttt{root}:
 		\\\includegraphics{12.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Выведите на экран список пакетов, относящихся к ядру операционной системы:
+		\item Загрузите политику SELinux:
 		\\\includegraphics{13.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Обновите систему, чтобы убедиться, что все существующие пакеты обновлены, так как это важно при установке/обновлении ядер \texttt{Linux} и избежания конфликтов:
+		\item Установите правильный тип контекста для \texttt{/etc/shadow}:
 		\\\includegraphics{14.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Обновите ядро операционной системы, а затем саму операционную систему:
+		\item Перезагрузите систему и войдите в систему с изменённым паролем для пользователя \texttt{root}:
 		\\\includegraphics{15.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Перегрузите систему. При загрузке выберите новое ядро.
-		\\\includegraphics{16.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Посмотрите версию ядра, используемую в операционной системы:
-		\\\includegraphics{17.png}
 	\end{frame}
 \end{itemize}
 
 \section{Вывод}
 \begin{frame}[plain]
 	\frametitle{Вывод}
-	В ходе выполнения данной работы я получил навыки работы с утилитами управления модулями ядра операционной системы.
+	В ходе выполнения данной работы я получил навыки работы с загрузчиком системы GRUB2.
 \end{frame}
 
 \end{document}

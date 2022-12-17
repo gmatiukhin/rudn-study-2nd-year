@@ -10,8 +10,8 @@
 
 \author{Григорий Матюхин}
 \date{\today}
-\title{Лабораторная работа \textnumero10.}
-\subtitle{Основы работы с модулями ядра операционной системы}
+\title{Лабораторная работа \textnumero12.}
+\subtitle{Настройки сети в Linux}
 
 \begin{document}
 \begin{frame}[plain]
@@ -20,97 +20,83 @@
 \section{Цель работы}
 \begin{frame}[plain]
 	\frametitle{Цель работы}
-	Получить навыки работы с утилитами управления модулями ядра операционной системы.
+	Получить навыки настройки сетевых параметров системы.
 \end{frame}
 
-\subsection{Управление модулями ядра из командной строки}
+\subsection{Проверка конфигурации сети}
 \begin{itemize}
 	\begin{frame}[plain]
-		\frametitle{Управление модулями ядра из командной строки}
-		\item Посмотрите, какие устройства имеются в вашей системе и какие модули ядра с ними связаны:
+		\frametitle{Проверка конфигурации сети}
+		\item Выведите на экран информацию о существующих сетевых подключениях, а также статистику о количестве отправленных пакетов и связанных с ними сообщениях об ошибках:
 		\\\includegraphics{1.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите, какие модули ядра загружены:
+		\item Выведите на экран информацию о текущих маршрутах:
 		\\\includegraphics{2.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите, загружен ли модуль \texttt{ext4}:
+		\item Выведите на экран информацию о текущих назначениях адресов для сетевых интерфейсов на устройстве:
 		\\\includegraphics{3.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Загрузите модуль ядра \texttt{ext4}. Убедитесь, что модуль загружен, посмотрев список загруженных модулей:
+		\item Используйте команду \texttt{ping} для проверки правильности подключения к Интернету.
 		\\\includegraphics{4.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите информацию о модуле ядра \texttt{ext4}:
+		\item Добавьте дополнительный адрес к вашему интерфейсу:
 		\\\includegraphics{5.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Попробуйте выгрузить модуль ядра \texttt{ext4}:
+		\item Выведите на экран список всех прослушиваемых системой портов UDP и TCP:
 		\\\includegraphics{6.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Попробуйте выгрузить модуль ядра \texttt{xfs}:
-		\\\includegraphics{7.png}
 	\end{frame}
 \end{itemize}
 
-\subsection{Загрузка модулей ядра с параметрами}
+\subsection{Управление сетевыми подключениями с помощью \texttt{nmcli}}
 \begin{itemize}
 	\begin{frame}[plain]
-		\frametitle{Загрузка модулей ядра с параметрами}
-		\item Посмотрите, загружен ли модуль \texttt{bluetooth}:
-		\item Загрузите модуль ядра \texttt{bluetooth}:
+		\frametitle{Управление сетевыми подключениями с помощью \texttt{nmcli}}
+		\item Выведите на экран информацию о текущих соединениях:
+		\\\includegraphics{7.png}
+	\end{frame}
+	\begin{frame}[plain]
+		\item Добавьте Ethernet-соединение с именем \texttt{dhcp} к интерфейсу:
 		\\\includegraphics{8.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите список модулей ядра, отвечающих за работу с \texttt{bluetooth}:
+		\item Добавьте к этому же интерфейсу Ethernet-соединение с именем \texttt{static}, статическим IPv4-адресом адаптера и статическим адресом шлюза:
 		\\\includegraphics{9.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Посмотрите информацию о модуле \texttt{bluetooth}:
+		\item Выведите информацию о текущих соединениях:
 		\\\includegraphics{10.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Выгрузите модуль ядра \texttt{bluetooth}:
+		\item Переключитесь на статическое соединение:
 		\\\includegraphics{11.png}
+	\end{frame}
+	\begin{frame}[plain]
+		\item Вернитесь к соединению \texttt{dhcp}:
+		\\\includegraphics{12.png}
 	\end{frame}
 \end{itemize}
 
-\subsection{Обновление ядра системы}
+\subsection{Изменение параметров соединения с помощью \texttt{nmcli}}
 \begin{itemize}
 	\begin{frame}[plain]
-		\frametitle{Обновление ядра системы}
-		\item Посмотрите версию ядра, используемую в операционной системе:
-		\\\includegraphics{12.png}
+		\frametitle{Изменение параметров соединения с помощью \texttt{nmcli}}
+		\includegraphics{13.png}
 	\end{frame}
 	\begin{frame}[plain]
-		\item Выведите на экран список пакетов, относящихся к ядру операционной системы:
-		\\\includegraphics{13.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Обновите систему, чтобы убедиться, что все существующие пакеты обновлены, так как это важно при установке/обновлении ядер \texttt{Linux} и избежания конфликтов:
+		\item Используя \texttt{nmtui}, посмотрите настройки сети на устройстве.
 		\\\includegraphics{14.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Обновите ядро операционной системы, а затем саму операционную систему:
-		\\\includegraphics{15.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Перегрузите систему. При загрузке выберите новое ядро.
-		\\\includegraphics{16.png}
-	\end{frame}
-	\begin{frame}[plain]
-		\item Посмотрите версию ядра, используемую в операционной системы:
-		\\\includegraphics{17.png}
 	\end{frame}
 \end{itemize}
 
 \section{Вывод}
 \begin{frame}[plain]
 	\frametitle{Вывод}
-	В ходе выполнения данной работы я получил навыки работы с утилитами управления модулями ядра операционной системы.
+	В ходе выполнения данной работы я получил навыки настройки сетевых параметров системы.
 \end{frame}
 
 \end{document}
