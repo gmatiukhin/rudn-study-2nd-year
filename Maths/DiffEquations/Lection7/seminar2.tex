@@ -1,0 +1,41 @@
+%hello
+\section{Семинар 2. Раздностгые уравнения}
+
+\subsection{Задача 9.1}
+\[y_{k_2} + y_{k+1} - 2y_k = 0\]
+\subsection{Решение}
+\begin{gather*}
+	y = \lambda^k \\
+	\lambda^{k+2} + \lambda^{k+1} - 2\lambda^k = 0 \\
+	\lambda^k(\lambda^2 + labda - 2) = 0, \lambda^k \neq 0 \\
+	\lambda_1 = 1, \lambda_2 = -2 \\
+	y_1 = q^k, y_2 = (-2)^k \textup{ --- реш. разност. уравн.} \\
+	y_k = C_1 \cdot 1^k + C_2 \cdot (-2)^k \textup{ --- ответ}
+\end{gather*}
+
+\subsection{Задача 9.6}
+\[y_{k+2} - 4y_{k+1} + 4y_k = 0\]
+\subsection{Решение}
+\begin{gather*}
+	\lambda^2 - t\lambda + 4 = 0 \\
+	\lambda_{1,2} = 2 \\
+	\begin{cases}
+		y_1 = 2^k \\
+		y_2 = k \cdot 2^k
+	\end{cases} \\
+	y_k = C_1 \cdot 2^k + C_2 \cdot 2^kk = 2^k(C_1+kC_2) \textup{ --- ответ}
+\end{gather*}
+
+\subsection{Задача 9.11}
+\[y_{k+2} - 2y_{k+1} + 4y_k = 0\]
+\subsection{Решение}
+\begin{gather*}
+	y = \lambda^k \\
+	\lambda^2 - 2\lambda + 4 = 0 \\
+	\frac{D}{4} = 1 - 4 = -3 \\
+	\lambda_{1,2} = 1 \pm \sqrt{-3} \\
+	\lambda_{1,2} = 1 \pm i\sqrt{3} \\
+	y_{k} = \rho^k(C_1\cos{k\phi} + C_2\sin{k\phi}), \\
+	\rho = \sqrt{1^2 + \sqrt{3}^2}, \phi = arctg{\frac{b}{a}} = \frac{\pi}{3} \\
+	y_{k} = 2^k\left(C_1\cos{k\frac{\pi}{3}} + C_2\sin{k\frac{\pi}{3}}\right) \\
+\end{gather*}

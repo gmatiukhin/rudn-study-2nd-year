@@ -1,0 +1,38 @@
+\section{Семинар}
+
+\paragraph{Задача 8.2}
+\begin{equation}
+	\begin{cases}
+		x_1' = x_2 \\
+		x_2' =e^{2t} + x_1
+	\end{cases}
+	x_1(0) = x_{10}, x_2(0) = 0
+\end{equation}
+\subsection{Решение}
+\begin{gather*}
+	\begin{pmatrix}
+		x_1' \\
+		x_2'
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		0 & 1 \\
+		1 & 0
+	\end{pmatrix}
+	\begin{pmatrix}
+		x_1 \\
+		x_2
+	\end{pmatrix}
+	+
+	\begin{pmatrix}
+		0 \\
+		e^{2t}
+	\end{pmatrix} \\
+	X' = A \cdot X + F \\
+\end{gather*}
+\begin{gather*}
+	x_1'' - x_1 = e^{2t}\textup{ --- ЛНУ} \\
+	\textup{Решим} \\
+	y_{\textup{о.о.}} = C_1e^x + C_2e^{-x}
+\end{gather*}
+% Todo: didn't follow solve at home + 8.4
