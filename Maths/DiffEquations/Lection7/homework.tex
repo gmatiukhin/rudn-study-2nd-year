@@ -1,1 +1,103 @@
 \section{Домашняя работа}
+
+\subsection*{Задача 8.4}
+\begin{equation*}
+	\begin{cases}
+		x_1' = -5x_1 - x_2, \\
+		x_2' = x_1 - 3x_2 - 9e^{2t},
+	\end{cases}
+	x_1(0) = 0, x_2(0) = \frac{1}{2}
+\end{equation*}
+\subsubsection*{Решение}
+Продиффиренцируем первое уравнение системы и подставим в него второе:
+\begin{gather*}
+	x_1'' = (-5x_1 - x_2)' \\
+	x_1'' = -5x_1' - x_2' \\
+	x_1'' = -5x_1' - x_1 - 3x_2 - 9e^{2t} \\
+	x_1'' + 5x_1' + x_1 = 3x_2 - 9e^{2t} \\
+\end{gather*}
+Выразим $x_2$ из первого и подставим в полученное урвнение:
+\begin{gather*}
+	x_2 = -x_1' - 5x_1 \\
+	x_1'' + 5x_1' + x_1 = 3(-x_1' - 5x_1) - 9e^{2t} \\
+	x_1'' + 5x_1' + x_1 - 3(-x_1' - 5x_1) = - 9e^{2t} \\
+	x_1'' + 5x_1' + x_1 + 3x_1' + 15x_1 = - 9e^{2t} \\
+	x_1'' + 8x_1' + 16x_1 = - 9e^{2t} \\
+\end{gather*}
+Решим ЛНУ 2-го порядка $x_1'' + 8x_1' + 16x_1 = - 9e^{2t}$:
+\begin{enumerate}
+	\item Решим ЛОУ: \\
+	      \begin{gather*}
+		      x_1'' + 8x_1' + 16x_1 = 0 \\
+		      \lambda^2 + 8\lambda + 16 = 0 \\
+		      (\lambda + 4)^2 = 0 \\
+		      \lambda + 4 = 0 \\
+		      \lambda_1 = \lambda_2 = \lambda = -4 \\
+		      t_\textup{общ.реш.од.} = C_1e^{-4t} + C_2xe^{-4t} \\
+	      \end{gather*}
+	\item $f(x) = -9e^{2t} \Rightarrow P_n(t) = -9, n = 0, \alpha = 2$ \\
+	      $x_\textup{част.реш.неод.}$ имеет форму $M_n(t)e^{\alpha t}$, где $\alpha = 2, n = 0, M_n = A$ \\
+	      $x_\textup{част.реш.неод.} = Ae^{2t}$
+	\item Подставим в исходное:
+	      \begin{gather*}
+		      (Ae^{2t})'' + 8(Ae^{2t})' + 16(Ae^{2t}) = - 9e^{2t} \\
+		      (Ae^{2t}(2t)')' + 8Ae^{2t}(2t)' + 16(Ae^{2t}) = - 9e^{2t} \\
+		      (2Ae^{2t})' + 16Ae^{2t} + 16Ae^{2t} = - 9e^{2t} \\
+		      2Ae^{2t}(2t)' + 32Ae^{2t} = - 9e^{2t} \\
+		      4Ae^{2t} + 32Ae^{2t} = - 9e^{2t} \\
+		      36Ae^{2t} = - 9e^{2t} \\
+		      36A = -9 \\
+		      A = -\frac{9}{36} \\
+		      A = -\frac{1}{4} \\
+	      \end{gather*}
+	      Тогда:
+	      \[x_\textup{част.реш.неод.} = -\frac{1}{4}e^{2t}\]
+	\item Значит $x_{1.\textup{общ.реш.неод.}} = C_1e^{-4t} + C_2xe^{-4t} -\frac{1}{4}e^{2t}$
+\end{enumerate}
+Найдем $x_2$
+\begin{gather*}
+	x_2 = -x_1' - 5x_1 \\
+	x_2 = -(C_1e^{-4t} + C_2xe^{-4t} -\frac{1}{4}e^{2t})' - 5(C_1e^{-4t} + C_2xe^{-4t} -\frac{1}{4}e^{2t}) \\
+	x_2 = -((C_1e^{-4t})' + (C_2xe^{-4t})' -(\frac{1}{4}e^{2t})') - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = -(C_1e^{-4t}(-4t)' + (C_2(x(e^{-4t})' + x'e^{-4t})) -\frac{1}{4}e^{2t}(2t)') - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = -(-4C_1e^{-4t} + (C_2(xe^{-4t}(-4t)' + e^{-4t})) -\frac{1}{2}e^{2t}) - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = -(-4C_1e^{-4t} + (C_2(xe^{-4t}(-4t)' + e^{-4t})) -\frac{1}{2}e^{2t}) - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+\end{gather*}
+\begin{gather*}
+	x_2 = -(-4C_1e^{-4t} + (C_2(-4xe^{-4t} + e^{-4t})) -\frac{1}{2}e^{2t}) - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = 4C_1e^{-4t} - (C_2(-4xe^{-4t} + e^{-4t})) +\frac{1}{2}e^{2t} - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = 4C_1e^{-4t} - (-4C_2xe^{-4t} + C_2e^{-4t}) +\frac{1}{2}e^{2t} - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = 4C_1e^{-4t} + 4C_2xe^{-4t} - C_2e^{-4t} + \frac{1}{2}e^{2t} - 5C_1e^{-4t} - 5C_2xe^{-4t} + \frac{5}{4}e^{2t} \\
+	x_2 = \frac{7}{4}e^{2t} - C_1e^{-4t} - C_2e^{-4t} - C_2xe^{-4t} \\
+\end{gather*}
+Получили:
+\begin{gather*}
+	\begin{cases}
+		x_1 = C_1e^{-4t} + C_2xe^{-4t} -\frac{1}{4}e^{2t},              \\
+		x_2 = \frac{7}{4}e^{2t} - C_1e^{-4t} - C_2e^{-4t} - C_2xe^{-4t} \\
+	\end{cases}
+\end{gather*}
+
+Найдем частное решение:
+\begin{enumerate}
+	\item Подставим $x_1(0) = 0$ \\
+	      \begin{gather*}
+		      0 = C_1e^{-4 \times 0} + C_2 \times 0 \times e^{-4 \times 0} -\frac{1}{4}e^{2 \times 0} \\
+		      0 = C_1 - \frac{1}{4} \\
+		      C_1 = \frac{1}{4} \\
+	      \end{gather*}
+	\item Подставим $x_2(0) = \frac{1}{2}$ \\
+	      \begin{gather*}
+		      \frac{1}{2} = \frac{7}{4}e^{2 \times 0} - \frac{1}{4}e^{-4 \times 0} - C_2e^{-4 \times 0} - C_2\times 0 \times e^{-4 \times 0} \\
+		      \frac{1}{2} = \frac{3}{2} - C_2 \\
+		      C_2 = -\frac{1}{2} + \frac{3}{2} \\
+		      C_2 = 1 \\
+	      \end{gather*}
+	\item Получили:
+	      \begin{gather*}
+		      \begin{cases}
+			      x_1 = \frac{1}{4}e^{-4t} + xe^{-4t} -\frac{1}{4}e^{2t},          \\
+			      x_2 = \frac{7}{4}e^{2t} - \frac{1}{4}e^{-4t} -e^{-4t} - xe^{-4t} \\
+		      \end{cases}
+	      \end{gather*}
+\end{enumerate}
