@@ -1,13 +1,74 @@
 \section{Домашняя работа}
 
-\paragraph{Задача 7.30}
+\subsubsection*{Задача 7.30}
 \[y'' - 2y' + y = 6e^x\]
-\paragraph{Решение}\mbox{} \\
+\subsubsection*{Решение}
 Решим ЛОУ:
 \begin{gather*}
 	y'' - 2y' + y = 0 \\
 	\lambda^2 -2 \lambda + 1 = 0 \\
 	D = 4 - 4 \cdot 1 = 0 \\
-	\lambda = \frac{2 + 0}{2} = 1 \\
+	\lambda_1 = \lambda_2 = \lambda = \frac{2 + 0}{2} = 1 \\
 	y_\textup{общ.реш.од.} = C_1e^{x} + C_2xe^{x} \\
 \end{gather*}
+\[f(x) = 6e^x \Rightarrow P_n(x) = 6, n = 0, \alpha = 1\]
+$y_\textup{част.реш.неод.}$ имеет форму $x^rM_n(x)e^{\alpha x}$, где $\alpha = 1, r = 2, n = 0, M_n = A$
+\[y_\textup{част.реш.неод.} = x^2Ae^x\]
+Подставим в исходное:
+\begin{gather*}
+	(x^2Ae^x)'' - 2(x^2Ae^x)' + x^2Ae^x = 6e^x \\
+	((x^2)'Ae^x + x^2A'e^x + x^2A(e^x)')' - 2((x^2)'Ae^x + x^2A'e^x + x^2A(e^x)') + x^2Ae^x = 6e^x \\
+	(2xAe^x + x^2Ae^x)' - 2(2xAe^x + x^2Ae^x) + Ax^2e^x = 6e^x \\
+	(2xAe^x)' + (x^2Ae^x)' - 4xAe^x - 2Ax^2e^x + Ax^2e^x = 6e^x \\
+	2A(xe^x)' + A(x^2e^x)' - 4xAe^x - Ax^2e^x = 6e^x \\
+	2A(x'e^x + x(e^x)') + A((x^2)'e^x + x^2(e^x)') - 4Axe^x - Ax^2e^x = 6e^x \\
+	2A(e^x + xe^x) + A(2xe^x + x^2e^x) - 4xAe^x - Ax^2e^x = 6e^x \\
+	2Ae^x = 6e^x \\
+	A = 3 \\
+\end{gather*}
+Тогда:
+\[y_\textup{част.реш.неод.} = 3x^2e^x\]
+Значит:
+\[y_\textup{общ.реш.неод.} = C_1e^{x} + C_2xe^{x} + 3x^2e^x\]
+
+\subsubsection*{Задача 7.14}
+\[y'' - 3y' + 2y = \sin{x}\]
+\subsubsection*{Решение}
+Решим ЛОУ:
+\begin{gather*}
+	y'' - 3y' + 2y = 0 \\
+	\lambda^2 -3 \lambda + 2 = 0 \\
+	D = 9 - 4 * 2 = 1 \\
+	\lambda_{1,2} = \frac{3 \pm 1}{2} \\
+	\lambda_1 = 2 \\
+	\lambda_2 = 1 \\
+	y_\textup{общ.реш.од.} = C_1e^{2x} + C_2e^{x} \\
+\end{gather*}
+$f(x) = \sin{x}$ имеет форму $e^{\alpha x}\left[P_n(x)\cos{\beta x} + Q_m(x) \sin{\beta x}\right]$, где $\alpha = 0, \beta = 1, P_n(x) = 0, Q_m(x) = 1, n = 0, m = 0$
+Тогда
+\begin{gather*}
+	y_\textup{част.реш.неод.} = e^{\alpha x}\left[M_l(x)\cos{\beta x} + N_l(x) \sin{\beta x}\right], l = \max(n, m) \\
+	y_\textup{част.реш.неод.} = A\cos{x} + B\sin{x}
+\end{gather*}
+Подставим в исходное:
+\begin{gather*}
+	(A\cos{x} + B\sin{x})'' - 3(A\cos{x} + B\sin{x})' + 2(A\cos{x} + B\sin{x}) = \sin{x} \\
+	(A\cos{x}' + B\sin{x}')' - 3(A\cos{x}' + B\sin{x}') + 2(A\cos{x} + B\sin{x}) = \sin{x} \\
+	(-A\sin{x} + B\cos{x})' - 3(-A\sin{x} + B\cos{x}) + 2(A\cos{x} + B\sin{x}) = \sin{x} \\
+	(-A\sin{x}' + B\cos{x}') - 3(-A\sin{x} + B\cos{x}) + 2(A\cos{x} + B\sin{x}) = \sin{x} \\
+	3A\sin{x} - 3B\cos{x} + A\cos{x} + B\sin{x}) = \sin{x} \\
+	(3A + B)\sin{x} + (-3B + A)\cos{x} = \sin{x} \\
+	\begin{cases}
+		3A + B = 1 \\
+		A - 3B = 0
+	\end{cases}
+	\Leftrightarrow
+	\begin{cases}
+		A = \frac{3}{10} \\
+		B = \frac{1}{10}
+	\end{cases}
+\end{gather*}
+Тогда:
+\[y_\textup{част.реш.неод.} = \frac{3}{10}\cos{x} + \frac{1}{10}\sin{x}\]
+Значит:
+\[y_\textup{общ.реш.неод.} = C_1e^{2x} + C_2e^{x} + \frac{3}{10}\cos{x} + \frac{1}{10}\sin{x}\]
