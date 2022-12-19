@@ -1,0 +1,288 @@
+\documentclass[12pt]{article}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+
+% For slope Fields
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{calc, quotes, positioning, decorations.text}
+\usetikzlibrary{shapes.geometric}
+
+\usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel} % поддержка русского языка
+\usepackage{amsmath}  %  математические символы
+\usepackage[left=20mm, top=15mm, right=15mm, bottom=30mm, footskip=15mm]{geometry} % настройки полей документа
+\usepackage{indentfirst} % по умалчанию убирается отступ у первого абзаца в секции, это отменяет это.
+\usepackage{paralist} % добавить компактные списки (compactitem, compactenum, compactdesc)
+
+\usepackage{fancyvrb}
+\usepackage{framed}
+
+\usepackage{float}
+\floatstyle{ruled}
+\newfloat{termfloat}{thp}{lop}
+\floatname{termfloat}{Снимок экрана}
+
+
+
+\begin{document}
+% \maketitle
+\begin{titlepage}
+
+	\begin{center}
+		\hfill \break
+		\textbf{
+			\large{РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ}\\
+			\normalsize{Факультет физико-математических и естественных наук}\\
+			\normalsize{Кафедра прикладной информатики и теории вероятностей}\\
+		}
+		\vspace*{\fill}
+		\Large{\textbf{Домашнее задание \textnumero 2}}
+		\\
+		\underline{\textit{\normalsize{Дисциплина: Дифференциальные уравнения}}}
+		\vspace*{\fill}
+
+	\end{center}
+
+	\begin{flushright}
+		Студент: \underline{Григорий Матюхин}\\ \vspace{0.5cm}
+		Группа: \underline{НПИбд-01-21}
+	\end{flushright}
+
+
+	\begin{center} \textbf{МОСКВА} \\ 2022 г. \end{center}
+	\thispagestyle{empty} % выключаем отображение номера для этой страницы
+
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Задача на оценку}
+\subsection*{Условие}
+$y' = y - 6, y(0) = 1$
+
+\subsection{Построим график зависимости производной}
+\begin{tikzpicture}
+	\begin{axis}[
+			axis lines = middle,
+			xlabel = {$y$},
+			ylabel = {$y'$},
+			% xtick distance = 1,
+			% ytick distance = 1,
+			xmin=-3, xmax=10,
+			ymin=-10, ymax=3]
+
+		\addplot [
+			color = blue,
+			domain = -10:10,
+		] {x - 6}
+		node [midway, below right] {$y' = y - 6$};
+	\end{axis}
+\end{tikzpicture}
+
+\subsection{Построим поле направлений и интегральные кривые}
+Найдем углы для поля направлений.
+Возьмем $y \in \{-9.5, -9, -8.5 ..., 9.5\}$.
+Для каждого $y$ надем $\alpha$ из $\tg \alpha = y - 6$ и начертим. \\
+\begin{tikzpicture}[declare function={f(\x,\y)=\y - 6;}, scale = 0.4]
+	\def\xmax{10} \def\xmin{-10}
+	\def\ymax{10} \def\ymin{-10}
+	\def\nx{20}
+	\def\ny{20}
+
+	% square grid
+	\draw[very thin,color=gray, step=2 cm] (\xmin, \ymin) grid (\xmax, \ymax);
+
+	\pgfmathsetmacro{\hx}{(\xmax-\xmin)/\nx}
+	\pgfmathsetmacro{\hy}{(\ymax-\ymin)/\ny}
+	\pgfmathsetmacro{\nyl}{\ny-1}
+	\pgfmathsetmacro{\nxl}{\ny-1}
+
+	% slope lines
+	\foreach \i in {1,...,\nxl}
+		{
+			\foreach \j in {1,...,\nyl}
+				{
+					\pgfmathsetmacro {\yprime} {f({\xmin + \i * \hx}, {\ymin + \j *\hy})}
+					\draw[thick,orange,shift={({\xmin + \i * \hx}, {\ymin + \j * \hy})}]
+					(0, 0) -- ($(0, 0) !6mm! (0.1, 0.1 * \yprime)$);
+				}
+		}
+
+	% axis ticks
+	% \def\hxmax{5} \def\hxmin{-5}
+	% \def\hymax{5} \def\hymin{-5}
+	\foreach \i in {\xmin,...,\xmax}
+		{
+			% \pgfmathsetmacro{\half}{\i / 2};
+			\pgfmathparse{int(mod(\i,2))};
+			\ifnum0=\pgfmathresult\relax
+				\draw (\i cm,\ymin cm) node [anchor=north] {$\i$};
+			\fi
+			% \node[anchor=north] at (\half cm,\hymin cm) {$\i$};
+		}
+	\foreach \j in {\ymin,...,\ymax}
+		{
+			% \pgfmathsetmacro{\half}{\j / 2};
+			\pgfmathparse{int(mod(\j,2))};
+			\ifnum0=\pgfmathresult\relax
+				\draw (\xmin cm, \j) node [anchor=east] {$\j$};
+			\fi
+		}
+
+	% axis names
+	\draw(current bounding box.south) node[below right] {$x$};
+	\draw(current bounding box.west) node[above left] {$y$};
+
+	% % plot name
+	% \draw (current bounding box.south) node[below]
+	% {Приближенные интегральные кривые для \quad $y'=-6x^2 + 6$.};
+
+	% several possible solutions
+	% draw solution lines at the very end because we use clip
+	\clip (\xmin, \ymin) rectangle (\xmax, \ymax);
+	\draw[green,very thick] plot[domain=\xmin:\xmax, smooth] (\x, {6});
+	\foreach \i/\c in {-2/red, -1/violet, 1/magenta, 2/blue}
+		{
+			\draw[\c,very thick] plot[domain=\xmin:3, smooth] (\x, {\i * exp(\x) + 6});
+		}
+\end{tikzpicture}
+
+\subsection{Решим аналитически}
+\subsubsection{Найдем общее решение}
+$y' = y - 6 \Leftrightarrow y' - y = -6$ --- ЛНУ 1-го порядка \\
+Решим соответствующее ЛОУ: $v' - v = 0$
+\begin{gather*}
+	v' - v = 0 \\
+	v' = v \\
+	\frac{dv}{dx} = v \\
+	\frac{dv}{v} = dx \\
+	\int\frac{dv}{v} = \int dx \\
+	\ln{v} = x + C_1 \\
+	e^{\ln{v}} = e^{x + C_1} \\
+	v = e^xe^{C_1}
+\end{gather*}
+Упростим константу и получим общее решение ЛОУ
+\begin{equation} \label{eq:found_v}
+	v = C_1e^x \Leftrightarrow v = C_1v_1 \Leftrightarrow y_\textup{о.о.} = C_1e^x
+\end{equation}
+Перейдем к решению непосредственно самого неоднородного уравнения методом вариации постоянной.
+Будем искать решение в виде произведения функций
+\begin{equation} \label{eq:y_temp}
+	y = u(x)v_1 \Leftrightarrow y = u(x)e^x
+\end{equation}
+Подставим в исходное неоднородное уравнение и надем $u(x)$
+\begin{gather*}
+	(u(x)e^x)' = u(x)e^x - 6 \\
+	u(x)'e^x + u(x)(e^x)' = u(x)e^x - 6 \\
+	u(x)'e^x + u(x)e^x = u(x)e^x - 6 \\
+	u(x)'e^x = - 6 \\
+	u(x)' = -\frac{6}{e^x} \\
+\end{gather*}
+\begin{gather*}
+	u(x) = \int-\frac{6}{e^x}dx \\
+	u(x) = -6\int e^{-x}dx \\
+	u(x) = -6 (-e^{-x} + C_2) \\
+	u(x) = 6e^{-x} - 6C_2
+\end{gather*}
+Упростим константу
+\begin{equation} \label{eq:found_u}
+	u(x) = 6e^{-x} + C_2 \\
+\end{equation}
+Подставим в \ref{eq:y_temp}
+\begin{gather*}
+	y = (6e^{-x} + C_2)e^x \\
+	y = 6e^{-x}e^x + C_2e^x \\
+	y = 6 + C_2e^x
+\end{gather*}
+Положим $C_2 = 0$, получим частное решение ЛНУ
+\begin{equation} \label{eq:nle}
+	y_\textup{ч.н.} = 6
+\end{equation}
+Найдем общее решение ЛНУ как сумму частного решения ЛНУ и общего решения ЛОУ
+\begin{equation}
+	y_\textup{о.н.} = C_1e^x + 6
+\end{equation}
+
+\subsubsection{Найдем частное решение при заданном условии}
+\begin{gather*}
+	y_\textup{о.н.} = C_1e^x + 6, y(0) = 1 \\
+	1 = C_1e^0 + 6 \\
+	C_1 = -5
+\end{gather*}
+Получили
+\begin{equation*}
+	y_\textup{ч.н.} = -5e^x + 6
+\end{equation*}
+
+\subsubsection{Построим график}
+
+\begin{tikzpicture}
+	\begin{axis}[
+			axis lines = middle,
+			xlabel = {$x$},
+			ylabel = {$y$},
+			% xtick distance = 1,
+			% ytick distance = 1,
+			xmin=-3, xmax=5,
+			ymin=-10, ymax=10]
+
+		\addplot [
+			color = blue,
+			domain = -10:1.25,
+			samples = 100
+		] {-5 * e^x + 6}
+		node [midway, right] {$y=-5e^x + 6$};
+		% \draw[decoration={
+		% 			text along path,
+		% 			text={i$y=-5e^x + 6$},
+		% 			text align={center},
+		% 			raise=0.2cm},decorate] (a) to (b);
+	\end{axis}
+\end{tikzpicture}
+
+\subsection{Найдем стационарные решения}
+
+\begin{gather*}
+	y' = 0 \\
+	y - 6 = 0 \\
+	y = 6
+\end{gather*}
+
+\subsubsection{Начертим стационарные решения}
+\begin{tikzpicture}
+	\begin{axis}[
+			axis lines = middle,
+			xlabel = {$x$},
+			ylabel = {$y$},
+			% xtick distance = 1,
+			% ytick distance = 1,
+			xmin=-3, xmax=5,
+			ymin=-10, ymax=10]
+
+		\addplot [
+			color = blue,
+			domain = -10:1.25,
+			samples = 100
+		] {-5 * e^x + 6}
+		node [midway, right] {$y=-5e^x + 6$};
+
+		\addplot [
+			color = red,
+			domain = -10:10,
+			samples = 100
+		] {6}
+		node [midway, right] {};
+	\end{axis}
+\end{tikzpicture}
+
+\end{document}
