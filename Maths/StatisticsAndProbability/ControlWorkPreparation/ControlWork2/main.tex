@@ -1,0 +1,189 @@
+\documentclass[12pt]{article}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\graphicspath{ {./Images/} }
+
+% For slope Fields
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric, arrows.meta}
+\pgfplotsset{compat=1.8}
+
+\author{Григорий Матюхин}
+\date{\today}
+\title{
+	Теория вероятностей и математическая статистика \\
+	\large Подготовка к контрольной работе \textnumero2.
+}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Пробный вариант}
+\subsection{Задание \textnumero1.}
+Подброшены две игральные кости. Рассматривается случайная величина $\xi$ --- сумма выпавших очков.
+\begin{enumerate}
+	\item Построить ряд распределения случайной величины $\xi$;
+	\item Найти функцию распределения с. в. $\xi$ и построить ее график;
+	\item Найти распределение новой случайной величины $\mu = |\xi - 6|$.
+\end{enumerate}
+\subsubsection*{Решение}
+\begin{enumerate}
+	\item Ряд распределения случайной величины $\xi$: \\
+	      \begin{center}
+		      \begin{tabular}{ |c|c|c|c|c|c|c|c|c|c|c|c| }
+			      \hline
+			      $\xi$ & 2              & 3              & 4              & 5              & 6              & 7              & 8              & 9              & 10             & 11             & 12             \\
+			      \hline
+			      $P$   & $\frac{1}{36}$ & $\frac{2}{36}$ & $\frac{3}{36}$ & $\frac{4}{36}$ & $\frac{5}{36}$ & $\frac{6}{36}$ & $\frac{5}{36}$ & $\frac{4}{36}$ & $\frac{3}{36}$ & $\frac{2}{36}$ & $\frac{1}{36}$ \\
+			      \hline
+		      \end{tabular}
+	      \end{center}
+	\item Функция распределения с. в. $\xi$ \\
+	      $F_{\xi}(x) = P\{\xi < x\}$ \\
+	      \begin{enumerate}
+		      \item $x \leq 2$: \\
+		            $F_{\xi}(x) = 0$
+		      \item $2 < x \leq 3$: \\
+		            $F_{\xi}(x) = \frac{1}{36}$
+		      \item $3 < x \leq 4$: \\
+		            $F_{\xi}(x) = \frac{3}{36}$
+		      \item $4 < x \leq 5$: \\
+		            $F_{\xi}(x) = \frac{6}{36}$
+		      \item $5 < x \leq 6$: \\
+		            $F_{\xi}(x) = \frac{10}{36}$
+		      \item $6 < x \leq 7$: \\
+		            $F_{\xi}(x) = \frac{15}{36}$
+		      \item $7 < x \leq 8$: \\
+		            $F_{\xi}(x) = \frac{21}{36}$
+		      \item $8 < x \leq 9$: \\
+		            $F_{\xi}(x) = \frac{26}{36}$
+		      \item $9 < x \leq 10$: \\
+		            $F_{\xi}(x) = \frac{30}{36}$
+		      \item $10 < x \leq 11$: \\
+		            $F_{\xi}(x) = \frac{33}{36}$
+		      \item $11 < x \leq 12$: \\
+		            $F_{\xi}(x) = \frac{35}{36}$
+		      \item $12 < x$: \\
+		            $F_{\xi}(x) = 1$
+	      \end{enumerate}
+	      \begin{tikzpicture}
+		      \begin{axis}[
+				      axis lines = middle,
+				      xlabel = {$x$},
+				      ylabel = {$F_{\xi}(x)$},
+				      xmin=0, xmax=14,
+				      ymin=-0.01, ymax=1.01]
+
+			      \addplot [Latex-, thick, blue, domain = 0:2] {0};
+			      \addplot [Latex-, thick, blue, domain = 2:3] {1/36};
+			      \addplot [Latex-, thick, blue, domain = 3:4] {3/36};
+			      \addplot [Latex-, thick, blue, domain = 4:5] {6/36};
+			      \addplot [Latex-, thick, blue, domain = 5:6] {10/36};
+			      \addplot [Latex-, thick, blue, domain = 6:7] {15/36};
+			      \addplot [Latex-, thick, blue, domain = 7:8] {21/36};
+			      \addplot [Latex-, thick, blue, domain = 8:9] {26/36};
+			      \addplot [Latex-, thick, blue, domain = 9:10] {30/36};
+			      \addplot [Latex-, thick, blue, domain = 10:11] {33/36};
+			      \addplot [Latex-, thick, blue, domain = 11:12] {35/36};
+			      \addplot [Latex-, thick, blue, domain = 12:15] {1};
+
+		      \end{axis}
+	      \end{tikzpicture}
+	\item Распределение новой случайной величины: \\
+	      \begin{center}
+		      \begin{tabular}{ |c|c|c|c|c|c|c|c| }
+			      \hline
+			      $\mu$ & 0              & 1               & 2              & 3              & 4              & 5              & 6              \\
+			      \hline
+			      $P$   & $\frac{5}{36}$ & $\frac{10}{36}$ & $\frac{8}{36}$ & $\frac{6}{36}$ & $\frac{4}{36}$ & $\frac{2}{36}$ & $\frac{1}{36}$ \\
+			      \hline
+		      \end{tabular}
+	      \end{center}
+\end{enumerate}
+
+\subsection{Задание \textnumero2.}
+Непрерывная случайная величина $\xi$ задана плотность распределения $p_{\xi}(x)$:
+\[
+	p_{\xi}(x) =
+	\begin{cases}
+		0, x \leq 0 \\
+		axe^{-4x^2}, x > 0
+	\end{cases}
+\]
+\begin{enumerate}
+	\item Найдите значение константы $a$;
+	\item Найдите функцию распределения $F_{\xi}(x)$ и постройте ее график;
+	\item Найдите вероятность того, что в результате испытания с. в. $\xi$ примет значение из интервала $(-1; 2)$.
+\end{enumerate}
+\subsubsection*{Решение}
+\begin{enumerate}
+	\item Найдите значение константы $a$; \\
+	      \begin{gather*}
+		      \int_{-\infty}^{\infty}p_{\xi}(x)dx = 1 \\
+		      \int_{-\infty}^{0}0dx + \int_0^{\infty}axe^{-4x^2}dx = 1 \\
+		      \int_0^{\infty}axe^{-4x^2}dx = 1 \\
+	      \end{gather*}
+	      Пусть $t = e^{-4x^2}, dt =e^{-4x^2}dx \rightarrow dt = -8xe^{-4x^2}dx \rightarrow dx = \frac{dt}{-8xe^{-4x^2}} = \frac{dt}{-8xt}$
+	      \begin{gather*}
+		      \int_0^{\infty}\frac{axt}{-8xt}dt = 1 \\
+		      -\frac{a}{8}\int_0^{\infty}\frac{xt}{xt}dt = 1 \\
+		      -\frac{a}{8}\int_0^{\infty}dt = 1 \\
+		      -\frac{a}{8}\left(\left.t\right|^{\infty}_0\right) = 1 \\
+		      -\frac{a}{8}\left(\left.e^{-4x^2}\right|^{\infty}_0\right) = 1 \\
+		      -\frac{a}{8}(0 - 1) = 1 \\
+		      \frac{a}{8} = 1 \\
+		      a = 8
+	      \end{gather*}
+	\item Поиск функции распределения \\
+	      \begin{enumerate}
+		      \item $x \leq 0$:
+		            \begin{gather*}
+			            F_{\xi}(x) = \int_{-\infty}^x 0du = 0
+		            \end{gather*}
+		      \item $x > 0$:
+		            \begin{gather*}
+			            F_{\xi}(x) = \int_{0}^x 8ue^{-4u^2}du = \\
+			            = \textup{ решаем } = \\
+			            = 1 - e^{-4x^2}
+		            \end{gather*}
+	      \end{enumerate}
+	      Получили
+	      \begin{equation*}
+		      F_{\xi}(x) =
+		      \begin{cases}
+			      0, x \leq 0 \\
+			      1 - e^{-4x^2}, x > 0
+		      \end{cases}
+	      \end{equation*}
+	      \begin{center}
+		      \begin{tikzpicture}
+			      \begin{axis}[
+					      axis lines = middle,
+					      xlabel = {$x$},
+					      ylabel = {$F_{\xi}(x)$},
+					      xmin=-4, xmax=4,
+					      ymin=-4, ymax=4]
+
+				      \addplot[domain = -4:0, smooth, blue, thick] {0};
+				      \addplot[domain = 0:4, smooth, blue, thick] {1 - exp{-4 * x^2}};
+
+			      \end{axis}
+		      \end{tikzpicture}
+	      \end{center}
+	\item Вероятность \\
+	      \begin{gather*}
+		      P\{-1 < \xi < 2\} = F_{\xi}(2) - F_{\xi}(-1) = 1 - e^{-4 \times 2^2} - 0 = 1 - e^{-16} \approx 1
+	      \end{gather*}
+\end{enumerate}
+
+\end{document}
