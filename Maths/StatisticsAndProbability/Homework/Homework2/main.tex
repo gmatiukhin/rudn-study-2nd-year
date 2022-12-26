@@ -15,20 +15,52 @@
 \usetikzlibrary{shapes.geometric, arrows.meta}
 \pgfplotsset{compat=1.8}
 
-\author{Григорий Матюхин}
-\date{\today}
-\title{
-	Теория вероятностей и математическая статистика \\
-	\large Подготовка к контрольной работе \textnumero1.
-}
+\usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel} % поддержка русского языка
+\usepackage{amsmath}  %  математические символы
+\usepackage[left=20mm, top=15mm, right=15mm, bottom=30mm, footskip=15mm]{geometry} % настройки полей документа
+\usepackage{indentfirst} % по умалчанию убирается отступ у первого абзаца в секции, это отменяет это.
+\usepackage{paralist} % добавить компактные списки (compactitem, compactenum, compactdesc)
+
+\usepackage{fancyvrb}
+\usepackage{framed}
 
 \begin{document}
-\maketitle
+% \maketitle
+\begin{titlepage}
+
+	\begin{center}
+		\hfill \break
+		\textbf{
+			\large{РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ}\\
+			\normalsize{Факультет физико-математических и естественных наук}\\
+			\normalsize{Кафедра прикладной информатики и теории вероятностей}\\
+		}
+		\vspace*{\fill}
+		\Large{\textbf{Индивидуальное домашнее задание \textnumero 2} \\ Вариант \textnumero 26}
+		\\
+		\underline{\textit{\normalsize{Дисциплина: Теория вероятностей и математическая статистика}}}
+		\vspace*{\fill}
+
+	\end{center}
+
+	\begin{flushright}
+		Студент: \underline{Григорий Матюхин}\\ \vspace{0.5cm}
+		Группа: \underline{НПИбд-01-21}
+	\end{flushright}
+
+
+	\begin{center} \textbf{МОСКВА} \\ 2022 г. \end{center}
+	\thispagestyle{empty} % выключаем отображение номера для этой страницы
+
+\end{titlepage}
 \newpage
 \tableofcontents
 \newpage
 
-\subsection{Задание \textnumero1.}
+\section*{Задание \textnumero1.}
+\addcontentsline{toc}{section}{Задание \textnumero1.}
 Вероятность правильной передачи символа по каналу связи равна $p = 0.9$, причем известно, что каждый символ искажается независимо от остальных.
 Случайная величина $\xi$ --- число правильно переданных символов в сообщении из $n = 7$ символов. Найдите:
 \begin{enumerate}
@@ -88,7 +120,8 @@
 	      \end{center}
 \end{enumerate}
 
-\subsection{Задание \textnumero2.}
+\section*{Задание \textnumero 2.}
+\addcontentsline{toc}{section}{Задание \textnumero 2.}
 Непрерывная случайная величина $\xi$ задана плотностью распределения $p(x)$:
 \[
 	p(x) =
