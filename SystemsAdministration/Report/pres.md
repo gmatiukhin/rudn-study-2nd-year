@@ -1,6 +1,7 @@
 ---
 marp: true
 theme: uncover
+backgroundColor: #fff
 style: |
   .columns {
     display: flex;
@@ -70,10 +71,20 @@ style: |
 
 ---
 
+## Традиционный RAID (4/5/6)
+
+* Полосы постоянной длинны
+* Частичная запись полосы &mdash; плохо!
+  * 1 изменение &rarr; 4 дополнительных обращения к дискам
+  * "write hole error"
+
+---
+
 ## RAID-Z
 
 <table>
-  <tr>
+  <tr style="border: none;"><th style="border: none;"></th><th colspan="6" style="border: 1px solid black;">Диск</th></tr>
+  <tr style="border: none;">
     <th>
       <!-- <div> -->
       <!--   Disk -->
@@ -82,6 +93,7 @@ style: |
       <!--   LBA -->
       <!-- </div> -->
     </th>
+    <th></th>
     <th>A</th>
     <th>B</th>
     <th>C</th>
@@ -90,6 +102,7 @@ style: |
   </tr>
 
   <tr>
+    <th rowspan=4 style="border: 1px solid black;">LBA</th>
     <th>0</th>
     <td style="background-color:orange">P<sub>0</sub></td>
     <td style="background-color:orange">D<sub>0</sub></td>
