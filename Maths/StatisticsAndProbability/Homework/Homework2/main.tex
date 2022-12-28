@@ -12,7 +12,7 @@
 % For slope Fields
 \usepackage{pgfplots}
 \usetikzlibrary{calc}
-\usetikzlibrary{shapes.geometric, arrows.meta}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
 \pgfplotsset{compat=1.8}
 
 \usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
@@ -91,6 +91,7 @@
 				      xlabel = {$x$},
 				      ylabel = {$F(x)$},
 				      ymode = log,
+				      xtick distance = 1,
 				      xmin=0, xmax=8,
 				      ymin = 1/10^8, ymax=10]
 
@@ -106,7 +107,8 @@
 	      \end{tikzpicture}
 	\item Вероятность попадания случайной величины $\xi$ в интервал $(2; 5]$:
 	      \begin{gather*}
-		      P\{2 < \xi \leq 5\} = F(2) + F(3) + F(4) = 1.7 \times 10^{-4} + 2.6 \times 10^{-3} + 2.3 \times 10^{-2} = 0.02577
+		      P\{2 < \xi \leq 5\} = F(5) - F(2) \\
+		      = 0.12 - 1.7 \times 10^{-4} = 0.11983
 	      \end{gather*}
 	\item Ряд распределения $\eta = -4(\xi - 7)^2 - 2$: \\
 	      \begin{center}
@@ -167,44 +169,91 @@
 		            \end{gather*}
 		      \item $-3 < x \leq 3$:
 		            \begin{gather*}
-			            F(x) = \int_{-3}^3 \frac{1}{18}u^2du = \\
-			            = \frac{1}{18}\int_{-3}^3u^2du = \\
-			            = \frac{1}{18}\left(\left.\frac{u^3}{3}\right|_{-3}^{3}\right) = \\
-			            = \frac{1}{18}\left(\frac{3^3}{3} - \frac{(-3)^3}{3}\right) = \\
-			            = \frac{1}{18}\left(9 - (-9)\right) = \\
-			            = \frac{1}{18} \times 18 = 1
+			            F(x) = \int_{-\infty}^{-3}0dx = \int_{-3}^{x} \frac{1}{18}u^2du \\
+			            = 0 + \frac{1}{18}\int_{-3}^{x}u^2du \\
+			            = \frac{1}{18}\left(\left.\frac{u^3}{3}\right|_{-3}^{x}\right) \\
+			            = \frac{1}{18}\left(\frac{x^3}{3} - \frac{(-3)^3}{3}\right) \\
+			            = \frac{x^3 + 27}{54} = \frac{x^3}{54} + \frac{1}{2}
 		            \end{gather*}
 		      \item $x > 3$:
 		            \begin{gather*}
-			            F(x) = \int_{3}^x0du = 0
+			            F(x) = \int_{-\infty}^{-3}0dx = \int_{-3}^{3} \frac{1}{18}u^2du + \int_{3}^{x}0dx \\
+			            = 0 + \frac{1}{18}\left(\frac{3^3}{3} - \frac{(-3)^3}{3}\right) + 0 \\
+			            = \frac{1}{18}(9 - (-9)) = \frac{1}{18} \times 18 = 1
 		            \end{gather*}
 	      \end{enumerate}
+	      Получили
+	      \begin{gather*}
+		      F(x) =
+		      \begin{cases}
+			      0, x \leq 3                        \\
+			      \frac{x^3 + 27}{56}, -3 < x \leq 3 \\
+			      1, x > 3                           \\
+		      \end{cases}
+	      \end{gather*}
+	      Тогда график
 	      \begin{center}
-		      \begin{tikzpicture}
+		      \begin{tikzpicture}[scale=1.5]
 			      \begin{axis}[
 					      axis lines = middle,
 					      xlabel = {$x$},
 					      ylabel = {$F(x)$},
+					      xtick distance = 1,
+					      ytick distance = 1,
 					      xmin=-5, xmax=5,
 					      ymin=-4, ymax=4]
 
 				      \addplot[domain = -5:-3, smooth, blue, ultra thick] {0};
-				      \addplot[domain = 3:5, smooth, blue, ultra thick] {0};
-				      \addplot[domain = -3:3, smooth, blue, ultra thick] {1};
+				      \addplot[domain = -3:3.1, smooth, blue, ultra thick] {x^3 / 54 + 1/2};
+				      \addplot[domain = 3:5, smooth, blue, ultra thick] {1};
+				      \node[label={20:{$\frac{1}{2}$}}, circle, fill, inner sep = 2pt] at (axis cs:0, 1/2) {};
+
 			      \end{axis}
 		      \end{tikzpicture}
 	      \end{center}
-	\item Плотность распределения случайной величины $\eta = 2\xi^3 - 4$: \\
-	      Пусть $P_{\eta}(y)$ --- плотность распределения случайной величины $\eta$.
-	      Так как $\eta = g(x) = 2x^3 - 4$ --- монотонна \\
-	      \[x = \sqrt[3]{\frac{y}{2} + 2} = g^{-1}(y)\]
+	\item Найти плотность распределения случайной величины $\eta = 2\xi^3 - 4$: \\
+	      Пусть $p_{\eta}(x)$ --- плотность распределения случайной величины $\eta$. \\
+	      Так как $\eta = g(\xi) = 2\xi^3 - 4$ --- монотонна \\
+	      \[g^{-1}(\eta) = \xi = \sqrt[3]{\frac{\eta}{2} + 2}\]
+	      и
+	      \[(g^{-1}(\eta))'= \xi' = \frac{1}{6\left(\sqrt[3]{\frac{\eta}{2} + 2}\right)^2}\]
 	      Тогда
 	      \begin{gather*}
-		      P_{\eta}(y) = P(g^{-1}(y))\times \left|(g^{-1}(y))'\right| \\
-		      P_{\eta}(y) = P\left(\sqrt[3]{\frac{y}{2} + 2}\right)\times \left|(\sqrt[3]{\frac{y}{2} + 2})'\right| \\
-		      P_{\eta}(y) = P\left(\sqrt[3]{\frac{y}{2} + 2}\right)\times \left|\frac{1}{6}\left(\frac{y}{2} + 2 \right)^{-\frac{2}{3}}\right| \\
+		      p_{\eta}(x) = p(g^{-1}(x))(g^{-1}(x))' =
+		      p\left(\sqrt[3]{\frac{x}{2} + 2}\right) \times \frac{1}{6\left(\sqrt[3]{\frac{x}{2} + 2}\right)^2} \\
+		      p_{\eta}(x) =
+		      \begin{cases}
+			      \frac{1}{18}\left(\sqrt[3]{\frac{x}{2} + 2}\right)^2 \times \frac{1}{6\left(\sqrt[3]{\frac{x}{2} + 2}\right)^2}, -58 < x \leq 50 \\
+			      0, x \leq -58, x > 50
+		      \end{cases} \\
+		      =
+		      \begin{cases}
+			      \frac{1}{108}, -58 < x \leq 50 \\
+			      0, x \leq -58, x > 50
+		      \end{cases}
 	      \end{gather*}
-	\item Плотность распределения случайной величины $\mu = 2\xi^2 - 4$:
+	      \newpage
+	\item Найти плотность распределения случайной величины $\mu = 2\xi^2 - 4$: \\
+	      Пусть $p_{\mu}(y)$ --- плотность распределения случайной величины $\mu$. \\
+	      Так как $\mu = g(\xi) = 2\xi^2 - 4$ --- монотонна \\
+	      \[g^{-1}(\mu) = \xi = \sqrt{\frac{\mu}{2} + 2}\]
+	      и
+	      \[(g^{-1}(\mu))' = \xi' = \frac{1}{4\sqrt{\frac{\mu}{2} + 2}}\]
+	      Тогда
+	      \begin{gather*}
+		      p_{\mu}(x) = p(g^{-1}(x))(g^{-1}(x))' =
+		      p\left(\sqrt{\frac{x}{2} + 2}\right) \times \frac{1}{4\sqrt{\frac{x}{2} + 2}} \\
+		      p_{\mu}(x) =
+		      \begin{cases}
+			      \frac{1}{18}\sqrt{\frac{x}{2} + 2} \times \frac{1}{4\sqrt{\frac{x}{2} + 2}}, 14 < x \leq 14 \\
+			      0, x \leq 14, x > 14
+		      \end{cases} \\
+		      =
+		      \begin{cases}
+			      \frac{1}{72}, 14 < x \leq 14 \\
+			      0, x \leq 14, x > 14
+		      \end{cases}
+	      \end{gather*}
 \end{enumerate}
 
 \end{document}
