@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\graphicspath{ {./Images/} }
+
+% For slope Fields
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric, arrows.meta}
+\pgfplotsset{compat=1.8}
+
+\author{Григорий Матюхин}
+\date{\today}
+\title{
+	Теория вероятностей и математическая статистика \\
+	\large Подготовка к контрольной работе \textnumero3.
+}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Пробный вариант}
+\subsection{Задание \textnumero1.}
+Дискретная двумерная случайная величина $(\xi, \eta)$ задана рядом распределения. \\
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$\xi \textbackslash \mu$ & $-1$   & $0$    & $1$    \\
+	\hline
+	$-1$                     & $0.12$ & $0.14$ & $0.21$ \\
+	\hline
+	$2$                      & $0.25$ & $0.15$ & $0.13$ \\
+	\hline
+\end{tabular} \\
+Найдите:
+\begin{enumerate}
+	\item ряды распределения случайных величин $\xi$ и $\eta$;
+	\item значение совместной функции распределения $F(\xi, \eta)$ в точке $(1;0,5)$;
+	\item условное распределение случайной величины $\eta$ при условии $\xi$;
+	\item математическое ожидание и дисперсию случайной величины $\mu = |\eta| \times \xi$;
+	\item ковариацию и коэффициент корреляции случайных величин $\xi$ и $\eta$.
+\end{enumerate}
+
+\subsubsection*{Решение}
+\begin{enumerate}
+	\item \mbox{}\\
+	      % sum of probabilities in rows
+	      \begin{tabular}{|c|c|c|}
+		      \hline
+		      $\xi $ & $-1$   & $2$    \\
+		      \hline
+		      $p$    & $0.47$ & $0.53$ \\
+		      \hline
+	      \end{tabular}
+	      % sum of probabilities in columns
+	      \begin{tabular}{|c|c|c|c|}
+		      \hline
+		      $\eta $ & $-1$   & $0$    & $1$    \\
+		      \hline
+		      $p$     & $0.37$ & $0.29$ & $0.34$ \\
+		      \hline
+	      \end{tabular}
+
+	\item \mbox{}\\
+	      \begin{equation*}
+		      F(x, y) = P\{\xi < x, \eta < y\} =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      0,    & \quad x \leq -1, y \leq -1         \\
+				      0.12, & \quad -1 < x \leq 0, -1 < y \leq 0 \\
+				      0.26, & \quad -1 < x \leq 0, -0 < y \leq 1 \\
+				      0.47, & \quad -1 < x \leq 0, y > 1         \\
+				      0.36, & \quad x > 2, -1 < y \leq 0         \\
+				      0.66, & \quad x > 2, -0 < y \leq 1         \\
+				      1,    & \quad x > 2, y > 1                 \\
+			      \end{aligned}
+		      \end{cases}
+	      \end{equation*}
+
+	\item \mbox{}\\
+	      % \eta `if` \xi => divide by corresponding \xi from the first step
+	      \begin{tabular}{|c|c|c|c|}
+		      \hline
+		      $\xi \textbackslash \mu$ & $-1$   & $0$    & $1$    \\
+		      \hline
+		      $-1$                     & $0.25$ & $0.29$ & $0.51$ \\
+		      \hline
+		      $2$                      & $0.47$ & $0.28$ & $0.24$ \\
+		      \hline
+	      \end{tabular} \\
+
+	\item \mbox{}\\
+	      \[\mu = g(\xi, \eta) = |\eta| \times \xi\]
+	      \begin{tabular}{|c|c|c|c|c|c|c|}
+		      \hline
+		      $\mu$ & $g(-1, -1) = -1$ & $g(-1, 0) = 0$ & $g(-1, 1) = -1$ & $g(2, -1) = 2$ & $g(2, 0) = 0$ & $g(2, 1) = 2$ \\
+		      \hline
+		            & $0.12$           & $0.14$         & $0.21$          & $0.25$         & $0.15$        & $0.13$        \\
+		      \hline
+	      \end{tabular} \\
+	      \begin{tabular}{|c|c|c|c|}
+		      \hline
+		      $\mu$ & $-1$   & $0$    & $2$    \\
+		      \hline
+		            & $0.33$ & $0.29$ & $0.38$ \\
+		      \hline
+	      \end{tabular} \\
+	      \begin{gather*}
+		      M\mu = \sum_iX_ip_i = -1 \times 0.33 + 0 \times 0.29 + 2 \times 0.38 = 0.43 \\
+		      D\mu = M(\mu - M\mu)^2 = \sum_i\left(X_i-M\mu\right)^2p_i = \\
+		      = (-1 - 0.43)^2 \times 0.33 + (0 - 0.43)^2 \times 0.29 + (2 - 0.43)^2 \times 0.38 = \\
+		      = 0.67 + 0.03 + 0.94 = 1.67
+	      \end{gather*}
+
+	\item \mbox{}
+	      \begin{gather*}
+		      M\xi = -1 \times 0.47 + 2 \times 0.53 = 0.59 \\
+		      M\eta = -1 \times 0.37 + 0 \times 0.29 + 1 \times 0.34 = -0.03 \\
+		      cov(\xi, \eta) = M\mathring{\xi}\mathring{\eta} = M\left[\left(\xi - M\xi\right)\left(\eta - M\eta\right)\right] = \\
+		      = \sum_{i, j}\left(X_i - M\xi\right)\left(Y_j - M\eta\right)p_{i,j} = \\
+		      = -0.31 \\ % Todo: check python code again
+		      D\xi = \sum_i\left(X_i-M\xi\right)^2p_i = \\
+		      = (-1 - 0.59)^2 \times 0.47 + (2 - 0.59)^2 \times 0.53 = \\
+		      = 2.24 \\
+		      D\eta = \sum_i\left(X_i-M\eta\right)^2p_i = \\
+		      = (-1 - (-0.03))^2 \times 0.37 + (0 - (-0.03))^2 \times 0.29 + (1 - (-0.03))^2 \times 0.34 = \\
+		      = 0.7 \\
+		      \rho = \frac{cov(\xi, \eta)}{\sqrt{D\xi \times D\eta}} = \\
+		      \frac{-0.31}{\sqrt{2.24 \times 0.7}} = -0.2
+	      \end{gather*}
+\end{enumerate}
+
+\end{document}
