@@ -11,6 +11,8 @@
 
 % For slope Fields
 \usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{fillbetween}
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes.geometric, arrows.meta}
 \pgfplotsset{compat=1.8}
@@ -21,6 +23,8 @@
 	Теория вероятностей и математическая статистика \\
 	\large Подготовка к контрольной работе \textnumero3.
 }
+
+\DeclareMathOperator{\cov}{cov}
 
 \begin{document}
 \maketitle
@@ -120,11 +124,11 @@
 		      = 0.67 + 0.03 + 0.94 = 1.67
 	      \end{gather*}
 
-	\item \mbox{}
+	\item \mbox{}\\
 	      \begin{gather*}
 		      M\xi = -1 \times 0.47 + 2 \times 0.53 = 0.59 \\
 		      M\eta = -1 \times 0.37 + 0 \times 0.29 + 1 \times 0.34 = -0.03 \\
-		      cov(\xi, \eta) = M\mathring{\xi}\mathring{\eta} = M\left[\left(\xi - M\xi\right)\left(\eta - M\eta\right)\right] = \\
+		      \cov(\xi, \eta) = M\mathring{\xi}\mathring{\eta} = M\left[\left(\xi - M\xi\right)\left(\eta - M\eta\right)\right] = \\
 		      = \sum_{i, j}\left(X_i - M\xi\right)\left(Y_j - M\eta\right)p_{i,j} = \\
 		      = -0.31 \\ % Todo: check python code again
 		      D\xi = \sum_i\left(X_i-M\xi\right)^2p_i = \\
@@ -133,9 +137,175 @@
 		      D\eta = \sum_i\left(X_i-M\eta\right)^2p_i = \\
 		      = (-1 - (-0.03))^2 \times 0.37 + (0 - (-0.03))^2 \times 0.29 + (1 - (-0.03))^2 \times 0.34 = \\
 		      = 0.7 \\
-		      \rho = \frac{cov(\xi, \eta)}{\sqrt{D\xi \times D\eta}} = \\
+		      \rho = \frac{\cov(\xi, \eta)}{\sqrt{D\xi \times D\eta}} = \\
 		      \frac{-0.31}{\sqrt{2.24 \times 0.7}} = -0.2
 	      \end{gather*}
+\end{enumerate}
+
+\subsection{Задание \textnumero2.}
+Задана плотность совместного распределения непрерывной двумерной случайной величины $(\xi, \eta)$:
+\begin{equation*}
+	p_{\xi\eta} =
+	\begin{cases}
+		\begin{aligned}[t]
+			0,  & \quad (x;y) \notin D, \\
+			Cy, & \quad (x;y) \in D
+		\end{aligned}
+	\end{cases}
+\end{equation*}
+где область $D$ --- треугольник с вершинами в точках $(0;-1)$, $(1;0)$ и $(-1;0)$.
+Найдите
+\begin{enumerate}
+	\item значение постоянной $C$;
+	\item частные плотности распределения случайных величин $\xi$ и $\eta$;
+	\item вероятность попадания случайной величины $(\xi, \eta)$ в прямоугольник с вершинами в точках $(-0.5;1)$, $(0;1)$, $(0;-1)$ и $(-0.5;-1)$;
+	\item значение совместной функции распределения $F_{\xi\eta}(x,y)$ в точке $(1;-0.5)$;
+	\item математические ожидания и дисперсии с. в. $\xi$ и $\eta$;
+	\item ковариацию и коэффициент корреляции с.в. $\xi$ и $\eta$;
+\end{enumerate}
+
+\subsubsection*{Решение}
+\begin{enumerate}
+	\item \mbox{}\\
+	      \begin{tikzpicture}
+		      \begin{axis}[
+				      axis lines = middle,
+				      xlabel = {$x$},
+				      ylabel = {$y$},
+				      xmin=-2, xmax=2,
+				      ymin=-2, ymax=2]
+
+			      % Triangle 
+			      % Top
+			      \addplot [name path = T,
+				      domain = -1:1] {0}
+			      node [pos=1, above] {};
+
+			      % Bottom right
+			      \addplot [name path = Br,
+				      domain = 0:1] {x - 1}
+			      node [pos=1, above] {};
+
+			      % Bottom left
+			      \addplot [name path = Bl,
+				      domain = -1:0] {- x - 1}
+			      node [pos=1, above] {};
+
+			      \path[%draw=blue,thick,->,
+				      intersection segments={
+						      of=Bl and Br,
+						      % sequence={R1--L1[reverse]}
+					      }, name path=B];
+
+			      \path[%draw=red,thick,->,
+				      fill=orange,
+				      intersection segments={
+						      of=T and B,
+						      % sequence={L2--R2}
+					      }];
+
+			      \path[name intersections={of=Br and Bl,by=N}];
+			      \draw (N) node[right=.5em] {A} circle[radius=2pt];
+
+			      \path[name intersections={of=T and Br,by=M}];
+			      \draw (M) node[above=.5em] {B} circle[radius=2pt];
+
+			      \path[name intersections={of=T and Bl,by=M}];
+			      \draw (M) node[above=.5em] {C} circle[radius=2pt];
+
+		      \end{axis}
+	      \end{tikzpicture}
+
+	      Из условия нормировки
+	      \begin{equation*}
+		      \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}p(x,y)dxdy = 1 \Rightarrow \iint_{D}p(x,y)dxdy = 1
+	      \end{equation*}
+	      Получаем
+	      \begin{gather*}
+		      \iint_{D}p(x,y)dxdy = \iint_{D}Cydxdy = C\iint_{D}ydxdy = \\
+		      C \left( \int_{-1}^{0}\left(\int_{-x-1}^{0}ydy\right)dx + \int_{0}^{1}\left(\int_{x-1}^{0}ydy\right)dx \right) = \\
+		      \cdots \\
+		      = C \left(-\frac{1}{6} + \frac{7}{6}\right) = C \Rightarrow C = 1
+	      \end{gather*}
+	      \begin{equation*}
+		      p_{\xi\eta} =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      0, & \quad (x;y) \notin D, \\
+				      y, & \quad (x;y) \in D
+			      \end{aligned}
+		      \end{cases}
+	      \end{equation*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      p_\xi(x) = \int_{-\infty}^{\infty}p(x,y)dy = \\
+		      = \int_{-x-1}^{0}ydy + \int_{x-1}^{0}ydy = \\
+		      \cdots \\
+		      -(x^2 + 1), \quad x \in [-1; 1]
+	      \end{gather*}
+
+	      \begin{gather*}
+		      p_\eta(y) = \int_{-\infty}^{\infty}p(x,y)dx = \\
+		      = \int_{-y-1}^{y+1}ydx = \\
+		      \cdots \\
+		      = 2y(y + 1), \quad y \in [-1; 0]
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      P\{-0.5 < \xi < 0, -1 < \eta < 1\} = \int_{-0.5}^{0}dx\int_{-1}^{1}p(x,y)dy = \\
+		      % \int_{-0.5}^{0}dx\int_{-1}^{1}ydy % partially otside of the triangle
+		      % \int_{-x-1|(-y-1)}^{0}dx\int_{-1}^{0}ydy % integralls in the wrong order
+		      \int_{-1}^{0}dy\int_{-y-1}^{0}ydx = -\frac{1}{6}
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      % either 0 or
+	      \begin{gather*}
+		      F(1,-0.5) = \int_{-\infty}^{1}dx\int_{-\infty}^{-0.5}p(x,y)dy = \\
+		      % \int_{0}^{1}dx\int_{y+1}^{-0.5}ydy = \\
+		      % \int_{x-1}^{1}dx\int_{y+1}^{-0.5}ydy = \\
+		      \int_{0}^{-0.5}dy\int_{y+1}^{1}ydx = \\
+		      \cdots \\
+		      \approx 0.041
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      M\xi = \int_{-\infty}^{\infty}xp(x)dx = \\
+		      \int_{-\infty}^{\infty}-x(x^2 + 1)dx = \\
+		      \int_{-1}^{1}-x(x^2+1)dx = 0 \\
+		      \\
+		      D\xi = M(\xi - M\xi)^2 = \int_{-\infty}^{\infty}(x - M\xi)^2p(x)dx = \\
+		      \int_{-1}^{1}-(x - 0)^2(x^2 + 1)dx = \\
+		      \int_{-1}^{1}-x^2(x^2+1)dx = -\frac{16}{15}\\
+	      \end{gather*}
+
+	      \begin{gather*}
+		      M\eta = \int_{-\infty}^{\infty}yp(y)dy = \\
+		      \int_{-\infty}^{\infty}y2y(y + 1)dy = \\
+		      \int_{-1}^{0}y2y(y+1)dy = \frac{1}{6} \\
+		      \\
+		      D\xi = M(\eta - M\eta)^2 = \int_{-\infty}^{\infty}(y - M\xi)^2p(y)dy = \\
+		      \int_{-1}^{0}(y - \frac{1}{6})^2 2y(y + 1) dy = -\frac{89}{540}
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      \cov(\xi, \eta) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}(x - M\xi)(y - M\eta)p(x, y)dxdy = \\
+		      \iint_{D}(x - M\xi)(y - M\eta)p(x, y)dxdy = \\
+		      \iint_{D}(x - 0)(y - \frac{1}{6})ydxdy = \\
+		      \iint_{D}x(y - \frac{1}{6})ydxdy = \\
+		      \int_{-1}^{0}(y - \frac{1}{6})ydy\int_{-y-1}^{y+1}dx = \frac{2}{9}\\
+	      \end{gather*}
+
+	      \begin{gather*}
+		      \rho = \frac{\cov(\xi, \eta)}{\sqrt{D\xi \times D\eta}} = \\
+		      \frac{\frac{2}{9}}{\sqrt{-\frac{16}{15} \times -\frac{89}{540}}} = \\
+		      \frac{5\sqrt{89}}{89}
+	      \end{gather*}
+
 \end{enumerate}
 
 \end{document}
