@@ -8,5 +8,7 @@
     python310Packages.numpy
     zlib
   ]);
-  runScript = "fish";
+  runScript = ''
+    argv=.venv/bin/activate.fish fish -c "source"
+  '';
 }).env
