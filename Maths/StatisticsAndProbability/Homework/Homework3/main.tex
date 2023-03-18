@@ -1,0 +1,492 @@
+\documentclass[12pt]{article}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\graphicspath{ {./Images/} }
+
+% For slope Fields
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\pgfplotsset{compat=1.8}
+
+\usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel} % поддержка русского языка
+\usepackage{amsmath}  %  математические символы
+\usepackage[left=20mm, top=15mm, right=15mm, bottom=30mm, footskip=15mm]{geometry} % настройки полей документа
+\usepackage{indentfirst} % по умалчанию убирается отступ у первого абзаца в секции, это отменяет это.
+\usepackage{paralist} % добавить компактные списки (compactitem, compactenum, compactdesc)
+
+\usepackage{fancyvrb}
+\usepackage{framed}
+
+\DeclareMathOperator{\cov}{cov}
+
+\begin{document}
+% \maketitle
+\begin{titlepage}
+
+	\begin{center}
+		\hfill \break
+		\textbf{
+			\large{РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ}\\
+			\normalsize{Факультет физико-математических и естественных наук}\\
+			\normalsize{Кафедра прикладной информатики и теории вероятностей}\\
+		}
+		\vspace*{\fill}
+		\Large{\textbf{Индивидуальное домашнее задание \textnumero 3}}
+		\\
+		\underline{\textit{\normalsize{Дисциплина: Теория вероятностей и математическая статистика}}}
+		\vspace*{\fill}
+
+	\end{center}
+
+	\begin{flushright}
+		Студент: \underline{Григорий Матюхин}\\ \vspace{0.5cm}
+		Группа: \underline{НПИбд-01-21}
+	\end{flushright}
+
+
+	\begin{center} \textbf{МОСКВА} \\ 2023 г. \end{center}
+	\thispagestyle{empty} % выключаем отображение номера для этой страницы
+
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Варианты задач}
+
+\begin{enumerate}
+	\item --- вариант 1
+	\item --- вариант 32
+	\item --- вариант 6
+	\item --- вариант 19
+	\item --- вариант 6
+	\item --- вариант 24
+	\item --- вариант 6
+\end{enumerate}
+
+\section*{Задание \textnumero1.}
+\addcontentsline{toc}{section}{Задание \textnumero1.}
+
+Дискретная двумерная случайная величина $(\xi, \eta)$ задана рядом распределения.
+Найдите:
+
+\begin{enumerate}
+	\item ряды распределения случайных величин $\xi$ и $\eta$;
+	\item вероятности $P\{-1 \leq \xi \leq 7, 0 \leq \eta \leq 15\}$;
+	\item условное распределение случайной величины $\eta$ при условии $\xi = 1$;
+	\item ряд распределения случайной величины $\mu = \eta - 2 \sqrt{\xi} + 1$.
+\end{enumerate}
+
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$\xi \backslash \eta$ & 10   & 14   & 18   \\
+	\hline
+	1                     & 0.25 & 0.15 & 0.32 \\
+	\hline
+	9                     & 0.1  & 0.05 & 0.13 \\
+	\hline
+\end{tabular}
+
+\subsubsection*{Решение}
+\begin{enumerate}
+	\item \mbox{}\\
+	      % sum of probabilities in rows
+	      \begin{tabular}{|c|c|c|}
+		      \hline
+		      $\xi $ & $1$    & $9$    \\
+		      \hline
+		      $p$    & $0.72$ & $0.28$ \\
+		      \hline
+	      \end{tabular}
+	      % sum of probabilities in columns
+	      \begin{tabular}{|c|c|c|c|}
+		      \hline
+		      $\eta $ & $10$   & $14$  & $18$   \\
+		      \hline
+		      $p$     & $0.35$ & $0.2$ & $0.45$ \\
+		      \hline
+	      \end{tabular}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      P\{-1 \leq \xi \leq 7, 0 \leq \eta \leq 15\} = 0.25 + 0.15 = 0.4
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{tabular}{|c|c|c|c|}
+		      \hline
+		      $\xi \backslash \eta$ & 10   & 14   & 18   \\
+		      \hline
+		      % 1                     & 0.25/0.72 & 0.15/0.72 & 0.32/0.72 \\
+		      1                     & 0.35 & 0.21 & 0.44 \\
+		      \hline
+		      % % 9                     & 0.1/0.28  & 0.05/0.28 & 0.13/0.28 \\
+		      % 9                     & 0.36 & 0.18 & 0.46 \\
+		      % \hline
+	      \end{tabular}
+
+	\item \mbox{}\\
+	      \[\mu = g(\xi, \eta) = \eta - 2 \sqrt{\xi} + 1\]
+	      \begin{tabular}{|c|c|c|c|c|c|c|}
+		      \hline
+		      $\mu$ & $g(1, 10) = 9$ & $g(1, 14) = 13$ & $g(1, 18) = 18$
+		            & $g(9, 10) = 5$ & $g(9, 14) = 9$  & $g(9, 18) = 13$ \\
+		      \hline
+		            & 0.25           & 0.15            & 0.32
+		            & 0.1            & 0.05            & 0.13            \\
+		      \hline
+	      \end{tabular} \\
+	      \begin{tabular}{|c|c|c|c|c|}
+		      \hline
+		      $\mu$ & 5   & 9   & 13   & 18   \\
+		      \hline
+		      $p$   & 0.1 & 0.3 & 0.28 & 0.32 \\
+		      \hline
+	      \end{tabular}
+\end{enumerate}
+
+\section*{Задание \textnumero 2.}
+\addcontentsline{toc}{section}{Задание \textnumero 2.}
+
+Задана плотность совместного распределения непрерывной двумерной случайной величины $(\xi,\eta)$:
+
+\begin{equation*}
+	p_{\xi,\eta}(x,y) =
+	\begin{cases}
+		\begin{aligned}[t]
+			C(x + 2y), & (x;y) \in D    \\
+			0,         & (x;y) \notin D
+		\end{aligned}
+	\end{cases},
+\end{equation*}
+
+где область $D$ ограниченна графиками функций $y = \sqrt{x}$, $x = 9$ и осью абсцисс.
+Найдите (в пунктах 4,5,6 расставить пределы интегрирования, интеграл не вычислять):
+
+\begin{enumerate}
+	\item значение постоянной $C$;
+	\item частную плотность распределения случайной величины $\xi$;
+	\item условную плотность распределения случайной величины $\eta$ при условии $\xi$;
+	\item значение совместной функции распределения $F_{\xi\eta}(x,y)$ в точке $(2; 4)$;
+	\item вероятность попадания с.в. $(\xi, \eta)$ в область: $3 - x \leq y \leq \frac{1}{x}$;
+	\item значение функции распределения $F_{\mu}(z)$
+	      случайной величины $\mu = -\eta + (\xi - 1)^2$ в точке $z = −4$.
+\end{enumerate}
+
+% TODO: graph
+% TODO: place all intersection points on it
+
+\subsubsection*{Решение}
+
+\begin{enumerate}
+	\item \mbox{}\\
+	      Из условия нормировки
+	      \begin{gather*}
+		      %https://www.wolframalpha.com/input?i=Integrate%5BIntegrate%5B%28x+%2B+2y%29%2C%7By%2C0%2CSqrt%5Bx%5D%7D%5D%2C%7Bx%2C0%2C3%7D%5D
+		      \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}p(x,y)dxdy = 1 \Rightarrow \iint_{D}p(x,y)dxdy = 1 \\
+		      \iint_{D}C(x + 2y)dxdy = \int_0^9\int_0^{\sqrt{x}}C(x + 2y)dydx = \\
+		      = C\int_0^9\int_0^{\sqrt{x}}(x + 2y)dydx = \\
+		      \cdots \\
+		      = C \times 10.735 \\
+		      C \times 10.735 = 1 \Rightarrow C = 0.09 \Rightarrow \\
+		      p_{\xi,\eta}(x,y) =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      0.09(x + 2y), & (x;y) \in D    \\
+				      0,            & (x;y) \notin D
+			      \end{aligned}
+		      \end{cases},
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      %https://www.wolframalpha.com/input?i=%5Cint_%7B0%7D%5E%7B%5Csqrt%7Bx%7D%7D0.09+*+%28x+%2B+2y%29dy
+		      p_{\xi}(x) = \int_{-\infty}^{\infty}p_{\xi,\eta}(x,y)dy = \\
+		      = \int_{0}^{\sqrt{x}}0.09 * (x + 2y)dy = 0.09(x^{3\div2} + x) \Rightarrow \\
+		      p_{\xi}(x) =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      0.09(x^{3\div2} + x), & x \in D    \\
+				      0,                    & x \notin D
+			      \end{aligned}
+		      \end{cases}
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      p_{\eta}(y|\xi = x) = \frac{\partial}{\partial y}F_{\eta}(y|\eta = x)
+		      = \frac{p_{\xi, \eta}(x, y)}{p_{\xi}(x)} \Rightarrow \\
+		      p_{\eta}(y|\xi = x) =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      \frac{(x + 2y)}{(x^{3\div2} + x)}, & (x;y) \in D
+				      0,                                 & (x;y) \notin D
+			      \end{aligned}
+		      \end{cases}
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      F(2,10) = \int_{-\infty}^{10}dy\int_{-\infty}^{2}p(x, y)dx = \\
+		      = \int_{0}^{\sqrt{2}}dy\int_{y^2}^{2}p(x, y)dx
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      P\{a_1 < \xi < b_1, a_2 < \eta < b_2\} = \int_{a_1}^{b_1}dx\int_{a_2}^{b_2}p(x, y)dy = \\
+		      % NOTE: (2.62; 0.38) --- the corner
+		      \int_{2.62}^{3}dx\int_{3 - x}^{1\div{x}}p(x, y)dy +
+		      \int_{3}^{9}dx\int_{0}^{1\div{x}}p(x, y)dy
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      \mu = -\eta + (\xi - 1)^2 \Rightarrow g(x, y) = -y + (x - 1)^2 \\
+		      F_{\mu}(z) = \iint_{g(x, y) < z} p(x,y)dxdy
+		      % TODO: z = -4
+	      \end{gather*}
+
+\end{enumerate}
+
+\section*{Задание \textnumero 3.}
+\addcontentsline{toc}{section}{Задание \textnumero 3.}
+
+Дискретная двумерная случайная величина $(\xi, \eta)$ задана рядом распределения.
+Найдите:
+
+\begin{enumerate}
+	\item ряд распределения случайных величин $\xi$ и $\eta$;
+	\item математическое ожидание и дисперсию случайных величин $\xi$ и $\eta$;
+	\item ковариацию и коэффициент корреляции случайных величин $\xi$ и $\eta$;
+	\item математическое ожидание и дисперсию случайной величины $\mu = 2(\xi - 2\eta) + 3(\eta - 2\xi)$;
+	\item ковариацию случайных величин $\xi$ и $\mu$.
+\end{enumerate}
+
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$\xi \backslash \eta$ & 2    & 3    & 4    \\
+	\hline
+	-2                    & 0.05 & 0.36 & 0.01 \\
+	\hline
+	4                     & 0.09 & 0.31 & 0.18 \\
+	\hline
+\end{tabular}
+
+\subsubsection*{Решение}
+
+\begin{enumerate}
+	\item \mbox{}\\
+	      % sum of probabilities in rows
+	      \begin{tabular}{|c|c|c|}
+		      \hline
+		      $\xi $ & -2   & 4    \\
+		      \hline
+		      $p$    & 0.42 & 0.58 \\
+		      \hline
+	      \end{tabular}
+	      % sum of probabilities in columns
+	      \begin{tabular}{|c|c|c|c|}
+		      \hline
+		      $\eta $ & 2    & 3    & 4    \\
+		      \hline
+		      $p$     & 0.14 & 0.67 & 0.19 \\
+		      \hline
+	      \end{tabular}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      M\xi = \sum_iX_ip_i = -2 \times 0.42 + 4 \times 0.58 = 1.48 \\
+		      M\eta = \sum_jX_jp_j = 2 \times 0.14 + 3 \times 0.67 + 4 \times 0.19 = 3.05
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      \cov(\xi, \eta) = M\mathring{\xi}\mathring{\eta} = M[(\xi - M\xi)(\eta - M\eta)] = \\
+		      = sum_{i,j}(X_i - M\xi)(Y_j - M\eta)p_{ij} = 0.366
+		      \\\\
+		      D\xi = M\xi^2 - (M\xi)^2 = \sum_iX_i^2p_i - (M\xi)^2 = 9.48 \\
+		      D\eta = M\eta^2 - (M\eta)^2 = \sum_jX_j^2p_j - (M\eta)^2 = 6.57
+		      \\\\
+		      \rho = \frac{\cov(\xi, \eta)}{\sqrt{D\xi \times D\eta}} = \\
+		      \frac{0.366}{\sqrt{9.48 \times 6.57}} = 0.17
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \[\mu = g(\xi, \eta) = 2(\xi - 2\eta) + 3(\eta - 2\xi)\]
+	      \begin{tabular}{|c|c|c|c|c|c|c|}
+		      \hline
+		      $\mu$ & $g(-2, 2) = 6$  & $g(-2, 3) = 5$  & $g(-2, 4) = 4$
+		            & $g(4, 2) = -18$ & $g(4, 3) = -19$ & $g(4, 4) = -20$ \\
+		      \hline
+		      $p$   & 0.05            & 0.36            & 0.01
+		            & 0.09            & 0.31            & 0.18            \\
+		      \hline
+	      \end{tabular} \\
+
+	      \begin{tabular}{|c|c|c|c|c|c|c|}
+		      \hline
+		      $\xi \backslash \mu$ & 6    & 5    & 4     & -18  & -19  & -20  \\
+		      \hline
+		      % -2 & 0.42 * 0.05 & 0.42 * 0.36 & 0.42 * 0.01 & 0.42 * 0.09 & 0.42 * 0.31 & 0.42 * 0.18 \\
+		      -2                   & 0.02 & 0.15 & 0.004 & 0.04 & 0.13 & 0.07 \\
+		      \hline
+		      % 4 & 0.58 * 0.05 & 0.58 * 0.36 & 0.58 * 0.01 & 0.58 * 0.09 & 0.58 * 0.31 & 0.58 * 0.18 \\
+		      4                    & 0.02 & 0.2  & 0.006 & 0.05 & 0.18 & 0.1  \\
+		      \hline
+	      \end{tabular} \\
+
+	      \begin{gather*}
+		      M\mu = \sum_iX_ip_i = -8.97 \\
+		      % WARN: check again
+		      D\mu = M\mu^2 - (M\mu)^2 = \sum_iX_i^2p_i - (M\mu)2 = 233.0
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      \cov(\xi, \mu) = M\mathring{\xi}\mathring{\mu} = M[(\xi - M\xi)(\mu - M\mu)] = -0.5
+	      \end{gather*}
+
+\end{enumerate}
+
+\section*{Задание \textnumero 4.}
+\addcontentsline{toc}{section}{Задание \textnumero 4.}
+
+Задана плотность совместного распределения непрерывной двумерной случайной величины $(\xi, \eta)$:
+
+\begin{equation*}
+	p_{\xi\eta} =
+	\begin{cases}
+		\begin{aligned}[t]
+			Ax, & (x;y) \in D    \\
+			0,  & (x;y) \notin D
+		\end{aligned}
+	\end{cases},
+\end{equation*}
+
+где область $D: y \geq 0, x + y \leq 1,  2у - х \leq 2$.
+Найдите:
+
+\begin{enumerate}
+	\item значение константы $A$;
+	\item математические ожидания случайных величин$\xi$ и $\eta$;
+	\item ковариацию случайных величин $\xi$ и $\eta$ (записать интеграл и расставить пределы интегрирования);
+	\item математическое ожидание случайной величины $\mu = \max(\eta, -\xi)$ (записать интеграл и расставить пределы интегрирования).
+\end{enumerate}
+
+% TODO: graph
+\subsubsection*{Решение}
+
+\begin{enumerate}
+	\item \mbox{}\\
+	      Из условия нормировки
+	      \begin{gather*}
+		      %https://www.wolframalpha.com/input?i=%5Cint_%7B-2%7D%5E%7B0%7D%5Cint_%7B0%7D%5E%7B1%2F2%282+%2B+x%29%7D+%28x%29dydx+%2B+%5Cint_%7B0%7D%5E%7B1%7D%5Cint_%7B0%7D%5E%7B1+-+x%7D+%28x%29dydx%
+		      \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}p(x,y)dxdy = 1 \Rightarrow \iint_{D}p(x,y)dxdy = 1 \\
+		      \iint_{D}Axdxdy =
+		      A\left(\int_{-2}^{0}dx\int_{0}^{1\div2(2 + x)}xdy + \int_{0}^{1}dx\int_{0}^{1 - x}xdy \right) \\
+		      = -0.5 \times A \\
+		      -0.5 \times A = 1 \Rightarrow A = -2
+	      \end{gather*}
+
+	      или
+	      \begin{gather*}
+		      %https://www.wolframalpha.com/input?i=%5Cint_%7B0%7D%5E%7B1%7D%5Cint_%7B2y-2%7D%5E%7B1-y%7D+x+dxdy
+		      \int_{0}^{1}\int_{2y-2}^{1-y} Ax dxdy = -0.5A \Rightarrow A = -2
+	      \end{gather*}
+
+	      \begin{gather*}
+		      p_{\xi,\eta}(x,y) =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      -2x & (x;y) \in D    \\
+				      0,  & (x;y) \notin D
+			      \end{aligned}
+		      \end{cases}
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      p_{\xi}(x) = \int_{-\infty}^{\infty}p_{\xi,\eta}(x,y)dy = \\
+		      = \int_{0}^{1\div2(2+x)}-2xdy + \int_{0}^{1-x}-2xdy = x^2 - 4x
+		      p_{\xi}(x) =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      x^2-4x, & x \in D    \\
+				      0,      & x \notin D
+			      \end{aligned}
+		      \end{cases} \\\\
+		      M\xi = \int_{-\infty}^{\infty}xp_{\xi}(x)dx = \int_{-2}^{1}x(x^2 - 4x)dx = -15.75
+	      \end{gather*}
+	      \begin{gather*}
+		      %https://www.wolframalpha.com/input?i=%5Cint_%7B2y+-+2%7D%5E%7B1+-+y%7D%28-2x%29dx
+		      p_{\eta}(y) = \int_{-\infty}^{\infty}p_{\xi,\eta}(x,y)dx = \\
+		      = \int_{2y - 2}^{1 - y}-2xdx = 3(y - 1)^2
+		      p_{\eta}(y) =
+		      \begin{cases}
+			      \begin{aligned}[t]
+				      3(y - 1)^2, & y \in D    \\
+				      0,          & y \notin D
+			      \end{aligned}
+		      \end{cases} \\\\
+		      M\eta = \int_{-\infty}^{\infty}yp_{\eta}(y)dy = \int_{0}^{1}3y(y - 1)^2dy = 0.25
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      \cov(\xi, \eta) = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}(x - M\xi)(y - M\eta)p_{\xi,\eta}(x,y)dxdy = \\
+		      = \int_{0}^{1}\int_{2y-2}^{1-y}(x - M\xi)(y - M\eta)p_{\xi,\eta}(x,y)dxdy
+	      \end{gather*}
+
+	\item \mbox{}\\
+	      \begin{gather*}
+		      \mu = \max(\eta, -\xi) \Rightarrow g(x, y) = \max(x, -y) \\
+		      F_{\mu}(z) = \iint_{g(x, y) < z} p(x,y)dxdy
+		      % TODO: what is then?
+	      \end{gather*}
+
+\end{enumerate}
+
+\section*{Задание \textnumero 5.}
+\addcontentsline{toc}{section}{Задание \textnumero 5.}
+
+Найдите характеристическую функцию непрерывной случайной величины, имеющей плотность распределения:
+\begin{equation*}
+	p_{\xi}(x) =
+	\begin{cases}
+		\begin{aligned}[t]
+			0,     & x \notin [-1; 1] \\
+			x + 1, & x \in [-1; 0]    \\
+			1 - x, & x \in [0; 1]
+		\end{aligned}
+	\end{cases}
+\end{equation*}
+\subsubsection*{Решение}
+
+\section*{Задание \textnumero 6.}
+\addcontentsline{toc}{section}{Задание \textnumero 6.}
+
+Дисперсия каждой из случайных величин $\xi_i$ (продолжительность работы электролампочки)
+не превышает 20 часов.
+Сколько нужно взять для испытания электролампочек, чтобы вероятность того,
+что абсолютное отклонение средней продолжительности горения лампочки
+от среднего арифметического их математических ожиданий не превышает 1 часа,
+была не меньше 0,95?
+\subsubsection*{Решение}
+
+\section*{Задание \textnumero 7.}
+\addcontentsline{toc}{section}{Задание \textnumero 7.}
+
+Всхожесть семян некоторой культуры равна 0,85. Оцените при помощи ЦПТ вероятность того, что
+из 400 посеянных семян число взошедших будет заключено в пределах от 300 до 380.
+
+\subsubsection*{Решение}
+\end{document}
