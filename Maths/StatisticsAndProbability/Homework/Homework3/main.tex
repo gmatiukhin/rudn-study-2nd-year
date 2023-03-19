@@ -178,8 +178,7 @@
 	\item условную плотность распределения случайной величины $\eta$ при условии $\xi$;
 	\item значение совместной функции распределения $F_{\xi\eta}(x,y)$ в точке $(2; 4)$;
 	\item вероятность попадания с.в. $(\xi, \eta)$ в область: $3 - x \leq y \leq \frac{1}{x}$;
-	\item значение функции распределения $F_{\mu}(z)$
-	      случайной величины $\mu = -\eta + (\xi - 1)^2$ в точке $z = −4$.
+	\item значение функции распределения $F_{\mu}(z)$ случайной величины $\mu = -\eta + (\xi - 1)^2$ в точке $z = -4$.
 \end{enumerate}
 
 % TODO: graph
@@ -311,7 +310,7 @@
 	\item \mbox{}\\
 	      \begin{gather*}
 		      \cov(\xi, \eta) = M\mathring{\xi}\mathring{\eta} = M[(\xi - M\xi)(\eta - M\eta)] = \\
-		      = sum_{i,j}(X_i - M\xi)(Y_j - M\eta)p_{ij} = 0.366
+		      = \sum_{i,j}(X_i - M\xi)(Y_j - M\eta)p_{ij} = 0.366
 		      \\\\
 		      D\xi = M\xi^2 - (M\xi)^2 = \sum_iX_i^2p_i - (M\xi)^2 = 9.48 \\
 		      D\eta = M\eta^2 - (M\eta)^2 = \sum_jX_j^2p_j - (M\eta)^2 = 6.57
@@ -324,11 +323,12 @@
 	      \[\mu = g(\xi, \eta) = 2(\xi - 2\eta) + 3(\eta - 2\xi)\]
 	      \begin{tabular}{|c|c|c|c|c|c|c|}
 		      \hline
+		      % TODO: place g comps on different lines, leave a note about precision loss
 		      $\mu$ & $g(-2, 2) = 6$  & $g(-2, 3) = 5$  & $g(-2, 4) = 4$
-		            & $g(4, 2) = -18$ & $g(4, 3) = -19$ & $g(4, 4) = -20$ \\
+		            & $g(4, 2) = -18$ & $g(4, 3) = -19$ & $g(4, 4) = -20$                      \\
+		      % $\mu$ & 6    & 5    & 4    & -18  & -19  & -20  \\
 		      \hline
-		      $p$   & 0.05            & 0.36            & 0.01
-		            & 0.09            & 0.31            & 0.18            \\
+		      $p$   & 0.05            & 0.36            & 0.01            & 0.09 & 0.31 & 0.18 \\
 		      \hline
 	      \end{tabular} \\
 
@@ -372,7 +372,7 @@
 	\end{cases},
 \end{equation*}
 
-где область $D: y \geq 0, x + y \leq 1,  2у - х \leq 2$.
+где область $D: y \geq 0, x + y \leq 1,  2y - x \leq 2$.
 Найдите:
 
 \begin{enumerate}
@@ -470,23 +470,56 @@
 	\end{cases}
 \end{equation*}
 \subsubsection*{Решение}
+\begin{gather*}
+	%https://www.wolframalpha.com/input?i=%5Cint_%7B-1%7D%5E%7B0%7De%5E%7Bitx%7D%28x+%2B+1%29dx+%2B+%5Cint_%7B0%7D%5E%7B1%7De%5E%7Bitx%7D%281+-+x%29dx
+	f(t) = Me^{it\xi} = \int_{-\infty}^{infty}e^{itx}p_{\xi}(x)dx = \\
+	= \int_{-1}^{0}e^{itx}(x + 1)dx + \int_{0}^{1}e^{itx}(1 - x)dx = \\
+	= \frac{it - e^{it} + 1}{t^2} + \frac{it + e^{-it} - 1}{t^2} = \frac{e^{it} - e^{-it} + 1}{t^2} = \\
+	= \frac{2}{t^2}\left(1 - cos(t)\right)
+\end{gather*}
 
 \section*{Задание \textnumero 6.}
 \addcontentsline{toc}{section}{Задание \textnumero 6.}
 
-Дисперсия каждой из случайных величин $\xi_i$ (продолжительность работы электролампочки)
-не превышает 20 часов.
+Дисперсия каждой из случайных величин $\xi_i$
+(продолжительность работы электролампочки) не превышает 20 часов.
 Сколько нужно взять для испытания электролампочек, чтобы вероятность того,
 что абсолютное отклонение средней продолжительности горения лампочки
 от среднего арифметического их математических ожиданий не превышает 1 часа,
-была не меньше 0,95?
+была не меньше $0.95$?
 \subsubsection*{Решение}
+\begin{enumerate}
+	\item \mbox{}\\
+	      \begin{gather*}
+		      D\xi \leq 20 \\ % lets assume it is eq
+		      \varepsilon = 1 \\
+		      m = M\left(\frac{1}{n}\sum_{i=1}^{n}\xi_i\right) \\
+		      % WARN: check comparion signs
+		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert \geq \varepsilon\right\} \leq \frac{D\xi}{n\varepsilon^2} \\
+		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < \varepsilon\right\} \geq 1 - \frac{D\xi}{n\varepsilon^2} \\
+		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 1 - \frac{20}{n} \\
+		      \textup{По условию:} \\
+		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 0.95 \\
+		      \textup{Тогда} \\
+		      1 - \frac{20}{n} \geq 0.95 \\
+		      n \geq 400
+	      \end{gather*}
+\end{enumerate}
 
 \section*{Задание \textnumero 7.}
 \addcontentsline{toc}{section}{Задание \textnumero 7.}
 
-Всхожесть семян некоторой культуры равна 0,85. Оцените при помощи ЦПТ вероятность того, что
-из 400 посеянных семян число взошедших будет заключено в пределах от 300 до 380.
+Всхожесть семян некоторой культуры равна $0.85$. Оцените при помощи ЦПТ вероятность того,
+что из 400 посеянных семян число взошедших будет заключено в пределах от 300 до 380.
 
 \subsubsection*{Решение}
+\begin{gather*}
+	\textup{По схеме Бернулли:} \\
+	p = 0.85, q = 0.15 \\
+	\textup{$\xi_i$ --- число успехов в $i$-м испытании} \\
+	M\xi_i = p, D\xi_i = pq \\
+	S = \xi_1 + \cdots + \xi_n, n = 400 \\
+	P\left\{\frac{S_n-nm}{\sqrt{n\sigma^2}<x}\right\} \rightarrow \Phi(x) \\
+\end{gather*}
+
 \end{document}
