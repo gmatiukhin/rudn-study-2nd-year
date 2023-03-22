@@ -210,12 +210,12 @@
 	      \begin{gather*}
 		      %https://www.wolframalpha.com/input?i=%5Cint_%7B0%7D%5E%7B%5Csqrt%7Bx%7D%7D0.09+*+%28x+%2B+2y%29dy
 		      p_{\xi}(x) = \int_{-\infty}^{\infty}p_{\xi,\eta}(x,y)dy = \\
-		      = \int_{0}^{\sqrt{x}}0.09 * (x + 2y)dy = 0.09(x^{3\div2} + x) \Rightarrow \\
+		      = \int_{0}^{\sqrt{x}}0.09 * (x + 2y)dy = 0.09(x^{3/2} + x) \Rightarrow \\
 		      p_{\xi}(x) =
 		      \begin{cases}
 			      \begin{aligned}[t]
-				      0.09(x^{3\div2} + x), & x \in D    \\
-				      0,                    & x \notin D
+				      0.09(x^{3/2} + x), & x \in D    \\
+				      0,                 & x \notin D
 			      \end{aligned}
 		      \end{cases}
 	      \end{gather*}
@@ -227,8 +227,8 @@
 		      p_{\eta}(y|\xi = x) =
 		      \begin{cases}
 			      \begin{aligned}[t]
-				      \frac{(x + 2y)}{(x^{3\div2} + x)}, & (x;y) \in D
-				      0,                                 & (x;y) \notin D
+				      \frac{(x + 2y)}{(x^{3/2} + x)}, & (x;y) \in D
+				      0,                              & (x;y) \notin D
 			      \end{aligned}
 		      \end{cases}
 	      \end{gather*}
@@ -243,8 +243,8 @@
 	      \begin{gather*}
 		      P\{a_1 < \xi < b_1, a_2 < \eta < b_2\} = \int_{a_1}^{b_1}dx\int_{a_2}^{b_2}p(x, y)dy = \\
 		      % NOTE: (2.62; 0.38) --- the corner
-		      \int_{2.62}^{3}dx\int_{3 - x}^{1\div{x}}p(x, y)dy +
-		      \int_{3}^{9}dx\int_{0}^{1\div{x}}p(x, y)dy
+		      \int_{2.62}^{3}dx\int_{3 - x}^{1/{x}}p(x, y)dy +
+		      \int_{3}^{9}dx\int_{0}^{1/{x}}p(x, y)dy
 	      \end{gather*}
 
 	\item \mbox{}\\
@@ -352,7 +352,8 @@
 
 	\item \mbox{}\\
 	      \begin{gather*}
-		      \cov(\xi, \mu) = M\mathring{\xi}\mathring{\mu} = M[(\xi - M\xi)(\mu - M\mu)] = -0.5
+		      % \cov(\xi, \mu) = M\mathring{\xi}\mathring{\mu} = M[(\xi - M\xi)(\mu - M\mu)] = -0.5
+		      \cov(\xi, \mu) = M\xi\mu = M\mu_1, \mu_1 = \xi \times \mu % TODO: table
 	      \end{gather*}
 
 \end{enumerate}
@@ -392,7 +393,7 @@
 		      %https://www.wolframalpha.com/input?i=%5Cint_%7B-2%7D%5E%7B0%7D%5Cint_%7B0%7D%5E%7B1%2F2%282+%2B+x%29%7D+%28x%29dydx+%2B+%5Cint_%7B0%7D%5E%7B1%7D%5Cint_%7B0%7D%5E%7B1+-+x%7D+%28x%29dydx%
 		      \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}p(x,y)dxdy = 1 \Rightarrow \iint_{D}p(x,y)dxdy = 1 \\
 		      \iint_{D}Axdxdy =
-		      A\left(\int_{-2}^{0}dx\int_{0}^{1\div2(2 + x)}xdy + \int_{0}^{1}dx\int_{0}^{1 - x}xdy \right) \\
+		      A\left(\int_{-2}^{0}dx\int_{0}^{1/2(2 + x)}xdy + \int_{0}^{1}dx\int_{0}^{1 - x}xdy \right) \\
 		      = -0.5 \times A \\
 		      -0.5 \times A = 1 \Rightarrow A = -2
 	      \end{gather*}
@@ -416,7 +417,7 @@
 	\item \mbox{}\\
 	      \begin{gather*}
 		      p_{\xi}(x) = \int_{-\infty}^{\infty}p_{\xi,\eta}(x,y)dy = \\
-		      = \int_{0}^{1\div2(2+x)}-2xdy + \int_{0}^{1-x}-2xdy = x^2 - 4x
+		      = \int_{0}^{1/2(2+x)}-2xdy + \int_{0}^{1-x}-2xdy = x^2 - 4x
 		      p_{\xi}(x) =
 		      \begin{cases}
 			      \begin{aligned}[t]
@@ -449,8 +450,9 @@
 	\item \mbox{}\\
 	      \begin{gather*}
 		      \mu = \max(\eta, -\xi) \Rightarrow g(x, y) = \max(x, -y) \\
-		      F_{\mu}(z) = \iint_{g(x, y) < z} p(x,y)dxdy
-		      % TODO: what is then?
+		      F_{\mu}(z) = \iint_{g(x, y) < z} p(x,y)dxdy \\
+		      M\mu = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}g(x,y)p(x,y)dxdy = \\
+		      = \iint_{(x,y) \in D}\max(\eta,-\xi)p(x,y)dxdy = \\ % TODO: expand
 	      \end{gather*}
 
 \end{enumerate}
@@ -488,23 +490,20 @@
 от среднего арифметического их математических ожиданий не превышает 1 часа,
 была не меньше $0.95$?
 \subsubsection*{Решение}
-\begin{enumerate}
-	\item \mbox{}\\
-	      \begin{gather*}
-		      D\xi \leq 20 \\ % lets assume it is eq
-		      \varepsilon = 1 \\
-		      m = M\left(\frac{1}{n}\sum_{i=1}^{n}\xi_i\right) \\
-		      % WARN: check comparion signs
-		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert \geq \varepsilon\right\} \leq \frac{D\xi}{n\varepsilon^2} \\
-		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < \varepsilon\right\} \geq 1 - \frac{D\xi}{n\varepsilon^2} \\
-		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 1 - \frac{20}{n} \\
-		      \textup{По условию:} \\
-		      P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 0.95 \\
-		      \textup{Тогда} \\
-		      1 - \frac{20}{n} \geq 0.95 \\
-		      n \geq 400
-	      \end{gather*}
-\end{enumerate}
+\begin{gather*}
+	D\xi \leq 20 \\ % lets assume it is eq
+	\varepsilon = 1 \\
+	m = M\left(\frac{1}{n}\sum_{i=1}^{n}\xi_i\right) \\
+	% WARN: check comparion signs
+	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert \geq \varepsilon\right\} \leq \frac{D\xi}{n\varepsilon^2} \\
+	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < \varepsilon\right\} \geq 1 - \frac{D\xi}{n\varepsilon^2} \\
+	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 1 - \frac{20}{n} \\
+	\textup{По условию:} \\
+	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 0.95 \\
+	\textup{Тогда} \\
+	1 - \frac{20}{n} \geq 0.95 \\
+	n \geq 400
+\end{gather*}
 
 \section*{Задание \textnumero 7.}
 \addcontentsline{toc}{section}{Задание \textnumero 7.}
@@ -517,9 +516,18 @@
 	\textup{По схеме Бернулли:} \\
 	p = 0.85, q = 0.15 \\
 	\textup{$\xi_i$ --- число успехов в $i$-м испытании} \\
-	M\xi_i = p, D\xi_i = pq \\
-	S = \xi_1 + \cdots + \xi_n, n = 400 \\
-	P\left\{\frac{S_n-nm}{\sqrt{n\sigma^2}<x}\right\} \rightarrow \Phi(x) \\
+	m = M\xi_i = p = 0.85, \sigma^2 = D\xi_i = pq = 0.1275 \\
+	S_n = \xi_1 + \cdots + \xi_n, n = 400 \\
+	\varepsilon = (380 - 300) / 2 = 40 \\
+	P\left\{\frac{S_n-nm}{\sqrt{n\sigma^2}<x}\right\} \rightarrow[n \to \infty] \Phi(x) \\
+	P\left\{ |S_n - np| < \varepsilon \right\} =
+	P\left\{-\varepsilon < S_n - np < \varepsilon\right\} = \\
+	P\left\{-\frac{\varepsilon}{\sqrt{n\sigma^2}} <
+	\frac{S_n - np}{\sqrt{n\sigma^2}} <
+	\frac{\varepsilon}{\sqrt{n\sigma^2}}\right\} \approx \\
+	\Phi(\frac{\varepsilon}{\sqrt{n\sigma^2}}) - \Phi(-\frac{\varepsilon}{\sqrt{n\sigma^2}}) = \\
+	2\Phi_0(\frac{\varepsilon}{\sqrt{n\sigma^2}}) = 2\Phi_0(\frac{40}{\sqrt{400 \times 0.1275}}) =
+	2\Phi_0(5.6) \approx 0.49
 \end{gather*}
 
 \end{document}
