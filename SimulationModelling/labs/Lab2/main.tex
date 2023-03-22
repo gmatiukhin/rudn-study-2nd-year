@@ -1,0 +1,222 @@
+\documentclass[12pt]{article}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel}
+\usepackage{hyperref}
+\usepackage{datetime}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\graphicspath{ {./Images/} }
+
+% For slope Fields
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\pgfplotsset{compat=1.8}
+
+\usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel} % поддержка русского языка
+\usepackage{amsmath}  %  математические символы
+\usepackage[left=20mm, top=15mm, right=15mm, bottom=30mm, footskip=15mm]{geometry} % настройки полей документа
+\usepackage{indentfirst} % по умалчанию убирается отступ у первого абзаца в секции, это отменяет это.
+\usepackage{paralist} % добавить компактные списки (compactitem, compactenum, compactdesc)
+
+\usepackage{fancyvrb}
+\usepackage{framed}
+
+\DeclareMathOperator{\cov}{cov}
+
+\begin{document}
+% \maketitle
+\begin{titlepage}
+
+	\begin{center}
+		\hfill \break
+		\textbf{
+			\large{РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ}\\
+			\normalsize{Факультет физико-математических и естественных наук}\\
+			\normalsize{Кафедра прикладной информатики и теории вероятностей}\\
+		}
+		\vspace*{\fill}
+		\Large{\textbf{Лабораторная работа №2}}
+		\\
+		\underline{\textit{\normalsize{Дисциплина: Имитационное моделирование}}}
+		\vspace*{\fill}
+
+	\end{center}
+
+	\begin{flushright}
+		Студент: \underline{Григорий Матюхин}\\ \vspace{0.5cm}
+		Группа: \underline{НПИбд-01-21}
+	\end{flushright}
+
+
+	\begin{center} \textbf{МОСКВА} \\ 2023 г. \end{center}
+	\thispagestyle{empty} % выключаем отображение номера для этой страницы
+
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{Постановка задания}
+Смоделировать СеМО, состоящую из $k$ узлов, расставленных по кругу.
+Каждый узел состоит из накопителя и прибора.
+В начальный момент времени в каждом узле имеется $m$ заявок.
+Обслуживание заявок является экспоненциальным, параметры обслуживания различны.
+Извне на сеть поступает два пуассоновских потока заявок: положительных и отрицательных.
+При этом интенсивность потока положительных заявок в два раза ниже, чем отрицательных.
+И те, и другие заявки с равной вероятностью выбирают один из узлов сети.
+При этом положительные заявки пополняют количество заявок,
+присутствовавших в сети в начальный момент времени и ничем от них не отличаются.
+Отрицательные заявки, попадая в узел,
+убивают обслуживаемую заявку (если такая имеется) и сразу покидают сеть.
+
+Все параметры модели должны задаваться с помощью сохраняемых величин.
+Числовые значения параметров придумать самостоятельно.
+Определить время, через которое в сети не останется ни одной полезной заявки.
+Построить график зависимости этого времени от параметра $m$.
+
+\section{Код программы}
+\begin{lstlisting}
+; Constants
+; Nodes
+NodeInit  EQU 10
+
+Node1L    EQU 37
+Node1S    EQU 5
+Node2L    EQU 30
+Node2S    EQU 4
+Node3L    EQU 35
+Node3S    EQU 7
+; Streams
+posL      EQU 6
+negL      EQU (posL/2)
+
+
+; Input streams
+
+positive  GENERATE (POISSON(1,posL))
+          SAVEVALUE pos+,1
+          SAVEVALUE tasks+,1
+          ASSIGN type,1
+          TRANSFER PICK,n_1,n_3
+
+negative  GENERATE (POISSON(1,negL))
+          SAVEVALUE neg+,1
+          ASSIGN type,-1
+          TRANSFER PICK,n_1,n_3
+
+
+; Put these nodes together
+; so that transfer does not interfer with other transactions,
+; because PICK selects in a range
+n_1       TRANSFER ,node1
+n_2       TRANSFER ,node2
+n_3       TRANSFER ,node3
+
+
+; Nodes
+
+; Node 1
+          GENERATE ,,0,NodeInit
+          SAVEVALUE tasks+,1
+          ASSIGN type,0
+node1     QUEUE node1q
+  
+          TEST E P$type,-1,ctn1
+          PREEMPT node1f,,dump,,RE
+          RELEASE node1f
+          TERMINATE
+
+ctn1      SEIZE node1f
+          ADVANCE (EXPONENTIAL(1,Node1L,Node1S))
+          RELEASE node1f
+          TERMINATE
+          TRANSFER ,node2
+; end of Node 1
+
+; Node 2
+          GENERATE ,,0,NodeInit
+          SAVEVALUE tasks+,1
+          ASSIGN type,0
+node2     QUEUE node2q
+
+          TEST E P$type,-1,ctn2
+          PREEMPT node2f,,dump,,RE
+          RELEASE node2f
+          TERMINATE
+
+ctn2      SEIZE node2f
+          ADVANCE (EXPONENTIAL(1,Node2L,Node2S))
+          RELEASE node2f
+          TRANSFER ,node3
+; end of Node 2
+
+; Node 3
+          GENERATE ,,0,NodeInit
+          SAVEVALUE tasks+,1
+          ASSIGN type,0
+node3     QUEUE node3q
+
+          TEST E P$type,-1,ctn3
+          PREEMPT node3f,,dump,,RE
+          RELEASE node3f
+          TERMINATE
+
+ctn3      SEIZE node3f
+          ADVANCE (EXPONENTIAL(1,Node3L,Node3S))
+          RELEASE node3f
+          TRANSFER ,node1
+; end of Node 3
+
+dump      SAVEVALUE terminated+,1
+          TERMINATE
+
+; Clock
+          GENERATE 1
+          TEST G X$terminated,0
+          TEST E X$tasks,X$terminated
+          TERMINATE 1
+
+; Control
+          START 1
+\end{lstlisting}
+В данном листинге программы количество узлов $k = 3$,
+а изначальное количество заявок на каждом --- $NodeInit = 10$.
+
+\section{Вывод}
+Зависимосить времени уничтожения всех полезных заявок от
+изначального количества $m$ на каждом из $k = 3$ узлов
+\begin{center}
+	\begin{tikzpicture}
+		\begin{axis}[
+				% title={},
+				xlabel={Количество заявок на узлах в начальный момент времени},
+				ylabel={Время},
+				xmin=0, xmax=50,
+				ymin=0, ymax=1000,
+				% xtick={0,20,40,60,80,100},
+				% ytick={0,20,40,60,80,100,120},
+				legend pos=north west,
+				ymajorgrids=true,
+				grid style=dashed,
+			]
+
+			\addplot[
+				color=blue,
+				mark=square,
+			]
+			coordinates {
+					(0,6)(1,102)(2,166)(3,272)(4,153)(5,177)(10,290)(15,344)(20,534)(25,871)(30,727)(35,955)(40,1242)
+				};
+			% \legend{CuSO\(_4\cdot\)5H\(_2\)O}
+
+		\end{axis}
+	\end{tikzpicture}
+\end{center}
+
+\end{document}
