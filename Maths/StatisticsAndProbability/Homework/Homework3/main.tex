@@ -12,8 +12,9 @@
 % For slope Fields
 \usepackage{pgfplots}
 \usetikzlibrary{calc}
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, intersections, fillbetween}
 \pgfplotsset{compat=1.8}
+\usepgfplotslibrary{fillbetween}
 
 \usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
 \usepackage[utf8]{inputenc}
@@ -63,15 +64,13 @@
 
 \section{Варианты задач}
 
-\begin{enumerate}
-	\item --- вариант 1
-	\item --- вариант 32
-	\item --- вариант 6
-	\item --- вариант 19
-	\item --- вариант 6
-	\item --- вариант 24
-	\item --- вариант 6
-\end{enumerate}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+	\hline
+	1 & 2  & 3 & 4  & 5 & 6  & 7 \\
+	\hline
+	1 & 32 & 6 & 19 & 6 & 24 & 6 \\
+	\hline
+\end{tabular}
 
 \section*{Задание \textnumero1.}
 \addcontentsline{toc}{section}{Задание \textnumero1.}
@@ -136,13 +135,19 @@
 
 	\item \mbox{}\\
 	      \[\mu = g(\xi, \eta) = \eta - 2 \sqrt{\xi} + 1\]
+	      \begin{gather*}
+		      g(1, 10) = 9 \\
+		      g(1, 14) = 13 \\
+		      g(1, 18) = 18 \\
+		      g(9, 10) = 5 \\
+		      g(9, 14) = 9 \\
+		      g(9, 18) = 1
+	      \end{gather*}
 	      \begin{tabular}{|c|c|c|c|c|c|c|}
 		      \hline
-		      $\mu$ & $g(1, 10) = 9$ & $g(1, 14) = 13$ & $g(1, 18) = 18$
-		            & $g(9, 10) = 5$ & $g(9, 14) = 9$  & $g(9, 18) = 13$ \\
+		      $\mu$ & 9    & 3    & 18   & 5   & 9    & 13   \\
 		      \hline
-		            & 0.25           & 0.15            & 0.32
-		            & 0.1            & 0.05            & 0.13            \\
+		            & 0.25 & 0.15 & 0.32 & 0.1 & 0.05 & 0.13 \\
 		      \hline
 	      \end{tabular} \\
 	      \begin{tabular}{|c|c|c|c|c|}
@@ -166,7 +171,7 @@
 			C(x + 2y), & (x;y) \in D    \\
 			0,         & (x;y) \notin D
 		\end{aligned}
-	\end{cases},
+	\end{cases}
 \end{equation*}
 
 где область $D$ ограниченна графиками функций $y = \sqrt{x}$, $x = 9$ и осью абсцисс.
@@ -181,8 +186,28 @@
 	\item значение функции распределения $F_{\mu}(z)$ случайной величины $\mu = -\eta + (\xi - 1)^2$ в точке $z = -4$.
 \end{enumerate}
 
-% TODO: graph
-% TODO: place all intersection points on it
+\begin{tikzpicture}
+	\begin{axis}[
+			axis lines = middle,
+			xlabel = {$x$},
+			xtick distance = 1,
+			ylabel = {$y$},
+			xmin=0, xmax=10,
+			ymin=0, ymax=5]
+
+		\addplot[name path=SQ,domain=0:9,smooth, blue, ultra thick] {x^(1/2)};
+		\addplot[draw=none,name path=H, domain=0:9] {0};     % “fictional” curve
+		\addplot[gray] fill between[of=SQ and H,soft clip={domain=0:9}]; % filling
+
+		\addplot[name path=A,domain=2.6:9,smooth, red, ultra thick] {1/x};
+		\addplot[draw=none,name path=B, domain=0:9, red] {3-x};     % “fictional” curve
+		\addplot[red] fill between[of=A and B,soft clip={domain=2.62:9}]; % filling
+
+		\path[name intersections={of=A and B,by=M}];
+		\draw (M) node[above=.5em] {$(2.62, 0.38)$} circle[radius=2pt];
+
+	\end{axis}
+\end{tikzpicture}
 
 \subsubsection*{Решение}
 
@@ -214,8 +239,8 @@
 		      p_{\xi}(x) =
 		      \begin{cases}
 			      \begin{aligned}[t]
-				      0.09(x^{3/2} + x), & x \in D    \\
-				      0,                 & x \notin D
+				      0.09(x^{3/2} + x) & x \in D    \\
+				      0                 & x \notin D
 			      \end{aligned}
 		      \end{cases}
 	      \end{gather*}
@@ -251,6 +276,7 @@
 	      \begin{gather*}
 		      \mu = -\eta + (\xi - 1)^2 \Rightarrow g(x, y) = -y + (x - 1)^2 \\
 		      F_{\mu}(z) = \iint_{g(x, y) < z} p(x,y)dxdy
+		      p_{\mu}()
 		      % TODO: z = -4
 	      \end{gather*}
 
@@ -321,16 +347,31 @@
 
 	\item \mbox{}\\
 	      \[\mu = g(\xi, \eta) = 2(\xi - 2\eta) + 3(\eta - 2\xi)\]
+	      \begin{gather*}
+		      g(-2, 2) = 6 \\
+		      g(-2, 3) = 5 \\
+		      g(-2, 4) = 4 \\
+		      g(4, 2) = -18 \\
+		      g(4, 3) = -19 \\
+		      g(4, 4) = -20
+	      \end{gather*}
 	      \begin{tabular}{|c|c|c|c|c|c|c|}
 		      \hline
 		      % TODO: place g comps on different lines, leave a note about precision loss
-		      $\mu$ & $g(-2, 2) = 6$  & $g(-2, 3) = 5$  & $g(-2, 4) = 4$
-		            & $g(4, 2) = -18$ & $g(4, 3) = -19$ & $g(4, 4) = -20$                      \\
+		      $\mu$ & 6    & 5    & 4    & -18  & -19  & -20  \\
 		      % $\mu$ & 6    & 5    & 4    & -18  & -19  & -20  \\
 		      \hline
-		      $p$   & 0.05            & 0.36            & 0.01            & 0.09 & 0.31 & 0.18 \\
+		      $p$   & 0.05 & 0.36 & 0.01 & 0.09 & 0.31 & 0.18 \\
 		      \hline
 	      \end{tabular} \\
+
+	      \begin{gather*}
+		      M\mu = \sum_iX_ip_i = -8.97 \\
+		      % WARN: check again
+		      D\mu = M\mu^2 - (M\mu)^2 = \sum_iX_i^2p_i - (M\mu)2 = 233.0
+	      \end{gather*}
+
+	\item \mbox{}\\
 
 	      \begin{tabular}{|c|c|c|c|c|c|c|}
 		      \hline
@@ -345,15 +386,8 @@
 	      \end{tabular} \\
 
 	      \begin{gather*}
-		      M\mu = \sum_iX_ip_i = -8.97 \\
-		      % WARN: check again
-		      D\mu = M\mu^2 - (M\mu)^2 = \sum_iX_i^2p_i - (M\mu)2 = 233.0
-	      \end{gather*}
-
-	\item \mbox{}\\
-	      \begin{gather*}
-		      % \cov(\xi, \mu) = M\mathring{\xi}\mathring{\mu} = M[(\xi - M\xi)(\mu - M\mu)] = -0.5
-		      \cov(\xi, \mu) = M\xi\mu = M\mu_1, \mu_1 = \xi \times \mu % TODO: table
+		      \cov(\xi, \mu) = M\mathring{\xi}\mathring{\mu} = M[(\xi - M\xi)(\mu - M\mu)] = \\
+		      = \sum_{i,j}(X_i-M\xi)(Y_j - M\mu)p_{ij} = -0.5
 	      \end{gather*}
 
 \end{enumerate}
@@ -373,17 +407,42 @@
 	\end{cases},
 \end{equation*}
 
-где область $D: y \geq 0, x + y \leq 1,  2y - x \leq 2$.
+где область $D\!: y \geq 0, x + y \leq 1,  2y - x \leq 2$.
 Найдите:
 
 \begin{enumerate}
 	\item значение константы $A$;
-	\item математические ожидания случайных величин$\xi$ и $\eta$;
+	\item математические ожидания случайных величин $\xi$ и $\eta$;
 	\item ковариацию случайных величин $\xi$ и $\eta$ (записать интеграл и расставить пределы интегрирования);
 	\item математическое ожидание случайной величины $\mu = \max(\eta, -\xi)$ (записать интеграл и расставить пределы интегрирования).
 \end{enumerate}
 
-% TODO: graph
+\begin{tikzpicture}
+	\begin{axis}[
+			axis lines = middle,
+			xlabel = {$x$},
+			xtick distance = 1,
+			ylabel = {$y$},
+			xmin=-3, xmax=3,
+			ymin=-1, ymax=3]
+
+		\addplot[name path=A,domain=0:1,smooth, blue, ultra thick] {1 - x};
+		\addplot[name path=B,domain=-2:0,smooth, blue, ultra thick] {1 + x/2};
+		\addplot[name path=H, domain=-2:1,smooth, blue, ultra thick] {0};     % “fictional” curve
+		\addplot[gray] fill between[of=A and H,soft clip={domain=-3:3}]; % filling
+		\addplot[gray] fill between[of=B and H,soft clip={domain=-3:3}]; % filling
+
+		% \addplot[name path=A,domain=2.6:9,smooth, red, ultra thick] {1/x};
+		% \addplot[draw=none,name path=B, domain=0:9, red] {3-x};     % “fictional” curve
+		% \addplot[red] fill between[of=A and B,soft clip={domain=2.62:9}]; % filling
+
+		% \path[name intersections={of=A and B,by=M}];
+		% \draw (M) node[above=.5em] {$(2.62, 0.38)$} circle[radius=2pt];
+
+	\end{axis}
+\end{tikzpicture}
+
+
 \subsubsection*{Решение}
 
 \begin{enumerate}
@@ -452,7 +511,7 @@
 		      \mu = \max(\eta, -\xi) \Rightarrow g(x, y) = \max(x, -y) \\
 		      F_{\mu}(z) = \iint_{g(x, y) < z} p(x,y)dxdy \\
 		      M\mu = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}g(x,y)p(x,y)dxdy = \\
-		      = \iint_{(x,y) \in D}\max(\eta,-\xi)p(x,y)dxdy = \\ % TODO: expand
+		      = \iint_{(x,y) \in D}\max(\eta,-\xi)p(x,y)dxdy \\ % TODO: expand
 	      \end{gather*}
 
 \end{enumerate}
@@ -498,11 +557,12 @@
 	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert \geq \varepsilon\right\} \leq \frac{D\xi}{n\varepsilon^2} \\
 	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < \varepsilon\right\} \geq 1 - \frac{D\xi}{n\varepsilon^2} \\
 	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 1 - \frac{20}{n} \\
+\end{gather*}
+\begin{gather*}
 	\textup{По условию:} \\
 	P \left\{\bigg\lvert\frac{1}{n} \sum_{i=1}^{n} \xi_i-m\bigg\rvert < 1\right\} \geq 0.95 \\
 	\textup{Тогда} \\
-	1 - \frac{20}{n} \geq 0.95 \\
-	n \geq 400
+	1 - \frac{20}{n} \geq 0.95 \Rightarrow n \geq 400
 \end{gather*}
 
 \section*{Задание \textnumero 7.}
