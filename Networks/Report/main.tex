@@ -1,0 +1,123 @@
+\documentclass[a4page]{article}
+\usepackage[14pt]{extsizes} % для того чтобы задать нестандартный 14-ый размер шрифта
+\usepackage[utf8]{inputenc}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian]{babel} % поддержка русского языка
+\usepackage{amsmath}  %  математические символы
+\usepackage[left=20mm, top=15mm, right=15mm, bottom=30mm, footskip=15mm]{geometry} % настройки полей документа
+\usepackage{indentfirst} % по умалчанию убирается отступ у первого абзаца в секции, это отменяет это.
+\usepackage{paralist} % добавить компактные списки (compactitem, compactenum, compactdesc)
+
+\usepackage{fancyvrb}
+\usepackage{framed}
+\usepackage{url}
+\usepackage{csquotes}
+
+\usepackage{float}
+\floatstyle{ruled}
+
+\usepackage[
+	backend=biber,
+	sorting=nyt,
+	bibstyle=gost-numeric,
+	citestyle=gost-numeric
+]{biblatex}
+
+\usepackage[
+	bookmarks=true, colorlinks=true, unicode=true,
+	urlcolor=black,linkcolor=black, anchorcolor=black,
+	citecolor=black, menucolor=black, filecolor=black,
+]{hyperref}
+
+\addbibresource{sources.bib}
+
+\renewcommand{\baselinestretch}{1.35}
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		\hfill \break
+		\textbf{
+			\large{РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ}\\
+			\normalsize{Факультет физико-математических и естественных наук}\\
+			\normalsize{Кафедра прикладной информатики и теории вероятностей}\\
+		}
+		\vspace*{\fill}
+		\Large{\textbf{Архитектура REST взаимодействия компонентов распределённого приложения в сети.\\Обозначение объектов JavaScript (JSON).}}
+		\\
+		\underline{\textit{\normalsize{Дисциплина: Вычислительные системы, сети и телекоммуникации}}}
+		\vspace*{\fill}
+
+	\end{center}
+
+	\begin{flushright}
+		Студент: \underline{Матюхин Григорий}\\ \vspace{0.5cm}
+		Группа: \underline{НПИбд-01-21}
+	\end{flushright}
+
+	\begin{center} \textbf{МОСКВА} \\ 2023 г. \end{center}
+	\thispagestyle{empty}
+
+\end{titlepage}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+\section{Введение}
+
+\newpage
+\section{REST}
+REST (от англ. Representational State Transfer ---
+<<передача репрезентативного состояния>> или <<передача "самоописываемого" состояния>>) ---
+архитектурный стиль взаимодействия компонентов распределённого приложения в сети \cite{REST}.
+Другими словами, REST --- это набор правил того,
+как программисту организовать написание кода серверного приложения,
+чтобы все системы легко обменивались данными и приложение можно было масштабировать.
+REST представляет собой согласованный набор ограничений,
+учитываемых при проектировании распределённой гипермедиа-системы.
+
+Для веб-служб, построенных с учётом REST (то есть не нарушающих накладываемых им ограничений),
+применяют термин <<RESTful>>.
+
+\subsection{Свойства архитектуры REST}
+
+\subsection{Требования к архитектуре REST}
+\subsubsection{Модель клиент-сервер}
+\subsubsection{Отсутствие состояния}
+\subsubsection{Кэширование}
+\subsubsection{Единообразие интерфейса}
+\subsubsection{Слои}
+\subsubsection{Код по требованию}
+
+\subsection{Преимущества}
+
+\subsection{Недостатки}
+
+\newpage
+\section{JSON}
+JSON (англ. JavaScript Object Notation) ---
+текстовый формат обмена данными, основанный на JavaScript \cite{rfc8259}\cite{ISO21778}.
+Как и многие другие текстовые форматы, JSON легко читается людьми.
+Формат JSON был разработан Дугласом Крокфордом.
+
+Несмотря на происхождение от JavaScript (точнее, от подмножества языка стандарта ECMA-262 1999 \cite{ecma:262} года),
+формат считается независимым от языка и может использоваться практически с любым языком программирования.
+Для многих языков существует готовый код для создания и обработки данных в формате JSON.
+
+\subsection{Использование}
+
+\subsection{Синтаксис}
+
+\subsection{YAML}
+
+\newpage
+\section{Заключение}
+
+\newpage
+\addcontentsline{toc}{section}{Список литературы}
+\printbibliography
+\end{document}
