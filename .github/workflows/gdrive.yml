@@ -13,3 +13,4 @@ jobs:
           filename: "LogicalProgramming/*"
           folderId: ${{ secrets.GSA_FOLDER_ID }}
           overwrite: "true" # optional boolean
+          mirrorDirectoryStructure: "true"
