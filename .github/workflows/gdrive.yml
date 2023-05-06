@@ -1,5 +1,8 @@
 name: Gdrive upload
-on: [push]
+on:
+  push:
+    paths:
+      - "**.pl"
 jobs:
   my_job:
     runs-on: ubuntu-latest
