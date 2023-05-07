@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - "LogicalProgramming/**"
-      - "LogicalProgramming/**/*"
 jobs:
   my_job:
     runs-on: ubuntu-latest
@@ -14,7 +13,6 @@ jobs:
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
-          filename: ["LogicalProgramming/**", "LogicalProgramming/**/*"]
+          filename: "LogicalProgramming/*"
           folderId: ${{ secrets.GSA_FOLDER_ID }}
           overwrite: "true" # optional boolean
-          mirrorDirectoryStructure: "true"
