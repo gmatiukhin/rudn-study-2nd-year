@@ -15,6 +15,7 @@ jobs:
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
           filename: "LogicalProgramming/**"
+          filename: "LogicalProgramming/**/*"
           folderId: ${{ secrets.GSA_FOLDER_ID }}
           overwrite: "true" # optional boolean
           mirrorDirectoryStructure: "true"
