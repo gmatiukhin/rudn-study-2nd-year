@@ -1,4 +1,18 @@
-% Model of a hospital
+% Model of a hospital.
+% This model allows simulation of appointment proccess in a hospital.
+% There are several doctors with different specializations, who can treat different illnesses.
+% Some patients have only one illness;
+% some have multiple, for which they need the same doctor;
+% some have different illnesses whatsoever and need to be treated by several different doctors.
+% This model allows patients to find doctor/doctors they need, as well as to make an appointment.
+% More tangential queries are also handled, e.g. calculating the cost of the treatment or the doctor's salary.
+%
+% You may find several examples at the bottom of the file
+%
+% NOTE:
+% this model employs heavy usage of SWI-Prolog's built-in rules and predicates
+% as well as the `apply` library for perfoming operations on lists "in bulk"
+% THERE IS NO GUARANTEE that this model will work in any other version of Prolog such as Visual Prolog.
 
 use_module(library(apply)).
 
@@ -21,7 +35,6 @@ doctor(15, "Gordon Norman", "Cardiology").
 doctor(16, "Norman Gordon", "Dermatology").
 
 % Lists of patients who made an appointment to a specific doctor
-% Key = DoctorId
 ?- recorda(10, [], _).
 ?- recorda(11, [], _).
 ?- recorda(12, [], _).
@@ -44,12 +57,12 @@ illnesses_by_id(PatientId, Illnesses) :-
   patient(PatientId, _, Illnesses).
 
 % finds doctors to treat patient's illnesses
-% Usage:
-% appointment(11, X). X will be the doctor's Id
 find_doctors(PatientId, DoctorsId) :-
   patient(PatientId, _, PatientIllnesses),
   maplist(doctor_by_illness, PatientIllnesses, DoctorsId).
 
+% utility predicate
+% finds doctor that can treat a specified illness 
 doctor_by_illness(Illness, DoctorId) :-
   doctor(DoctorId, _, Specialization),
   competence(Specialization, Illnesses),
@@ -69,7 +82,6 @@ make_appointment(PatientId, DoctorId, Cost) :-
   recorda(DoctorId, NewPatientsList),
   appointment_cost(PatientId, DoctorId, Cost).
 
-
 % removes patient from doctor's appointments
 remove_appointment(PatientId, DoctorId) :-
   recorded(DoctorId, PatientsList),
@@ -82,11 +94,11 @@ get_patients_of(DoctorId, PatientIds) :-
 
 % calculates the cost of the treatment of one Illness
 % works only for illnesses defined with `competence` fact
-% Yes, I do calculate the cost based on the length of the name. So what? You can't stop me.
 treatment_cost(Illness, Cost) :-
   competence(_, Illnesses),
   member(Illness, Illnesses),
   string_length(Illness, Length),
+  % Yes, I do calculate the cost based on the length of the name. So what? You can't stop me.
   Cost is Length * 2.
 
 % total cost of visiting a specific doctor
@@ -100,7 +112,7 @@ appointment_cost(PatientId, DoctorId, Cost) :-
 
 % utility predicate
 % reverses the order of parameters for `member` predicate
-% this way it is possible to apply collection beforehand
+% this way it is possible to use collection as the first argument when using with `maplist`
 r_member(List, El) :-
   member(El, List).
 
@@ -123,12 +135,12 @@ salary_of(DoctorId, Salary) :-
   string_length(DoctorName, L),
   Salary is (0.3 + 1 / (2 * L)) * Cost.
 
-% utility predicates to better format the ouput
-say(Lst) :- is_list(Lst), writeln(Lst).
-say(S)   :- say(S,[]).
-say(S,P) :- string_concat(S, '~n', S1), format(S1,P).
+% utility predicates for better output formatting
+say(Lst)  :- is_list(Lst), writeln(Lst).
+say(S)    :- say(S, []).
+say(S, P) :- string_concat(S, '~n', S1), format(S1, P).
 
-% use this rule to run all exmaples one after the other
+% use this rule to run all examples one after the other
 run_examples :-
   example1,
   example2,
@@ -139,7 +151,7 @@ run_examples :-
 % patient makes an appointment to a doctor
 % we calculate both the sum that the patient has to pay and the salary of the doctor
 example1 :-
-  say("\nThis is example 1.\n"),
+  say("\nThis is example 1."),
   P is 21,
   patient(P, PN, PI),
   say("Patient ~w is ~w. Their illnesses are: ~w.", [P, PN, PI]),
@@ -159,11 +171,11 @@ example1 :-
   remove_appointment(P, D),
   get_patients_of(D, Ps3),
   say("Now patients with these Ids are being treated by doctor ~w: ~w.", [DN, Ps3]),
-  say("\nEnd of example 1.").
+  say("End of example 1.").
 
 % in this example two patients have the same doctor
 example2 :-
-  say("\nThis is example 2.\n"),
+  say("\nThis is example 2."),
   P1 is 20,
   P2 is 25,
   patient(P1, P1N, P1I),
@@ -185,11 +197,11 @@ example2 :-
   say("Doctor ~w will be pleased to receive ~w imaginary units after treating both patients.", [DN, S]),
   remove_appointment(P1, D),
   remove_appointment(P2, D),
-  say("\nEnd of example 2.").
+  say("End of example 2.").
 
 % in this example one patient has several illnesses that can be treated by the same doctor
 example3 :-
-  say("\nThis is example 3.\n"),
+  say("\nThis is example 3."),
   P is 24,
   patient(P, PN, PI),
   say("Patient ~w is ~w. Their illnesses are: ~w.", [P, PN, PI]),
@@ -203,12 +215,12 @@ example3 :-
   salary_of(D, S),
   say("Doctor ~w will receive ~w imaginary units after treating both illnesses of ~w.", [DN, S, PN]),
   remove_appointment(P, D),
-  say("\nEnd of example 3.").
+  say("End of example 3.").
 
 % in this example one patient has several illnesses.
 % they are treated by different doctors
 example4 :-
-  say("\nThis is example 4.\n"),
+  say("\nThis is example 4."),
   P is 22,
   patient(P, PN, PI),
   say("Patient ~w is ~w. Their illnesses are: ~w.", [P, PN, PI]),
@@ -221,4 +233,4 @@ example4 :-
   maplist(salary_of, Ds, Ss),
   say("Doctors ~w will receive ~w imaginary units respectively after treating patient ~w.", [DNs, Ss, PN]),
   maplist(remove_appointment(P), Ds),
-  say("\nEnd of example 4.").
+  say("End of example 4.").
