@@ -11,7 +11,7 @@
 %
 % NOTE:
 % this model employs heavy usage of SWI-Prolog's built-in rules and predicates
-% as well as the `apply` library for perfoming operations on lists "in bulk"
+% as well as the `apply` library for perfoming operations on lists "in bulk".
 % THERE IS NO GUARANTEE that this model will work in any other version of Prolog such as Visual Prolog.
 
 use_module(library(apply)).

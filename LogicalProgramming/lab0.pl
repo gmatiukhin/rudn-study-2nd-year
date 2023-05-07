@@ -1,9 +1,4 @@
-/*
-    Семейные отношения
-
-gender enum:
-        male / female
-*/
+% Семейные отношения
 
 person(4, "Maggy", female).
 person(3, "Matt", male).
@@ -16,9 +11,9 @@ person(6, "Daemon", male).
 person(7, "Tony", male).
 person(8, "John", male).
 
-/* Семантика и последовательность атрибутов определяется программистом */
+% Семантика и последовательность атрибутов определяется программистом
 
-/* parent(Child, Parent) */
+% parent(Child, Parent) 
 parent(4, 1).
 parent(4, 2).
 
@@ -33,13 +28,13 @@ parent(2, 7).
 parent(6, 8).
 
 
-/* строки: father("Matt", "Tom")  */
+% строки: father("Matt", "Tom")
 father(Child, Father) :-
     person(ChildId, Child, _),
     person(FatherId, Father, male),
     parent(ChildId, FatherId).
 
-/* Последующие предикаты необходимо реализовать самостоятельно */
+% Последующие предикаты необходимо реализовать самостоятельно 
 mother(Child, Mother) :-
     person(ChildId, Child, _),
     person(MotherId, Mother, female),
