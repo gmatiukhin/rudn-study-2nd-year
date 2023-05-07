@@ -2,7 +2,7 @@ name: Gdrive upload
 on:
   push:
     paths:
-      - "**/*.pl"
+      - "LogicalProgramming/**"
 jobs:
   my_job:
     runs-on: ubuntu-latest
