@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "LogicalProgramming/**"
+      - "LogicalProgramming/**/*"
 jobs:
   my_job:
     runs-on: ubuntu-latest
