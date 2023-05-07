@@ -53,7 +53,7 @@ patient(25, "Tom, Dick and Harry", ["Dissociative identity disorder"]).
 
 % utility predicate
 % same as `patient`, just without the name
-illnesses_by_id(PatientId, Illnesses) :-
+illnesses_by_patients_id(PatientId, Illnesses) :-
   patient(PatientId, _, Illnesses).
 
 % finds doctors to treat patient's illnesses
@@ -89,7 +89,7 @@ remove_appointment(PatientId, DoctorId) :-
   recorda(DoctorId, NewPatientsList).
 
 % self-explanatory, just a wrapper around `recorded`
-get_patients_of(DoctorId, PatientIds) :-
+get_patients(DoctorId, PatientIds) :-
   recorded(DoctorId, PatientIds).
 
 % calculates the cost of the treatment of one Illness
@@ -122,10 +122,10 @@ filter_illnesses_by_specialization(Specialization, Illnesses, FilteredIllnesses)
   include(r_member(CompetenceIllnesses), Illnesses, FilteredIllnesses).
 
 % calculates doctor's salary based on the illnesses of the patients that made an appointment
-salary_of(DoctorId, Salary) :-
+salary(DoctorId, Salary) :-
   doctor(DoctorId, DoctorName, Specialization),
-  get_patients_of(DoctorId, Patients),
-  maplist(illnesses_by_id, Patients, PIllnesses),
+  get_patients(DoctorId, Patients),
+  maplist(illnesses_by_patients_id, Patients, PIllnesses),
   maplist(filter_illnesses_by_specialization(Specialization), PIllnesses, IllnessesNested),
   flatten(IllnessesNested, IllnessesFlat),
   maplist(treatment_cost, IllnessesFlat, Costs),
@@ -160,16 +160,16 @@ example1 :-
   member(D, Ds),
   doctor(D, DN, DS),
   say("Their doctor will be: ~w. Their specialization is ~w.", [DN, DS]),
-  get_patients_of(D, Ps1),
+  get_patients(D, Ps1),
   say("Patients with these Ids are being treated by doctor ~w: ~w.", [DN, Ps1]),
   make_appointment(P, D, C),
   say("Patient ~w made an appointment to doctor ~w. It will cost them ~w imaginary units.", [PN, DN, C]),
-  get_patients_of(D, Ps2),
+  get_patients(D, Ps2),
   say("After this appointment patients with these Ids are being treated by doctor ~w: ~w.", [DN, Ps2]),
-  salary_of(D, S),
+  salary(D, S),
   say("Doctor ~w will receive ~w imaginary units after treating patient ~w.", [DN, S, PN]),
   remove_appointment(P, D),
-  get_patients_of(D, Ps3),
+  get_patients(D, Ps3),
   say("Now patients with these Ids are being treated by doctor ~w: ~w.", [DN, Ps3]),
   say("End of example 1.").
 
@@ -191,9 +191,9 @@ example2 :-
   make_appointment(P1, D, C1),
   make_appointment(P2, D, C2),
   say("Both patients made an appointment to doctor ~w. Their respective treatment costs are ~w and ~w.", [DN, C1, C2]),
-  get_patients_of(D, Ps),
+  get_patients(D, Ps),
   say("Patients with these Ids are being treated by doctor ~w: ~w.", [DN, Ps]),
-  salary_of(D, S),
+  salary(D, S),
   say("Doctor ~w will be pleased to receive ~w imaginary units after treating both patients.", [DN, S]),
   remove_appointment(P1, D),
   remove_appointment(P2, D),
@@ -212,7 +212,7 @@ example3 :-
   say("Their doctor will be: ~w. Their specialization is ~w.", [DN, DS]),
   make_appointment(P, D, C),
   say("Patient ~w made an appointment to doctor ~w. It will cost them ~w imaginary units.", [PN, DN, C]),
-  salary_of(D, S),
+  salary(D, S),
   say("Doctor ~w will receive ~w imaginary units after treating both illnesses of ~w.", [DN, S, PN]),
   remove_appointment(P, D),
   say("End of example 3.").
@@ -230,7 +230,7 @@ example4 :-
   maplist(make_appointment(P), Ds, Cs),
   foldl(plus, Cs, 0, C),
   say("~w made appointments to both of the doctors. Each appointment costs ~w respectively, together: ~w.", [PN, Cs, C]),
-  maplist(salary_of, Ds, Ss),
+  maplist(salary, Ds, Ss),
   say("Doctors ~w will receive ~w imaginary units respectively after treating patient ~w.", [DNs, Ss, PN]),
   maplist(remove_appointment(P), Ds),
   say("End of example 4.").
