@@ -16,6 +16,12 @@ style: |
 
 ---
 
+# <span style="font-size: 140px">REST</span> & <span style="font-size: 20px">JSON</span>
+
+<span style="color: grey">Выполнил:</span> Матюхин Григорий
+
+---
+
 ## Источники
 
 <!-- Yeah, I have to use HTML here and later because md formats with gaps -->
@@ -36,10 +42,6 @@ style: |
 
 ---
 
-## Что такое REST?
-
----
-
 "Получив <strong style="font-size: 50px; line-height: 0.6">имя</strong>, согласованный набор
 <strong style="font-size: 60px; line-height: 0.6">архитектурных ограничений</strong>
 становится архитектурным <strong style="font-size: 70px; line-height: 0.6">стилем</strong>."
@@ -54,7 +56,7 @@ Roy's thinking was **heavily** informed by architecture, as in buildings.
 There're styles: Rococo, Barocco, Brutalism, so on.
 Not tools, not framework, not plugin, a set of styles to solve recurring problems.
 
-REST is not something you download from Cargo, NPM or PyPi.
+REST is not something you download from crates.io, NPM or PyPi.
 REST is a way of thinking about how the systems will evolve over time.
 -->
 
@@ -144,8 +146,8 @@ You just push an update to the server, and boom - new feature.
 
 ## Отсутствие состояния
 
-- <strong style="font-size: 60px; line-height: 0.6">Ключевой</strong> принцип легкого масштабирования систем
-- Каждый запрос должен быть <strong style="font-size: 60px; line-height: 0.6">атомарной</strong> транзакцией
+- <strong style="font-size: 60px; line-height: 0.6">Ключевой</strong> принцип масштабирования систем
+- Каждый запрос &#8211; <strong style="font-size: 60px; line-height: 0.6">атомарная</strong> транзакция
 - <strong style="font-size: 60px; line-height: 0.6">Никаких</strong> сессий
 
 <!--
@@ -171,6 +173,9 @@ But it's not RESTfull.
 
 ## Кэширование
 
+- Навсегда
+- Никогда
+
 <!--
 Ideally, when a new version of some package is realeased in the US for instance,
 it is downloaded only once in Russia and then stored locally.
@@ -183,7 +188,8 @@ Two ways of caching that matter:
 
 Optimise for infinity.
 When you put a resource on the Web, try, if you possibly can, to make sure
-that anyone who've seen this resource previously will be able to use the version they got last week/month/year.
+that anyone who've seen this resource previously
+will be able to use the version they got last week/month/year.
 Or the versin that somebody else's got that their ISP is caching.
 
 Don't think about caching for 1 hour, 3 hours, 2 days.
@@ -194,6 +200,10 @@ It really influences your decisions how you structure the information you're pre
 ---
 
 ## Слои
+
+- абстракция между поставщиком и потребителем
+- балансировка нагрузки
+- распределенное кэширование
 
 <!--
 Goes hand-in-hand with cacheability.
@@ -208,7 +218,7 @@ But it doesn't care what's behind those.
 
 And you can cache stuff on all these layers.
 Example: using reverse proxies on a build pipeline.
-When you're downloading packages from NPM, Cargo, NuGet, put a proxy in front of your build server.
+When you're downloading packages from NPM or Maven put a proxy in front of your build server.
 So, if you've ever downloaded anything you now have a local copy.
 NPM doesn't need to know that that's happening,
 your build server doesn't need to know that that's happening,
@@ -225,47 +235,106 @@ Each of these layers provide an abstraction between the provider and the consume
   - Wikipedia
 
 Basically, you can use your users' machines as a part of your behaviour.
+You have your servers and users' machines involved in your infrastructure.
+
 Today it's mostly JavaScript or WebAssembly running in your browser.
+
+Not very prevalent in APIs though.
+People are still wary of getting an arbitrary code as an API responce and running it.
 -->
 
 ---
 
 ## Единообразие интерфейса
 
-<!--
+- Идентификация ресурсов
+- Манипуляция ресурсами через представление
+- "Самоописываемые" сообщения
+- Гипермедиа как средство изменения состояния приложения
 
+<!--
+- Individual resources are identified in requests, for example using URIs in RESTful Web services.
+The resources themselves are conceptually separate from the representations that are returned to the client.
+The server could send data from its database as HTML, XML or as JSON --
+none of which are the server's internal representation.
+
+- When a client holds a representation of a resource, including any metadata attached, it has enough information to modify or delete the resource's state.
+
+- Each message includes enough information to describe how to process the message. For example, which parser to invoke can be specified by a media type (mime-type).
+
+- Hypermedia as the engine of application state (HATEOAS)
 -->
 
 ---
 
 ## Гипермедиа как механизм состояния приложения
 
-<!---->
+- Клиенту не нужна документация
+- Из одного отправного пункта можно достичь всего остального
+
+<!--
+With HATEOAS, a client interacts with a network application
+whose application servers provide information dynamically through hypermedia.
+A REST client needs little to no prior knowledge about how to interact with an application or server
+beyond a generic understanding of hypermedia.
+
+By contrast, clients and servers in Common Object Request Broker Architecture (CORBA)
+interact through a fixed interface shared through documentation or an interface description language (IDL).
+-->
 
 ---
 
-# JSON
+## Пример
 
----
-
-## Синтаксис
+```http
+GET /accounts/12345 HTTP/1.1
+Host: social.example.com
+```
 
 ```json
 {
-  "name": "John Doe",
-  "age": 25,
-  "online": true,
-  "friends": [
-    {
-      "name": "Mary Sue",
-      "age": 26
-    },
-    {
-      "name": "Joe Schmoe",
-      "age": 21
+  "account": {
+    "name": "Alice",
+    "id": 12345,
+    "friend": false,
+    "links": {
+      "self": "/accounts/12345",
+      "befriend": "/accounts/12345/befriend"
     }
-  ],
-  "hobbies": ["knitting", "arm wrestling"]
+  }
+}
+```
+
+---
+
+## Пример
+
+```http
+POST /accounts/12345/befriend HTTP/1.1
+Host: social.example.com
+```
+
+---
+
+## Пример
+
+```json
+{
+  "account": {
+    "name": "Alice",
+    "id": 12345,
+    "friend": true,
+    "friends": [
+      { "name": "John", "id": 19543 },
+      { "name": "Mary", "id": 52315 }
+    ]
+    "links": {
+      "self": "/accounts/12345",
+      "unfriend": "/accounts/12345/unfriend",
+      "19543": "/accounts/19543",
+      "52315": "/accounts/52315",
+    }
+  }
 }
 ```
 
