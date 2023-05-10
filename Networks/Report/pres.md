@@ -70,6 +70,7 @@ REST is a way of thinking about how the systems will evolve over time.
 
 Многие ограничения прямо <strong style="font-size: 60px; line-height: 0.6">противоположны краткосрочной
 эффективности.</strong>"
+\- тоже Рой Филдинг
 
 <!--
 A key thing to bear in mind.
@@ -137,7 +138,6 @@ Important to note:
 
 <!--
 Shouldn't be surprising
-Clients:
 This way you don't have to mail everyone a CD to fix something like in the 80s.
 You just push an update to the server, and boom - new feature.
 -->
@@ -229,6 +229,8 @@ Each of these layers provide an abstraction between the provider and the consume
 ---
 
 ## Код по требованию
+
+девайс клиента &#8211; твой девайс
 
 <!--
 "Servers can temporarily extend or customize the functionality of a client by transferring executable code."
