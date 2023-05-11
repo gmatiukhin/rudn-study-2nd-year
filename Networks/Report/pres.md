@@ -201,9 +201,9 @@ It really influences your decisions how you structure the information you're pre
 
 ## Слои
 
-- абстракция между поставщиком и потребителем
-- балансировка нагрузки
-- распределенное кэширование
+- абстракция <strong style="font-size: 60px; line-height: 0.6">между</strong> сервером и клиентом
+- <strong style="font-size: 60px; line-height: 0.6">балансировка</strong> нагрузки
+- <strong style="font-size: 60px; line-height: 0.6">распределенное</strong> кэширование
 
 <!--
 Goes hand-in-hand with cacheability.
@@ -272,7 +272,7 @@ none of which are the server's internal representation.
 ## Гипермедиа как механизм состояния приложения
 
 - Клиенту не нужна документация
-- Из одного отправного пункта можно достичь всего остального
+- Из одного отправного пункта можно достичь всего
 
 <!--
 With HATEOAS, a client interacts with a network application
@@ -286,7 +286,7 @@ interact through a fixed interface shared through documentation or an interface 
 
 ---
 
-## Пример
+## Пример (1/X)
 
 ```http
 GET /accounts/12345 HTTP/1.1
@@ -309,7 +309,7 @@ Host: social.example.com
 
 ---
 
-## Пример
+## Пример (2/X)
 
 ```http
 POST /accounts/12345/befriend HTTP/1.1
@@ -318,7 +318,7 @@ Host: social.example.com
 
 ---
 
-## Пример
+## Пример (3/X)
 
 ```json
 {
@@ -339,6 +339,33 @@ Host: social.example.com
   }
 }
 ```
+
+---
+
+## Пример (4/X)
+
+```http
+GET /accounts/52315 HTTP/1.1
+Host: social.example.com
+```
+
+```json
+{
+  "account": {
+    "name": "Mary",
+    "id": 52315,
+    "friend": false,
+    "links": {
+      "self": "/accounts/52315",
+      "befriend": "/accounts/52315/befriend"
+    }
+  }
+}
+```
+
+---
+
+## Вопросы?
 
 ---
 
