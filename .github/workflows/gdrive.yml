@@ -17,12 +17,7 @@ jobs:
           folderId: ${{ secrets.GSA_FOLDER_ID }}
           overwrite: "true"
           mirrorDirectoryStructure: "true"
-  inner:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Upload to gdrive outer
+      - name: Upload to gdrive inner
         uses: adityak74/google-drive-upload-git-action@main
         with:
           credentials: ${{ secrets.GSA_CREDENTIALS }}
