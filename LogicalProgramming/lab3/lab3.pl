@@ -81,6 +81,8 @@ doctor_by_illness(Illness, DoctorId) :-
   competence(Specialization, Illnesses),
   member(Illness, Illnesses).
 
+doctor_by_illness("What", "the").
+
 % adds patient to the doctor's appointments
 % patients cannot appear more that one time
 make_appointment(PatientId, DoctorId, Cost) :-
@@ -249,14 +251,32 @@ example4 :-
   say("End of example 4.").
 
 
-search_by_illness_gui(Doctor) :-
-  new(D, dialog('Search by illness')),
-  send(D, append(new(IllnessItem, text_item(illness)))),
-  send(D, append(button(ok, message(D, return,
-                                    IllnessItem?selection)))),
-  send(D, append(button(cancel, message(D, return, @nil)))),
+change_label(Label, Illness) :-
+  atom_string(Illness, IllnessS),
+  doctor_by_illness(IllnessS, DoctorId),
+  writeln(Illness),
+  doctor(DoctorId, Doctor, _),
+  send(Label, value, Doctor).
+
+search_by_illness_gui :-
+  new(F, frame("illness?")),
+  send(F, append(new(D, dialog("illness?")))),
+  send(D, append(new(IllnessItem, text_item("illness?")))),
+  new(D2, dialog("what")),
+  send(D2, append(new(T, text(doctor)))),
+  send(D2, below(D)),
+  send(D, append(button(ok, message(@prolog, change_label, T, IllnessItem?selection)))),
+  % send(D, append(button(cancel, message(D, return, @nil)))),
   send(D, default_button(ok)),
-  get(D, confirm, Rval),
-  free(D),
-  doctor_by_illness(Illness, DoctorId),
-  doctor(DoctorId, Doctor, _).
+  send(F,open).
+
+% search_by_illness_gui_2(O) :-
+%   new(F, Frame('Search by illness')), send(F, append(new(IllnessItem, text_item(illness)))),
+%   send(F, append(button(ok, message(F, return,
+%                                     IllnessItem?selection)))),
+%   send(F, append(button(cancel, message(F, return, @nil)))),
+%   send(F, default_button(ok)),
+%   get(F, confirm, Rval),
+%   doctor_by_illness(Illness, DoctorId),
+%   doctor(DoctorId, Doctor, _).
+%   send(F, append(new(_, label(Doctor)))).
